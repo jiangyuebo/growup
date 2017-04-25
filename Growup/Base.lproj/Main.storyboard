@@ -447,7 +447,7 @@
                                         <rect key="frame" x="0.0" y="1287" width="375" height="421"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏攻略" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xe1-zH-fc3">
-                                                <rect key="frame" x="17" y="22" width="88" height="27"/>
+                                                <rect key="frame" x="17" y="21.5" width="88" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="G57-yM-Amp"/>
                                                     <constraint firstAttribute="width" constant="88" id="Som-2v-Xlb"/>
@@ -457,23 +457,23 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSH-BL-o1z">
-                                                <rect key="frame" x="0.0" y="70" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="69.5" width="375" height="1"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Hkk-HN-JBw"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game1" translatesAutoresizingMaskIntoConstraints="NO" id="S2K-Yx-126">
-                                                <rect key="frame" x="17" y="93" width="164" height="119.5"/>
+                                                <rect key="frame" x="17" y="92.5" width="164" height="119.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="S2K-Yx-126" secondAttribute="height" multiplier="550:400" id="M0P-D5-Cz6"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game2" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-zZ-Atd">
-                                                <rect key="frame" x="194" y="93" width="164" height="119.5"/>
+                                                <rect key="frame" x="194" y="92.5" width="164" height="119.5"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海绵宝宝教新朋友上色" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnS-Cf-yrE">
-                                                <rect key="frame" x="17.5" y="220" width="164" height="21"/>
+                                                <rect key="frame" x="17.5" y="219.5" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="6hs-w3-qb0"/>
                                                     <constraint firstAttribute="width" constant="164" id="oQy-D5-rwB"/>
@@ -483,7 +483,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="熊出没之找水源" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2A-bf-n0e">
-                                                <rect key="frame" x="194" y="219.5" width="164" height="21"/>
+                                                <rect key="frame" x="194" y="219" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="iiJ-WI-a0G"/>
                                                     <constraint firstAttribute="height" constant="21" id="m8J-ya-7xO"/>
@@ -493,19 +493,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game1" translatesAutoresizingMaskIntoConstraints="NO" id="ZTh-yj-tWc">
-                                                <rect key="frame" x="17" y="258" width="164" height="118.5"/>
+                                                <rect key="frame" x="17" y="257.5" width="164" height="118.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ZTh-yj-tWc" secondAttribute="height" multiplier="164:119" id="bYH-2e-r5M"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game2" translatesAutoresizingMaskIntoConstraints="NO" id="ccB-X8-GCy">
-                                                <rect key="frame" x="194" y="257.5" width="164" height="119.5"/>
+                                                <rect key="frame" x="194" y="257" width="164" height="119.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ccB-X8-GCy" secondAttribute="height" multiplier="164:119" id="dSu-G2-GtC"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海绵宝宝教新朋友上色" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzz-Bn-Npa">
-                                                <rect key="frame" x="17.5" y="384" width="164" height="21"/>
+                                                <rect key="frame" x="17.5" y="383.5" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="1sE-g8-Of8"/>
                                                     <constraint firstAttribute="width" constant="164" id="579-it-po3"/>
@@ -515,7 +515,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="熊出没之找水源" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1J-G8-ESE">
-                                                <rect key="frame" x="194" y="384.5" width="164" height="21"/>
+                                                <rect key="frame" x="194" y="384" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="QwY-a6-wbr"/>
                                                     <constraint firstAttribute="height" constant="21" id="dyd-FS-bTt"/>
@@ -525,14 +525,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="CVJ-q2-I2P">
-                                                <rect key="frame" x="349" y="28" width="9" height="15"/>
+                                                <rect key="frame" x="349" y="27.5" width="9" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="9" id="S0j-bj-zCp"/>
                                                     <constraint firstAttribute="height" constant="15" id="iHU-uk-N3m"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UC8-z4-ncG">
-                                                <rect key="frame" x="267" y="11.5" width="100" height="48"/>
+                                                <rect key="frame" x="267" y="11" width="100" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="DVy-f9-NHl"/>
                                                     <constraint firstAttribute="height" constant="48" id="aB5-nL-o3Q"/>
@@ -3297,6 +3297,12 @@
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="getVerityCodeButton" destination="KJO-52-q8t" id="fQS-1D-i69"/>
+                        <outlet property="loginButton" destination="4Up-1N-CIq" id="bdw-TL-U07"/>
+                        <outlet property="phoneNumber" destination="Nab-EA-qFc" id="4o4-pu-hFf"/>
+                        <outlet property="verifyCode" destination="CMS-Lj-WNu" id="UJx-S6-z2k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKO-rL-RDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3447,10 +3453,10 @@
             </objects>
             <point key="canvasLocation" x="682" y="4331"/>
         </scene>
-        <!--Zinteresting Setting View Controller-->
+        <!--选择你感兴趣的-->
         <scene sceneID="u8p-Bi-hUn">
             <objects>
-                <viewController storyboardIdentifier="czinterestingviewcontroller" id="Vxe-xM-zum" customClass="CZinterestingSettingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="czinterestingviewcontroller" title="选择你感兴趣的" id="Vxe-xM-zum" customClass="CZinterestingSettingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gbE-HM-xAF"/>
                         <viewControllerLayoutGuide type="bottom" id="71g-4h-Gfs"/>
@@ -3464,7 +3470,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FZ5-Uj-J2O" secondAttribute="height" multiplier="500:140" id="h8L-aE-6XD"/>
                                 </constraints>
-                                <state key="normal" title="旅游" backgroundImage="select_round">
+                                <state key="normal" title="唱歌" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3473,7 +3479,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DTJ-Ae-VYV" secondAttribute="height" multiplier="500:140" id="P0f-Z2-7nR"/>
                                 </constraints>
-                                <state key="normal" title="运动" backgroundImage="select_round">
+                                <state key="normal" title="跳舞" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3482,7 +3488,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="H1R-qf-9Ca" secondAttribute="height" multiplier="500:140" id="spp-EU-qXa"/>
                                 </constraints>
-                                <state key="normal" title="儿童教育" backgroundImage="select_round">
+                                <state key="normal" title="科学" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3491,7 +3497,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="unG-r3-W2I" secondAttribute="height" multiplier="500:140" id="uul-UM-0i7"/>
                                 </constraints>
-                                <state key="normal" title="艺术" backgroundImage="select_round">
+                                <state key="normal" title="运动" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3500,7 +3506,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fBi-7K-qXv" secondAttribute="height" multiplier="500:140" id="WCC-la-Jk3"/>
                                 </constraints>
-                                <state key="normal" title="英语" backgroundImage="select_round">
+                                <state key="normal" title="智力" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3509,7 +3515,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0Im-jj-iYc" secondAttribute="height" multiplier="500:140" id="8aJ-Kv-HiK"/>
                                 </constraints>
-                                <state key="normal" title="科学" backgroundImage="select_round">
+                                <state key="normal" title="综合" backgroundImage="select_round">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -3553,15 +3559,23 @@
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="danceButton" destination="DTJ-Ae-VYV" id="erV-av-u0z"/>
+                        <outlet property="intelligenceButton" destination="fBi-7K-qXv" id="P5e-M1-BBo"/>
+                        <outlet property="scienceButton" destination="H1R-qf-9Ca" id="DU8-HF-acw"/>
+                        <outlet property="singButton" destination="FZ5-Uj-J2O" id="opo-6K-9We"/>
+                        <outlet property="sportButton" destination="unG-r3-W2I" id="R87-sX-geT"/>
+                        <outlet property="synthesizeButton" destination="0Im-jj-iYc" id="tUx-dN-D9D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x69-9t-xxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1503" y="4331"/>
         </scene>
-        <!--Change Password View Controller-->
+        <!--重置密码-->
         <scene sceneID="SFv-xu-enk">
             <objects>
-                <viewController storyboardIdentifier="czchangepasswordviewcontroller" id="T1R-9T-6uz" customClass="CZChangePasswordViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="czchangepasswordviewcontroller" title="重置密码" id="T1R-9T-6uz" customClass="CZChangePasswordViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IyS-MH-Q6L"/>
                         <viewControllerLayoutGuide type="bottom" id="NSw-gD-GLh"/>
@@ -6906,7 +6920,7 @@
                                             <segue destination="C12-en-LoK" kind="show" id="U35-H9-3AP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQg-5u-udv">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQg-5u-udv">
                                         <rect key="frame" x="325" y="31" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="MsB-Ff-H8g"/>

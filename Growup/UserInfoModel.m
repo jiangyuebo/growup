@@ -10,6 +10,6 @@
 
 @implementation UserInfoModel
 
-@synthesize age,avatarUrl,careerTypeKey,contactInfo,familyAddress,nickName,password,phoneNumber,sex,userID,userName,userTypeKey;
+@synthesize age,avatarUrl,careerTypeKey,contactInfo,familyAddress,nickName,password,phoneNumber,sex,userID,userName,userTypeKey,childArray;
 
 @end

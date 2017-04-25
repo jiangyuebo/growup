@@ -40,8 +40,6 @@
                     NSLog(@"errorCode:%@ ,errorMsg:%@",errorCode,errorMsg);
                 }
                 
-                
-                
                 //expiredIn
                 //phoneNumber
                 //verifyCode
@@ -58,9 +56,9 @@
 - (void)CZUserRegister:(NSString *) phoneNumber andPassword:(NSString *) password andVerifyCode:(NSString *) verifyCode andJumpTo:(void (^)(NSString * address)) callback{
     
     //请求地址
-    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
+//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
     //TEST
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_SESSION_REGISTER];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_SESSION_REGISTER];
     
     //获取设备唯一标识
     NSString *deviceID = [JerryTools getCZDeviceId];
@@ -72,6 +70,8 @@
     [paramsDic setObject:verifyCode forKey:@"verifyCode"];
     [paramsDic setObject:deviceID forKey:@"deviceID"];
     [paramsDic setObject:@"D02B01" forKey:@"verifyTypeKey"];
+    
+    NSLog(@"注册的URL : %@",url_request);
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper postRequestAsynchronousToUrl:url_request byParamsDic:paramsDic needAccessToken:NO andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {

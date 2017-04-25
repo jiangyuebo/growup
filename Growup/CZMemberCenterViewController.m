@@ -33,6 +33,7 @@
     }else{
         //未登录,弹出登录界面
         [JerryViewTools jumpFrom:self ToViewController:IdentifyNameLoginViewController];
+//        [JerryViewTools jumpFrom:self ToViewController:IdentifyInterestSettingViewController];
     }
 }
 

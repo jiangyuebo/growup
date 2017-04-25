@@ -12,6 +12,8 @@
 #import "UIColor+NSString.h"
 #import "MainPageViewModel.h"
 #import "JerryAnimation.h"
+#import "JerryTools.h"
+#import "UserInfoModel.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -114,12 +116,14 @@ bool isBubbleShowed = false;
     //绑定VIEW与MODEL
     [self modelBinding];
     
-    //获取数据
-    [self.viewModel updateData];
+    //判断当前是否有用户数据
+    UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+    
+    //有数据，根据参数请求服务器
+    
+    //无数据，显示未登录状态UI
     
 }
-
-
 
 //为娃娃脸设置点击事件
 - (void)setFaceInteractionEnable{

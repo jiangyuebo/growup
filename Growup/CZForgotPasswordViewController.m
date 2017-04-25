@@ -7,8 +7,17 @@
 //
 
 #import "CZForgotPasswordViewController.h"
+#import "JerryViewTools.h"
 
 @interface CZForgotPasswordViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextField *phoneNumber;
+
+@property (strong, nonatomic) IBOutlet UITextField *verifyCode;
+
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *getVerityCodeButton;
 
 @end
 
@@ -16,7 +25,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initView];
+}
+
+- (void)initView{
+    //设置按钮风格
+    [JerryViewTools setCZTextField:self.phoneNumber];
+    [JerryViewTools setCZTextField:self.verifyCode];
+    
 }
 
 - (void)didReceiveMemoryWarning {

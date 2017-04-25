@@ -9,15 +9,18 @@
 #import "InterestingSettingViewModel.h"
 #import "globalHeader.h"
 #import "BMRequestHelper.h"
+#import "KidInfoModel.h"
+#import "UserInfoModel.h"
+#import "JerryTools.h"
 
 @implementation InterestingSettingViewModel
 
 - (void)setChildSetting:(NSDictionary *) settingDataDic andJumpTo:(void (^)(NSString *address)) callbak{
     
     //请求地址
-        NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
+//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
     //TEST
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_CHILD_SETTING];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_CHILD_SETTING];
     
     //请求参数
     NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
@@ -48,7 +51,41 @@
             NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
             NSString *errorMsg = [jsonDic objectForKey:@"errorMsg"];
             
-            NSLog(@"errorCode:%@ , errorMsg:%@",errorCode,errorMsg);
+            if (errorCode) {
+                NSLog(@"errorCode:%@ , errorMsg:%@",errorCode,errorMsg);
+            }else{
+                //使用者信息对象
+                UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
+                //孩子信息对象
+                KidInfoModel *kidInfo = [[KidInfoModel alloc] init];
+                
+                NSDictionary *childInfoDic = [jsonDic objectForKey:@"child"];
+                
+                NSNumber *childAge = [childInfoDic objectForKey:@"age"];
+                [kidInfo setAge:childAge];
+                
+                NSString *ageTypeKey = [childInfoDic objectForKey:@"ageTypeKey"];
+                [kidInfo setAgeTypeKey:ageTypeKey];
+                
+                NSDate *birthDay = [childInfoDic objectForKey:@"birthdayTS"];
+                [kidInfo setBirthDay:birthDay];
+                
+                NSNumber *childId = [childInfoDic objectForKey:@"childID"];
+                [kidInfo setChildID:childId];
+                
+                NSNumber *sex = [childInfoDic objectForKey:@"sex"];
+                [kidInfo setSex:sex];
+                
+                NSString *educationRoleTypeKey = [jsonDic objectForKey:@"educationRoleTypeKey"];
+                [kidInfo setEducationRoleTypeKey:educationRoleTypeKey];
+                
+                NSString *educationTypeKey = [jsonDic objectForKey:@"educationTypeKey"];
+                [kidInfo setEducationTypeKey:educationTypeKey];
+                //将孩子对象添加到使用者对象中
+                [[userInfoMode childArray] addObject:kidInfo];
+                                
+                callbak(nil);
+            }
         }
         
     }];

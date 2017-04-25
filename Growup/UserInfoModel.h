@@ -34,4 +34,7 @@
 
 @property (strong,nonatomic) NSString *userTypeKey;
 
+//孩子数组
+@property (strong,nonatomic) NSMutableArray *childArray;
+
 @end
