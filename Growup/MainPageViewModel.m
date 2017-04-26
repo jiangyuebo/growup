@@ -55,4 +55,28 @@
     }];
 }
 
+#pragma mark 根据孩子信息获取数据
+- (void)getChildInfoById:(NSNumber *) childId andDynamicId:(NSString *) dynamicId{
+    
+    //getDynamic?childID={childID}&dynamicID={dynamicID}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?childID=%@&dynamicID=%@",URL_REQUEST,URL_REQUEST_CHILD_GET_DYNAMIC,childId,dynamicId];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (data) {
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSLog(@"jsonDic = %@",jsonDic);
+            
+            //expiredIn
+            //phoneNumber
+            //verifyCode
+            //verifyTypeKey
+            
+        }else{
+            NSLog(@"返回值中 data 是空");
+        }
+    }];
+}
+
 @end

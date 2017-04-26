@@ -20,9 +20,9 @@
 - (void)getVerifyCode:(NSString *) phoneNumber{
     
     if (phoneNumber) {
-//        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
+        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
         //TEST
-        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_TEST_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
+//        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_TEST_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
         
         BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
         [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -56,9 +56,9 @@
 - (void)CZUserRegister:(NSString *) phoneNumber andPassword:(NSString *) password andVerifyCode:(NSString *) verifyCode andJumpTo:(void (^)(NSString * address)) callback{
     
     //请求地址
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
     //TEST
-    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_SESSION_REGISTER];
+//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_SESSION_REGISTER];
     
     //获取设备唯一标识
     NSString *deviceID = [JerryTools getCZDeviceId];
@@ -89,6 +89,9 @@
                 //设置基础数据
                 [JerryTools setAccessExpireTime:accessExpiredIn];
                 [JerryTools setAccessToken:accessToken];
+                
+                //保存AccessToken到本地
+                [JerryTools saveInfo:accessToken name:SAVE_KEY_ACCESS_TOKEN];
                 
                 //设置用户数据
                 NSDictionary *userDataDic = [jsonDic objectForKey:@"user"];

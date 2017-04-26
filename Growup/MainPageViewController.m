@@ -49,6 +49,12 @@
 //气泡文字
 @property (strong, nonatomic) IBOutlet UILabel *bubbleLabel;
 
+//宝贝年龄字符串（未登录显示“登录”）
+@property (strong, nonatomic) IBOutlet UILabel *avatarLabel;
+
+//任务进度条
+@property (strong, nonatomic) IBOutlet UIProgressView *taskProgress;
+
 
 @end
 
@@ -119,9 +125,34 @@ bool isBubbleShowed = false;
     //判断当前是否有用户数据
     UserInfoModel *currentUser = [JerryTools getUserInfoModel];
     
-    //有数据，根据参数请求服务器
-    
-    //无数据，显示未登录状态UI
+    if ([currentUser userID]) {
+        //有数据，根据参数请求服务器
+        NSLog(@"有数据");
+    }else{
+        //无数据，显示未登录状态UI
+        //判断是否满足免登条件
+        if ([JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN]) {
+            //有access token,发起请求
+            
+        }else{
+            //无access token
+        }
+        
+        NSLog(@"无数据");
+        self.avatarLabel.text = @"登录";
+        
+        //设置娃娃头为默认图片
+        UIImage *defaultImage = [UIImage imageNamed:@"face_mark"];
+        
+        [self.imageFaceHealth setImage:defaultImage];
+        [self.imageFaceSociety setImage:defaultImage];
+        [self.imageFaceLanguage setImage:defaultImage];
+        [self.imageFaceScience setImage:defaultImage];
+        [self.imageFaceArt setImage:defaultImage];
+    }
+}
+
+- (void)fetchDataFromServer{
     
 }
 
@@ -224,10 +255,6 @@ bool isBubbleShowed = false;
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
-//- (BOOL)prefersStatusBarHidden {
-//    return YES;
-//}
 
 /*
 #pragma mark - Navigation

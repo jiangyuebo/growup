@@ -39,6 +39,8 @@
 #define IdentifyAbilityExplainViewController @"czabilityexplaincontroller"
 //兴趣选择
 #define IdentifyInterestSettingViewController @"czinterestingviewcontroller"
+//今日任务
+#define IdentifyTodayTaskViewController @"cztodaytaskviewcontroller"
 
 //网络请求接口
 //测试接口
@@ -53,6 +55,9 @@
 #define URL_REQUEST_SESSION_LOGIN @"session/login/password"
 //孩子数据注册
 #define URL_REQUEST_CHILD_SETTING @"child/add"
+//根据橙娃动态
+#define URL_REQUEST_CHILD_GET_DYNAMIC @"child/getDynamic"
+
 
 //首页数据请求
 #define RequestMainPageData @"http://api.growtree.cn/hby-product/user/info"
@@ -66,5 +71,9 @@
 
 #define RESPONSE_ERROR_CODE @"errorCode";
 #define RESPONSE_ERROR_MSG @"errorMsg"
+
+//存储KEY
+#define SAVE_KEY_ACCESS_TOKEN @"accessToken"
+#define SAVE_KEY_CHILD_ID @"childId"
 
 #endif /* globalHeader_h */

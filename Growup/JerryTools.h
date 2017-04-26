@@ -29,4 +29,12 @@
 #pragma mark - 判断字符串是否为空，包括(nil，nsnull，@"")
 + (BOOL)stringIsNull:(NSString *)str;
 
+#pragma mark - userDefault文件操作
+#pragma mark 保存
++(void)saveInfo:(id)data name:(NSString *)name;
+#pragma mark 读取
++(id)readInfo:(NSString *)name;
+#pragma mark 删除
++(void)removeInfo:(NSString *)name;
+
 @end

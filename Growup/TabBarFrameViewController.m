@@ -34,14 +34,6 @@
     [JerryViewTools showCustomNavigationBar:self];
     
     self.title = @"首页";
-    
-//    //自定义后退按钮
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
-//    
-//    //后退按钮和边界的占位控件
-//    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-//    fixedItem.width = -10;
-//    self.navigationItem.leftBarButtonItems = @[fixedItem,backItem];
 }
 
 //设置自定义 tab bar 图标

@@ -73,6 +73,9 @@
                 NSNumber *childId = [childInfoDic objectForKey:@"childID"];
                 [kidInfo setChildID:childId];
                 
+                //存储childID
+                [JerryTools saveInfo:childId name:SAVE_KEY_CHILD_ID];
+                
                 NSNumber *sex = [childInfoDic objectForKey:@"sex"];
                 [kidInfo setSex:sex];
                 

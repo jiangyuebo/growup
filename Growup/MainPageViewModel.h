@@ -36,4 +36,7 @@
 //更新数据
 - (void)updateData;
 
+#pragma mark 根据孩子信息获取数据
+- (void)getChildInfoById:(NSNumber *) childId andDynamicId:(NSString *) dynamicId;
+
 @end
