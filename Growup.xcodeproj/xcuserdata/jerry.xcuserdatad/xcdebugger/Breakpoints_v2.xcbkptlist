@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/RegisterViewMode.m"
-            timestampString = "513957013.080504"
+            filePath = "Growup/MainPageViewController.m"
+            timestampString = "515004429.679097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "-getVerifyCode:"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "-fetchDataFromServer"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/LoginViewModel.m"
-            timestampString = "514478450.299421"
+            filePath = "Growup/MainPageViewModel.m"
+            timestampString = "515004554.87769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "-userLoginByUserName:andPassword:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Growup/InterestingSettingViewModel.m"
-            timestampString = "514820702.268003"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-setChildSetting:andJumpTo:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-queryChildInfoById:andDynamicId:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

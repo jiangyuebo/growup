@@ -39,8 +39,9 @@
     InterestingSettingViewModel *viewModel = [[InterestingSettingViewModel alloc] init];
     [viewModel setChildSetting:self.passDataDic andJumpTo:^(NSString *address) {
         //回弹到首页
-        UIViewController *controller = self.navigationController.viewControllers[0];
-        [self.navigationController popToViewController:controller animated:YES];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [JerryViewTools jumpFrom:self ToViewController:address];
+        });
     }];
 }
 

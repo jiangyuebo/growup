@@ -14,6 +14,7 @@
 #import "JerryAnimation.h"
 #import "JerryTools.h"
 #import "UserInfoModel.h"
+#import "KidInfoModel.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -91,6 +92,8 @@ bool isBubbleShowed = false;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self hideNavigationBar];
+    
+    [self mainPageUpdage];
 }
 
 - (void)initView{
@@ -122,12 +125,17 @@ bool isBubbleShowed = false;
     //绑定VIEW与MODEL
     [self modelBinding];
     
+}
+
+- (void)mainPageUpdage{
     //判断当前是否有用户数据
     UserInfoModel *currentUser = [JerryTools getUserInfoModel];
     
     if ([currentUser userID]) {
         //有数据，根据参数请求服务器
         NSLog(@"有数据");
+        
+        [self fetchDataFromServer];
     }else{
         //无数据，显示未登录状态UI
         //判断是否满足免登条件
@@ -150,10 +158,19 @@ bool isBubbleShowed = false;
         [self.imageFaceScience setImage:defaultImage];
         [self.imageFaceArt setImage:defaultImage];
     }
+
 }
 
 - (void)fetchDataFromServer{
-    
+    UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+    NSArray *childArray = [currentUser childArray];
+    if ([childArray count] > 0) {
+        //如果有孩子数据
+        KidInfoModel *kidModel = childArray[0];
+        NSNumber *tempId = [NSNumber numberWithInt:1];
+        [self.viewModel queryChildInfoById:kidModel.childID andDynamicId:tempId];
+    }
+
 }
 
 //为娃娃脸设置点击事件

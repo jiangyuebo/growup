@@ -56,7 +56,7 @@
 }
 
 #pragma mark 根据孩子信息获取数据
-- (void)getChildInfoById:(NSNumber *) childId andDynamicId:(NSString *) dynamicId{
+- (void)queryChildInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId{
     
     //getDynamic?childID={childID}&dynamicID={dynamicID}
     NSString *url_request = [NSString stringWithFormat:@"%@%@?childID=%@&dynamicID=%@",URL_REQUEST,URL_REQUEST_CHILD_GET_DYNAMIC,childId,dynamicId];

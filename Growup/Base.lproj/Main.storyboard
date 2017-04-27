@@ -447,7 +447,7 @@
                                         <rect key="frame" x="0.0" y="1287" width="375" height="421"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏攻略" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xe1-zH-fc3">
-                                                <rect key="frame" x="17" y="22" width="88" height="27"/>
+                                                <rect key="frame" x="17" y="21.5" width="88" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="G57-yM-Amp"/>
                                                     <constraint firstAttribute="width" constant="88" id="Som-2v-Xlb"/>
@@ -457,23 +457,23 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSH-BL-o1z">
-                                                <rect key="frame" x="0.0" y="70" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="69.5" width="375" height="1"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Hkk-HN-JBw"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game1" translatesAutoresizingMaskIntoConstraints="NO" id="S2K-Yx-126">
-                                                <rect key="frame" x="17" y="93" width="164" height="119.5"/>
+                                                <rect key="frame" x="17" y="92.5" width="164" height="119.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="S2K-Yx-126" secondAttribute="height" multiplier="550:400" id="M0P-D5-Cz6"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game2" translatesAutoresizingMaskIntoConstraints="NO" id="zVh-zZ-Atd">
-                                                <rect key="frame" x="194" y="93" width="164" height="119.5"/>
+                                                <rect key="frame" x="194" y="92.5" width="164" height="119.5"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海绵宝宝教新朋友上色" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnS-Cf-yrE">
-                                                <rect key="frame" x="17.5" y="220" width="164" height="21"/>
+                                                <rect key="frame" x="17.5" y="219.5" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="6hs-w3-qb0"/>
                                                     <constraint firstAttribute="width" constant="164" id="oQy-D5-rwB"/>
@@ -483,7 +483,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="熊出没之找水源" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2A-bf-n0e">
-                                                <rect key="frame" x="194" y="219.5" width="164" height="21"/>
+                                                <rect key="frame" x="194" y="219" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="iiJ-WI-a0G"/>
                                                     <constraint firstAttribute="height" constant="21" id="m8J-ya-7xO"/>
@@ -493,19 +493,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game1" translatesAutoresizingMaskIntoConstraints="NO" id="ZTh-yj-tWc">
-                                                <rect key="frame" x="17" y="258" width="164" height="118.5"/>
+                                                <rect key="frame" x="17" y="257.5" width="164" height="118.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ZTh-yj-tWc" secondAttribute="height" multiplier="164:119" id="bYH-2e-r5M"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game2" translatesAutoresizingMaskIntoConstraints="NO" id="ccB-X8-GCy">
-                                                <rect key="frame" x="194" y="257.5" width="164" height="119.5"/>
+                                                <rect key="frame" x="194" y="257" width="164" height="119.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ccB-X8-GCy" secondAttribute="height" multiplier="164:119" id="dSu-G2-GtC"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海绵宝宝教新朋友上色" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzz-Bn-Npa">
-                                                <rect key="frame" x="17.5" y="384" width="164" height="21"/>
+                                                <rect key="frame" x="17.5" y="383.5" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="1sE-g8-Of8"/>
                                                     <constraint firstAttribute="width" constant="164" id="579-it-po3"/>
@@ -515,7 +515,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="熊出没之找水源" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1J-G8-ESE">
-                                                <rect key="frame" x="194" y="384.5" width="164" height="21"/>
+                                                <rect key="frame" x="194" y="384" width="164" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="164" id="QwY-a6-wbr"/>
                                                     <constraint firstAttribute="height" constant="21" id="dyd-FS-bTt"/>
@@ -525,14 +525,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="CVJ-q2-I2P">
-                                                <rect key="frame" x="349" y="28" width="9" height="15"/>
+                                                <rect key="frame" x="349" y="27.5" width="9" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="9" id="S0j-bj-zCp"/>
                                                     <constraint firstAttribute="height" constant="15" id="iHU-uk-N3m"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UC8-z4-ncG">
-                                                <rect key="frame" x="267" y="11.5" width="100" height="48"/>
+                                                <rect key="frame" x="267" y="11" width="100" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="DVy-f9-NHl"/>
                                                     <constraint firstAttribute="height" constant="48" id="aB5-nL-o3Q"/>
@@ -7260,6 +7260,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1800"/>
                     <connections>
+                        <outlet property="avatarLabel" destination="Mj1-FJ-cHu" id="vrn-ZT-pgi"/>
                         <outlet property="bubbleBackground" destination="F5v-8Q-LLJ" id="c97-HD-jg9"/>
                         <outlet property="bubbleLabel" destination="s3z-Py-LUN" id="As3-4i-2sK"/>
                         <outlet property="imageFaceArt" destination="4fc-TW-RRK" id="DvO-3L-pvL"/>

@@ -15,12 +15,12 @@
 
 @implementation InterestingSettingViewModel
 
-- (void)setChildSetting:(NSDictionary *) settingDataDic andJumpTo:(void (^)(NSString *address)) callbak{
+- (void)setChildSetting:(NSDictionary *) settingDataDic andJumpTo:(void (^)(NSString *address)) callback{
     
     //请求地址
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_CHILD_SETTING];
     //TEST
-    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_CHILD_SETTING];
+//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_CHILD_SETTING];
     
     //请求参数
     NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
@@ -85,9 +85,18 @@
                 NSString *educationTypeKey = [jsonDic objectForKey:@"educationTypeKey"];
                 [kidInfo setEducationTypeKey:educationTypeKey];
                 //将孩子对象添加到使用者对象中
-                [[userInfoMode childArray] addObject:kidInfo];
+                if ([userInfoMode childArray]) {
+                    //数组已存在
+                    [[userInfoMode childArray] addObject:kidInfo];
+                }else{
+                    //数组不存在
+                    NSMutableArray *childInfoArray = [[NSMutableArray alloc] init];
+                    [childInfoArray addObject:kidInfo];
+                    
+                    userInfoMode.childArray = childInfoArray;
+                }
                                 
-                callbak(nil);
+                callback(IdentifyBirthdaySettingViewController);
             }
         }
         

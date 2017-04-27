@@ -91,7 +91,13 @@
     NSLog(@"REQUEST URL : %@",getUrl);
     
     //创建请求对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:getUrl];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:getUrl];
+    
+    NSString *accessToken = [JerryTools getAccessToken];
+    if (accessToken) {
+        [request addValue:accessToken forHTTPHeaderField:@"ACCESS-TOKEN"];
+    }
+    
     //创建会话对象
     NSURLSession *urlSession = [NSURLSession sharedSession];
     //发送请求

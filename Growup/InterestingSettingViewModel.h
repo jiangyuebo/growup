@@ -10,6 +10,6 @@
 
 @interface InterestingSettingViewModel : NSObject
 
-- (void)setChildSetting:(NSDictionary *) settingDataDic andJumpTo:(void (^)(NSString *address)) callbak;
+- (void)setChildSetting:(NSDictionary *) settingDataDic andJumpTo:(void (^)(NSString *address)) callback;
 
 @end
