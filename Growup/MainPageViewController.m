@@ -15,6 +15,8 @@
 #import "JerryTools.h"
 #import "UserInfoModel.h"
 #import "KidInfoModel.h"
+#import "AbilityModel.h"
+#import "PopInfoModel.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -53,18 +55,30 @@
 //宝贝年龄字符串（未登录显示“登录”）
 @property (strong, nonatomic) IBOutlet UILabel *avatarLabel;
 
-//任务进度条
-@property (strong, nonatomic) IBOutlet UIProgressView *taskProgress;
+@property (strong, nonatomic) IBOutlet UIView *middleView;
 
+//任务进度条
+@property (strong, nonatomic) IBOutlet UISlider *taskProgress;
+
+//橙娃气泡信息
+@property (strong,nonatomic) NSMutableArray *popArray;
+
+@property (strong, nonatomic) IBOutlet UIButton *btnReport;
 
 @end
 
 @implementation MainPageViewController
 
+int popIndex = 0;
+
 bool isClick = true;
 
 bool isBubbleShowed = false;
 
+- (IBAction)avatarClicked:(UIButton *)sender {
+    //跳转到登录界面
+    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameLoginViewController];
+}
 
 - (IBAction)changeDemo:(UIButton *)sender {
     UIView *blockView = [self.view viewWithTag:2];
@@ -78,6 +92,17 @@ bool isBubbleShowed = false;
         blockView.backgroundColor = [UIColor colorWithString:@"#6aa71b"];
         
         isClick = true;
+    }
+}
+
+#pragma mark 跳转到 测试/详细报告
+- (IBAction)testOrReportBtn:(UIButton *)sender {
+    if (self.viewModel.needTest) {
+        //开始测评
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
+    }else{
+        //查看综合报告
+        
     }
 }
 
@@ -104,6 +129,9 @@ bool isBubbleShowed = false;
     UIView *targetView = [self.view viewWithTag:1];
     [self setViewRoundCorner:targetView];
     
+    //设置中间view绿色
+    [self.middleView setBackgroundColor:[UIColor colorWithString:@"#6aa71b"]];
+    
     //为笑脸图标添加点击事件
     [self setFaceInteractionEnable];
     
@@ -112,6 +140,12 @@ bool isBubbleShowed = false;
     //隐藏气泡
     [self hideBubble];
     
+    //进度条设置
+    [self.taskProgress setMaximumTrackImage:[UIImage imageNamed:@"progress_grey"] forState:UIControlStateNormal];
+    [self.taskProgress setMinimumTrackImage:[UIImage imageNamed:@"progress_color"] forState:UIControlStateNormal];
+    [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
+
+    self.btnReport.titleLabel.text = @"test";
 }
 
 - (void)hideNavigationBar{
@@ -121,6 +155,9 @@ bool isBubbleShowed = false;
 - (void)initData{
     //初始化 数据模型
     self.viewModel = [[MainPageViewModel alloc] init];
+    
+    //创建气泡信息
+    self.popArray = [[NSMutableArray alloc] init];
     
     //绑定VIEW与MODEL
     [self modelBinding];
@@ -132,10 +169,34 @@ bool isBubbleShowed = false;
     UserInfoModel *currentUser = [JerryTools getUserInfoModel];
     
     if ([currentUser userID]) {
-        //有数据，根据参数请求服务器
-        NSLog(@"有数据");
+        //有数据
+        //
+        NSArray *childArray = [currentUser childArray];
         
-        [self fetchDataFromServer];
+        if ([childArray count] > 0) {
+            
+            KidInfoModel *childModel = childArray[currentUser.currentSelectedChild];
+            
+            NSDictionary *birthdayDic = [childModel birthdayDic];
+            
+            NSNumber *month = [birthdayDic objectForKey:@"month"];
+            NSNumber *year = [birthdayDic objectForKey:@"year"];
+            NSNumber *day = [birthdayDic objectForKey:@"day"];
+            int yearInt = [year intValue];
+            int monthInt = [month intValue];
+            
+            NSString *birthdayStr;
+            
+            if (yearInt == 0 && monthInt == 0) {
+                //出生年月都是0
+                birthdayStr = [NSString stringWithFormat:@"%@天",day];
+            }else{
+                birthdayStr = [NSString stringWithFormat:@"%@岁%@个月",year,month];
+            }
+            self.avatarLabel.text = birthdayStr;
+            
+            [self fetchDataFromServer];
+        }
     }else{
         //无数据，显示未登录状态UI
         //判断是否满足免登条件
@@ -166,11 +227,96 @@ bool isBubbleShowed = false;
     NSArray *childArray = [currentUser childArray];
     if ([childArray count] > 0) {
         //如果有孩子数据
-        KidInfoModel *kidModel = childArray[0];
+        KidInfoModel *kidModel = childArray[currentUser.currentSelectedChild];
+        
+        //获取气泡信息
         NSNumber *tempId = [NSNumber numberWithInt:1];
-        [self.viewModel queryChildInfoById:kidModel.childID andDynamicId:tempId];
+        [self.viewModel queryOrangePopInfoById:kidModel.childID andDynamicId:tempId andCallBack:^(NSDictionary *resultDic) {
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                NSArray *popInfoArray = [resultDic objectForKey:RESULT_KEY_DATA];
+                [self.popArray addObjectsFromArray:popInfoArray];
+            }
+        }];
+        
+        //获取孩子首页数据
+//        [self.viewModel queryChildStatusInfoByChildId:kidModel.childID andAgeType:kidModel.ageTypeKey andCallback:^(NSDictionary *resultDic) {
+//            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+//            if (errorMessage) {
+//                dispatch_sync(dispatch_get_main_queue(), ^{
+//                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+//                });
+//            }else{
+//                AbilityModel *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
+//                BOOL isAbilityExpired = [abilityModel isAbilityExpired];
+//                NSString *buttonStr;
+//                if (isAbilityExpired) {
+//                    //需要测评
+//                    buttonStr = @"开始测评";
+//                    self.viewModel.needTest = YES;
+//                }else{
+//                    //不需要测评
+//                    buttonStr = @"详细报告";
+//                    self.viewModel.needTest = NO;
+//                }
+//                
+//                dispatch_sync(dispatch_get_main_queue(), ^{
+//                    [self.btnReport setTitle:buttonStr forState:UIControlStateNormal];
+//                    
+//                    [self setAbilityStatus:abilityModel];
+//                });
+//            }
+//        }];
+        
+        
+        //获取行动项
+//        [self.viewModel queryActionListByAgeType:kidModel.ageTypeKey andActionDate:[NSDate date] andIsRefresh:NO andCallback:^(NSDictionary *resultDic) {
+//            NSLog(@"its back");
+//        }];
     }
 
+}
+
+#pragma mark 设置
+- (void)setAbilityStatus:(AbilityModel *) abilityMode{
+    
+    NSString *indexArtStatusTypeKey = [abilityMode indexArtStatusTypeKey];
+    [self.imageFaceArt setImage:[self rankImageFromParam:indexArtStatusTypeKey]];
+    
+    NSString *indexHealthStatusTypeKey = [abilityMode indexHealthStatusTypeKey];
+    [self.imageFaceHealth setImage:[self rankImageFromParam:indexHealthStatusTypeKey]];
+    
+    NSString *indexLanguageStatusTypeKey = [abilityMode indexLanguageStatusTypeKey];
+    [self.imageFaceLanguage setImage:[self rankImageFromParam:indexLanguageStatusTypeKey]];
+    
+    NSString *indexScienceStatusTypeKey = [abilityMode indexScienceStatusTypeKey];
+    [self.imageFaceScience setImage:[self rankImageFromParam:indexScienceStatusTypeKey]];
+    
+    NSString *indexSociologyStatusTypeKey = [abilityMode indexSociologyStatusTypeKey];
+    [self.imageFaceSociety setImage:[self rankImageFromParam:indexSociologyStatusTypeKey]];
+}
+
+- (UIImage *)rankImageFromParam:(NSString *) param{
+    if ([param isEqualToString:VALUE_NORMAL]) {
+        UIImage *normal = [UIImage imageNamed:@"notgood"];
+        return normal;
+    }
+    
+    if ([param isEqualToString:VALUE_GOOD]) {
+        UIImage *good = [UIImage imageNamed:@"good"];
+        return good;
+    }
+    
+    if ([param isEqualToString:VALUE_VERYGOOD]) {
+        UIImage *veryGood = [UIImage imageNamed:@"verygood"];
+        return veryGood;
+    }
+    
+    return nil;
 }
 
 //为娃娃脸设置点击事件
@@ -206,12 +352,12 @@ bool isBubbleShowed = false;
     switch (recognizer.view.tag) {
         case face_health:
             NSLog(@"健康");
-            [JerryViewTools jumpFrom:self ToViewController:IdentifyAbilityExplainViewController];
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameAbilityExplainViewController];
             break;
             
         case face_society:
             NSLog(@"社会");
-            [JerryViewTools jumpFrom:self ToViewController:IdentifySocietyExplainViewController];
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameSocietyExplainViewController];
             break;
             
         case face_language:
@@ -233,7 +379,7 @@ bool isBubbleShowed = false;
         [JerryAnimation shakeToShow:self.orangeBaby];
         //弹出一句话
         [self showBubble];
-        //5秒后消失
+        //3秒后消失
         [self performSelector:@selector(hideBubble) withObject:nil afterDelay:3.0];
         
     }
@@ -241,9 +387,25 @@ bool isBubbleShowed = false;
 
 //气泡出现
 - (void)showBubble{
-    self.bubbleBackground.hidden = NO;
-    self.bubbleLabel.hidden = NO;
-    isBubbleShowed = true;
+    if ([self.popArray count] > 0) {
+        if (popIndex > ([self.popArray count] - 1)) {
+            popIndex = 0;
+        }
+        
+        PopInfoModel *popInfo = [self.popArray objectAtIndex:popIndex];
+        NSString *contentInfo = [popInfo infoDescription];
+        if ([JerryTools stringIsNull:contentInfo]) {
+            self.bubbleLabel.text = [popInfo infoName];
+        }else{
+            self.bubbleLabel.text = contentInfo;
+        }
+        
+        popIndex++;
+        
+        self.bubbleBackground.hidden = NO;
+        self.bubbleLabel.hidden = NO;
+        isBubbleShowed = true;
+    }
 }
 
 //隐藏气泡

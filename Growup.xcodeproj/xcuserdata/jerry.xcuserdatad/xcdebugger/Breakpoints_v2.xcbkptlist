@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/MainPageViewController.m"
-            timestampString = "515004429.679097"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "-fetchDataFromServer"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Growup/MainPageViewModel.m"
-            timestampString = "515004554.87769"
+            timestampString = "515510181.719836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-queryChildInfoById:andDynamicId:"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-queryOrangePopInfoById:andDynamicId:andCallBack:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

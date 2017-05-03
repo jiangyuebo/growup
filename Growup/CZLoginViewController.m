@@ -58,7 +58,23 @@
     if (userName && password) {
         LoginViewModel *viewModel = [[LoginViewModel alloc] init];
         
-        [viewModel userLoginByUserName:userName andPassword:password];
+        [viewModel userLoginByUserName:userName andPassword:password callback:^(NSDictionary *resultDic){
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self clickPageView];
+                    
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                //path
+                NSString *path = [resultDic objectForKey:RESULT_KEY_JUMP_PATH];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools jumpFrom:self ToViewController:path];
+                });
+            }
+        }];
     }
 }
 
@@ -72,6 +88,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -79,6 +101,7 @@
 }
 
 - (void)initView{
+    
     self.pageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPageView)];
     [self.pageView addGestureRecognizer:singleTap];

@@ -19,8 +19,6 @@
     
     //请求地址
     NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_CHILD_SETTING];
-    //TEST
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_CHILD_SETTING];
     
     //请求参数
     NSMutableDictionary *paramsDic = [NSMutableDictionary dictionary];
@@ -96,7 +94,7 @@
                     userInfoMode.childArray = childInfoArray;
                 }
                                 
-                callback(IdentifyBirthdaySettingViewController);
+                callback(IdentifyNameMainViewController);
             }
         }
         

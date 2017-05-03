@@ -14,6 +14,9 @@
 @property (strong,nonatomic) NSString *ageStr;
 //孩子年龄
 @property (strong,nonatomic) NSNumber *age;
+//
+@property (strong,nonatomic) NSString *name;
+
 //是否需要测评
 @property (nonatomic) BOOL needTest;
 
@@ -23,7 +26,11 @@
 
 @property (strong,nonatomic) NSDate *birthDay;
 
+@property (strong,nonatomic) NSDictionary *birthdayDic;
+
 @property (strong,nonatomic) NSNumber *sex;
+
+@property (strong,nonatomic) NSString *avatorUrl;
 
 //使用者与孩子的关系
 @property (strong,nonatomic) NSString *educationRoleTypeKey;

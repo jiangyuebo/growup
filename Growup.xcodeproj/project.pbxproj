@@ -41,6 +41,11 @@
 		C48A899C1EAB50AB0076D741 /* InterestingSettingViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A899B1EAB50AB0076D741 /* InterestingSettingViewModel.m */; };
 		C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A899E1EAB665E0076D741 /* CZTextField.m */; };
 		C48A89A61EAF4D1F0076D741 /* CZForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89A51EAF4D1F0076D741 /* CZForgotPasswordViewController.m */; };
+		C48A89AB1EB3ABA20076D741 /* PopInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */; };
+		C48A89AE1EB3EA560076D741 /* AbilityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89AD1EB3EA550076D741 /* AbilityModel.m */; };
+		C48A89B31EB8B7E90076D741 /* FastTestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B21EB8B7E90076D741 /* FastTestViewModel.m */; };
+		C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B51EB8C7790076D741 /* TestSubjectModel.m */; };
+		C48A89B91EB97FA40076D741 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B81EB97FA40076D741 /* TestModel.m */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
 		C4E5333F1E79681B0041DDDA /* AbilityBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */; };
@@ -122,6 +127,16 @@
 		C48A899E1EAB665E0076D741 /* CZTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZTextField.m; sourceTree = "<group>"; };
 		C48A89A41EAF4D1F0076D741 /* CZForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZForgotPasswordViewController.h; sourceTree = "<group>"; };
 		C48A89A51EAF4D1F0076D741 /* CZForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZForgotPasswordViewController.m; sourceTree = "<group>"; };
+		C48A89A91EB3ABA20076D741 /* PopInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopInfoModel.h; sourceTree = "<group>"; };
+		C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopInfoModel.m; sourceTree = "<group>"; };
+		C48A89AC1EB3EA550076D741 /* AbilityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityModel.h; sourceTree = "<group>"; };
+		C48A89AD1EB3EA550076D741 /* AbilityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityModel.m; sourceTree = "<group>"; };
+		C48A89B11EB8B7E90076D741 /* FastTestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastTestViewModel.h; sourceTree = "<group>"; };
+		C48A89B21EB8B7E90076D741 /* FastTestViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastTestViewModel.m; sourceTree = "<group>"; };
+		C48A89B41EB8C7790076D741 /* TestSubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSubjectModel.h; sourceTree = "<group>"; };
+		C48A89B51EB8C7790076D741 /* TestSubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubjectModel.m; sourceTree = "<group>"; };
+		C48A89B71EB97FA40076D741 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
+		C48A89B81EB97FA40076D741 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
 		C4C3E0AC1EAA420A00AAC109 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
@@ -554,6 +569,10 @@
 				C48824C71E6C83E0005D8FED /* UserInfoModel.m */,
 				C48824C91E6C8423005D8FED /* KidInfoModel.h */,
 				C48824CA1E6C8423005D8FED /* KidInfoModel.m */,
+				C48A89A91EB3ABA20076D741 /* PopInfoModel.h */,
+				C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */,
+				C48A89AC1EB3EA550076D741 /* AbilityModel.h */,
+				C48A89AD1EB3EA550076D741 /* AbilityModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -690,6 +709,8 @@
 		C48824F01E75C4B7005D8FED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C48A89B11EB8B7E90076D741 /* FastTestViewModel.h */,
+				C48A89B21EB8B7E90076D741 /* FastTestViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -706,6 +727,10 @@
 		C48824F21E75C4C3005D8FED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C48A89B41EB8C7790076D741 /* TestSubjectModel.h */,
+				C48A89B51EB8C7790076D741 /* TestSubjectModel.m */,
+				C48A89B71EB97FA40076D741 /* TestModel.h */,
+				C48A89B81EB97FA40076D741 /* TestModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -937,6 +962,7 @@
 				C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */,
 				C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */,
 				C48A89A61EAF4D1F0076D741 /* CZForgotPasswordViewController.m in Sources */,
+				C48A89B31EB8B7E90076D741 /* FastTestViewModel.m in Sources */,
 				C48824C21E6870A4005D8FED /* MainPageViewModel.m in Sources */,
 				C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */,
 				C4E533471E7AFC820041DDDA /* JerryAnimation.m in Sources */,
@@ -946,13 +972,17 @@
 				C48824BE1E687045005D8FED /* BMRequestHelper.m in Sources */,
 				C41E7A991E463AD50033D1AF /* MainPageViewController.m in Sources */,
 				C4E533881E7FD17A0041DDDA /* CZBirthdaySettingViewController.m in Sources */,
+				C48A89B91EB97FA40076D741 /* TestModel.m in Sources */,
 				C48824DA1E6F105B005D8FED /* GameViewController.m in Sources */,
+				C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */,
 				C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */,
+				C48A89AE1EB3EA560076D741 /* AbilityModel.m in Sources */,
 				C43BC63F1E78547B00468837 /* ThemeViewController.m in Sources */,
 				C48824C81E6C83E0005D8FED /* UserInfoModel.m in Sources */,
 				C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */,
 				C41E7A801E462D560033D1AF /* main.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
+				C48A89AB1EB3ABA20076D741 /* PopInfoModel.m in Sources */,
 				C48824E51E7058F8005D8FED /* DetailReportViewController.m in Sources */,
 				C43BC62A1E784F5300468837 /* GamesViewController.m in Sources */,
 				C48824B81E670CF4005D8FED /* CZRegisterViewController.m in Sources */,

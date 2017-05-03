@@ -19,10 +19,12 @@
 
 @property (strong,nonatomic) NSString *verifyCode;
 
+@property (strong,nonatomic) NSString *errorMessage;
+
 #pragma mark 获取验证码
 - (void)getVerifyCode:(NSString *) phoneNumber;
 
 #pragma mark 用户注册
-- (void)CZUserRegister:(NSString *) _phoneNumber andPassword:(NSString *) _password andVerifyCode:(NSString *) _verifyCode andJumpTo:(void (^)(NSString * address)) callback;
+- (void)CZUserRegister:(NSString *) _phoneNumber andPassword:(NSString *) _password andVerifyCode:(NSString *) _verifyCode andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
 @end

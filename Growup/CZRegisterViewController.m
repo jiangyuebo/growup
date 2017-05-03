@@ -70,11 +70,21 @@
         return;
     }
     
-    
-    [self.viewModel CZUserRegister:phoneNumber andPassword:password andVerifyCode:verifyCode andJumpTo:^(NSString *address) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [JerryViewTools jumpFrom:self ToViewController:address];
-        });
+    [self.viewModel CZUserRegister:phoneNumber andPassword:password andVerifyCode:verifyCode andCallback:^(NSDictionary *resultDic) {
+        
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            [self clickPageView];
+            
+            [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+        }else{
+            //jump
+            NSString *jumpPath = [resultDic objectForKey:RESULT_KEY_JUMP_PATH];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools jumpFrom:self ToViewController:jumpPath];
+            });
+        }
     }];
 }
 
@@ -115,6 +125,7 @@
 #pragma mark 绑定页面数据对象
 - (void)bindModel{
     NSLog(@"数据对象绑定完成");
+    //验证码
     [self.viewModel addObserver:self forKeyPath:OBSERVE_KEY_VERIFYCODE options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -128,7 +139,6 @@
                       ofObject:(id)object
                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                        context:(void *)context{
-    NSLog(@"数据对象值有变化");
     
     if ([keyPath isEqualToString:OBSERVE_KEY_VERIFYCODE]) {
         //需要立刻刷新UI，使用主线程

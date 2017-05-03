@@ -9,74 +9,185 @@
 #import "MainPageViewModel.h"
 #import "globalHeader.h"
 #import "BMRequestHelper.h"
+#import "PopInfoModel.h"
+#import "AbilityModel.h"
 
 @implementation MainPageViewModel
 
-@synthesize userId,age,ageStr,needTest,score,taskCount,taskFinish,tasks,recommends,adurl;
+@synthesize userId,age,ageStr,needTest,taskCount,taskFinish,tasks,recommends,adurl;
 
-//更新数据
-- (void)updateData{
-    //请求网络获取数据
-    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
-    [requestHelper getRequestAsynchronousToUrl:RequestMainPageData andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        //解析 NSData --> NSDictionary(JSON)
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        
-        NSString *adurl_server = [jsonDict objectForKey:@"adurl"];
-        adurl = adurl_server;
-        NSLog(@"adurl = %@",adurl);
-        
-        NSNumber *age_server = [jsonDict objectForKey:@"age"];
-        self.age = age_server;
-        NSLog(@"adurl = %@",age);
-        
-        NSString *ageStr_server = [jsonDict objectForKey:@"ageStr"];
-        self.ageStr = ageStr_server;
-        NSLog(@"ageStr = %@",ageStr);
-        
-        NSArray *recommends_server = [jsonDict objectForKey:@"recommends"];
-        self.recommends = recommends_server;
-        
-        NSDictionary *score_server = [jsonDict objectForKey:@"score"];
-        self.score = score_server;
-        
-        NSNumber *taskCount_server = [jsonDict objectForKey:@"taskCount"];
-        self.taskCount = taskCount_server;
-        
-        NSNumber *taskFinish_server = [jsonDict objectForKey:@"taskFinish"];
-        self.taskFinish = taskFinish_server;
-        
-        NSArray *tasks_server = [jsonDict objectForKey:@"tasks"];
-        self.tasks = tasks_server;
-        
-        NSString *userId_server = [jsonDict objectForKey:@"userId"];
-        self.userId = userId_server;
-    }];
-}
-
-#pragma mark 根据孩子信息获取数据
-- (void)queryChildInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId{
+#pragma mark 根据id获取气泡信息
+- (void)queryOrangePopInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId andCallBack:(void(^)(NSDictionary * resultDic)) callback{
     
     //getDynamic?childID={childID}&dynamicID={dynamicID}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@?childID=%@&dynamicID=%@",URL_REQUEST,URL_REQUEST_CHILD_GET_DYNAMIC,childId,dynamicId];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?childID=%@&dynamicID=%@",URL_REQUEST,URL_REQUEST_POP_GET_DYNAMIC,childId,dynamicId];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
+        if (data) {
+            
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            NSString *errorCode = [jsonObject objectForKey:RESPONSE_ERROR_CODE];
+            
+            if (errorCode) {
+                //错误
+                NSString *errorMsg = [jsonObject objectForKey:RESPONSE_ERROR_MSG];
+                [resultDic setObject:errorMsg forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                //无错误
+                NSArray *array = (NSArray *)jsonObject;
+                
+                NSMutableArray *popInfoArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < [array count]; i++) {
+                    PopInfoModel *popInfo = [[PopInfoModel alloc] init];
+                    
+                    NSDictionary *infoDic = [array objectAtIndex:i];
+                    
+                    NSString *ageTypeKey = [infoDic objectForKey:@"ageTypeKey"];
+                    [popInfo setAgeTypeKey:ageTypeKey];
+                    
+                    NSNumber *childDynamicID = [infoDic objectForKey:@"childDynamicID"];
+                    [popInfo setChildDynamicID:childDynamicID];
+                    
+                    NSString *childDynamicTypeKey = [infoDic objectForKey:@"childDynamicTypeKey"];
+                    [popInfo setChildDynamicTypeKey:childDynamicTypeKey];
+                    
+                    NSString *contentResourceTypeKey = [infoDic objectForKey:@"contentResourceTypeKey"];
+                    [popInfo setContentResourceTypeKey:contentResourceTypeKey];
+                    
+                    NSString *contentResourceUrl = [infoDic objectForKey:@"contentResourceUrl"];
+                    [popInfo setContentResourceUrl:contentResourceUrl];
+                    
+                    NSNumber *correctAnswerValue = [infoDic objectForKey:@"correctAnswerValue"];
+                    [popInfo setCorrectAnswerValue:correctAnswerValue];
+                    
+                    NSString *infoDescription = [infoDic objectForKey:@"infoDescription"];
+                    [popInfo setInfoDescription:infoDescription];
+                    
+                    NSString *infoName = [infoDic objectForKey:@"infoName"];
+                    [popInfo setInfoName:infoName];
+                    
+                    NSString *logoResourceTypeKey = [infoDic objectForKey:@"logoResourceTypeKey"];
+                    [popInfo setLogoResourceTypeKey:logoResourceTypeKey];
+                    
+                    NSString *logoResourceUrl = [infoDic objectForKey:@"logoResourceUrl"];
+                    [popInfo setLogoResourceUrl:logoResourceUrl];
+                    
+                    NSNumber *score = [infoDic objectForKey:@"score"];
+                    [popInfo setScore:score];
+                    
+                    NSNumber *weight = [infoDic objectForKey:@"weight"];
+                    [popInfo setWeight:weight];
+                    
+                    [popInfoArray addObject:popInfo];
+                }
+                
+                [resultDic setObject:popInfoArray forKey:RESULT_KEY_DATA];
+            }
+            
+        }else{
+            NSString *errorMessage = @"服务器异常,获取气泡数据失败";
+            
+            [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+        }
+        callback(resultDic);
+    }];
+}
+
+#pragma mark 获取橙娃能力动态
+- (void)queryChildStatusInfoByChildId:(NSNumber *) childId andAgeType:(NSString *) ageType andCallback:(void (^)(NSDictionary * resultDic)) callback{
+    
+    //ability/getResult/{childID}/{ageType}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@",URL_REQUEST,URL_REQUEST_CHILD_STATUS_INFO,childId,ageType];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
         if (data) {
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            NSLog(@"jsonDic = %@",jsonDic);
+            AbilityModel *abilityModel =  [[AbilityModel alloc] init];
             
-            //expiredIn
-            //phoneNumber
-            //verifyCode
-            //verifyTypeKey
+            NSLog(@"jsonDic = %@",jsonDic);
+            NSString *abilityStatusTypeKey = [jsonDic objectForKey:@"abilityStatusTypeKey"];
+            [abilityModel setAbilityStatusTypeKey:abilityStatusTypeKey];
+            
+            NSNumber *indexArtScore = [jsonDic objectForKey:@"indexArtScore"];
+            [abilityModel setIndexArtScore:indexArtScore];
+            NSString *indexArtStatusTypeKey = [jsonDic objectForKey:@"indexArtStatusTypeKey"];
+            [abilityModel setIndexArtStatusTypeKey:indexArtStatusTypeKey];
+            
+            NSNumber *indexHealthScore = [jsonDic objectForKey:@"indexHealthScore"];
+            [abilityModel setIndexHealthScore:indexHealthScore];
+            NSString *indexHealthStatusTypeKey = [jsonDic objectForKey:@"indexHealthStatusTypeKey"];
+            [abilityModel setIndexHealthStatusTypeKey:indexHealthStatusTypeKey];
+            
+            NSNumber *indexLanguageScore = [jsonDic objectForKey:@"indexLanguageScore"];
+            [abilityModel setIndexLanguageScore:indexLanguageScore];
+            NSString *indexLanguageStatusTypeKey = [jsonDic objectForKey:@"indexLanguageStatusTypeKey"];
+            [abilityModel setIndexLanguageStatusTypeKey:indexLanguageStatusTypeKey];
+            
+            NSNumber *indexScienceScore = [jsonDic objectForKey:@"indexScienceScore"];
+            [abilityModel setIndexScienceScore:indexScienceScore];
+            NSString *indexScienceStatusTypeKey = [jsonDic objectForKey:@"indexScienceStatusTypeKey"];
+            [abilityModel setIndexScienceStatusTypeKey:indexScienceStatusTypeKey];
+            
+            NSNumber *indexSociologyScore = [jsonDic objectForKey:@"indexSociologyScore"];
+            [abilityModel setIndexScienceScore:indexSociologyScore];
+            NSString *indexSociologyStatusTypeKey = [jsonDic objectForKey:@"indexSociologyStatusTypeKey"];
+            [abilityModel setIndexSociologyStatusTypeKey:indexSociologyStatusTypeKey];
+            
+            BOOL isAbilityExpired = [jsonDic objectForKey:@"isAbilityExpired"];
+            [abilityModel setIsAbilityExpired:isAbilityExpired];
+            
+            NSNumber *userAbilityID = [jsonDic objectForKey:@"userAbilityID"];
+            [abilityModel setUserAbilityID:userAbilityID];
+            
+            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+            [resultDic setObject:abilityModel forKey:RESULT_KEY_DATA];
+            
+            callback(resultDic);
             
         }else{
             NSLog(@"返回值中 data 是空");
+            
+            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+            
+            callback(resultDic);
         }
     }];
+    
+}
+
+#pragma mark 获取行动列表
+- (void)queryActionListByAgeType:(NSString *)ageType andActionDate:(NSDate *) date andIsRefresh:(BOOL) isRefresh andCallback:(void (^)(NSDictionary * resultDic)) callback{
+    
+    //api/v1/user/action/getAll?ageType={ageType}&actionDate={actionDate}&isRefresh={isRefresh}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?ageType=%@&actionDate=%@&isRefresh=%@",URL_REQUEST,URL_REQUEST_GET_ACTION_LIST,ageType,date,[NSNumber numberWithBool:isRefresh]];
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (data) {
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            
+        }
+        
+    }];
+}
+
+#pragma mark 提交行动项
+- (void)submitActionByParams:(NSDictionary *) params andCallback:(void (^)(NSDictionary * resultDic))callback{
+    
+    
 }
 
 @end

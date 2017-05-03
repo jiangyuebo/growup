@@ -21,8 +21,6 @@
     
     if (phoneNumber) {
         NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
-        //TEST
-//        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_TEST_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
         
         BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
         [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -53,12 +51,10 @@
 }
 
 #pragma mark 用户注册
-- (void)CZUserRegister:(NSString *) phoneNumber andPassword:(NSString *) password andVerifyCode:(NSString *) verifyCode andJumpTo:(void (^)(NSString * address)) callback{
+- (void)CZUserRegister:(NSString *) phoneNumber andPassword:(NSString *) password andVerifyCode:(NSString *) verifyCode andCallback:(void (^)(NSDictionary * resultDic)) callback{
     
     //请求地址
     NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_REGISTER];
-    //TEST
-//    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_TEST_REQUEST,URL_REQUEST_SESSION_REGISTER];
     
     //获取设备唯一标识
     NSString *deviceID = [JerryTools getCZDeviceId];
@@ -81,14 +77,12 @@
             NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
             if (errorCode) {
                 NSString *errorMsg = [jsonDic objectForKey:@"errorMsg"];
-                NSLog(@"errorMsg : %@",errorMsg);
-            }else{
-                NSNumber *accessExpiredIn = [jsonDic objectForKey:@"accessExpiredIn"];
-                NSString *accessToken = [jsonDic objectForKey:@"accessToken"];
+                NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+                [resultDic setObject:errorMsg forKey:RESULT_KEY_ERROR_MESSAGE];
                 
-                //设置基础数据
-                [JerryTools setAccessExpireTime:accessExpiredIn];
-                [JerryTools setAccessToken:accessToken];
+                callback(resultDic);
+            }else{
+                NSString *accessToken = [jsonDic objectForKey:@"accessToken"];
                 
                 //保存AccessToken到本地
                 [JerryTools saveInfo:accessToken name:SAVE_KEY_ACCESS_TOKEN];
@@ -135,7 +129,10 @@
                 [userInfo setUserTypeKey:userTypeKey];
                 
                 //注册成功，跳转到设置孩子信息界面
-                callback(IdentifyBirthdaySettingViewController);
+                NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+                [resultDic setObject:IdentifyNameBirthdaySettingViewController forKey:RESULT_KEY_JUMP_PATH];
+                
+                callback(resultDic);
             }
         }
     }];

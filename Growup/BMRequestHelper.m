@@ -8,6 +8,7 @@
 
 #import "BMRequestHelper.h"
 #import "JerryTools.h"
+#import "globalHeader.h"
 
 @implementation BMRequestHelper
 
@@ -42,14 +43,14 @@
 }
 
 //post异步请求方法
-- (void)postRequestAsynchronousToUrl:(NSString *) url byParamsDic:(NSDictionary *)paramsDic needAccessToken:(BOOL) isNeed andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback{
+- (void)postRequestAsynchronousToUrl:(NSString *) url byParamsDic:(id)params needAccessToken:(BOOL) isNeed andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback{
     
     NSURL *postUrl = [NSURL URLWithString:url];
     
     NSError *error;
     
     //DIC 转 JSON
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:paramsDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&error];
     if (error) {
         NSLog(@"Error : %@",error);
     }
@@ -60,7 +61,7 @@
     
     //是否需要access token
     if (isNeed) {
-        NSString *accessToken = [JerryTools getAccessToken];
+        NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
         [request addValue:accessToken forHTTPHeaderField:@"ACCESS-TOKEN"];
     }
     
@@ -93,8 +94,9 @@
     //创建请求对象
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:getUrl];
     
-    NSString *accessToken = [JerryTools getAccessToken];
+    NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
     if (accessToken) {
+        NSLog(@"accessToken = %@",accessToken);
         [request addValue:accessToken forHTTPHeaderField:@"ACCESS-TOKEN"];
     }
     

@@ -10,6 +10,6 @@
 
 @implementation KidInfoModel
 
-@synthesize ageStr,age,needTest,ageTypeKey,childID,birthDay,sex,educationRoleTypeKey,educationTypeKey;
+@synthesize ageStr,age,needTest,ageTypeKey,childID,birthDay,sex,educationRoleTypeKey,educationTypeKey,avatorUrl,name,birthdayDic;
 
 @end

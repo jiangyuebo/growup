@@ -34,6 +34,15 @@
 
 @property (strong,nonatomic) NSString *userTypeKey;
 
+@property (strong,nonatomic) NSDate *birthdayTS;
+
+@property (nonatomic) int currentSelectedChild;
+
+//陪伴时间
+@property (strong,nonatomic) NSNumber *accompanyTime;
+//全国百分比
+@property (strong,nonatomic) NSNumber *percentage;
+
 //孩子数组
 @property (strong,nonatomic) NSMutableArray *childArray;
 

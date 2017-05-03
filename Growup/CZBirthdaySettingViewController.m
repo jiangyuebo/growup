@@ -29,7 +29,7 @@
     NSDate *birthDate = [self.babyBirthdayPicker date];
     [self.passDataDic setObject:birthDate forKey:COLUMN_BIRTHDAY];
     
-    [JerryViewTools jumpFrom:self ToViewController:IdentifyGenderSettingViewController carryDataDic:self.passDataDic];
+    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameGenderSettingViewController carryDataDic:self.passDataDic];
 }
 
 - (void)viewDidLoad {
@@ -41,6 +41,9 @@
 }
 
 - (void)initView{
+    //隐藏返回按钮
+    [self.navigationItem setHidesBackButton:YES];
+    
     [self.babyBirthdayPicker addTarget:self action:@selector(oneDatePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self setBirthDateValue];

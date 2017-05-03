@@ -16,6 +16,6 @@
 
 @property (strong,nonatomic) NSString *deviceId;
 
-- (void)userLoginByUserName:(NSString *) userName andPassword:(NSString *) password;
+- (void)userLoginByUserName:(NSString *) userName andPassword:(NSString *) password callback:(void (^)(NSDictionary * resultDic)) callback;
 
 @end

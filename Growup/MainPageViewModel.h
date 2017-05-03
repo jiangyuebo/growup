@@ -18,9 +18,6 @@
 @property (strong,nonatomic) NSString *ageStr;
 //是否需要测评
 @property (nonatomic) BOOL needTest;
-//评分
-@property (strong,nonatomic) NSDictionary *score;
-
 
 //任务数
 @property (strong,nonatomic) NSNumber *taskCount;
@@ -33,10 +30,16 @@
 //首页广告横幅图片
 @property (strong,nonatomic) NSString *adurl;
 
-//更新数据
-- (void)updateData;
+#pragma mark 根据孩子信息获取气泡数据
+- (void)queryOrangePopInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId andCallBack:(void(^)(NSDictionary * resultDic)) callback;
 
-#pragma mark 根据孩子信息获取数据
-- (void)queryChildInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId;
+#pragma mark 获取橙娃能力动态
+- (void)queryChildStatusInfoByChildId:(NSNumber *) childId andAgeType:(NSString *) ageType andCallback:(void (^)(NSDictionary * resultDic)) callback;
+
+#pragma mark 获取行动列表
+- (void)queryActionListByAgeType:(NSString *)ageType andActionDate:(NSDate *) date andIsRefresh:(BOOL) isRefresh andCallback:(void (^)(NSDictionary * resultDic)) callback;
+
+#pragma mark 提交行动项
+- (void)submitActionByParams:(NSDictionary *) params andCallback:(void (^)(NSDictionary * resultDic))callback;
 
 @end

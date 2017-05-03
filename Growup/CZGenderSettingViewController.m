@@ -24,7 +24,7 @@
 @synthesize passDataDic;
 
 - (IBAction)saveGender:(UIButton *)sender {
-    [JerryViewTools jumpFrom:self ToViewController:IdentifyInterestSettingViewController carryDataDic:self.passDataDic];
+    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameInterestSettingViewController carryDataDic:self.passDataDic];
 }
 
 - (void)viewDidLoad {

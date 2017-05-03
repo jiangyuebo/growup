@@ -14,7 +14,7 @@
 - (void)postRequestAsynchronousToUrl:(NSString *) url byParamsStr:(NSString *)paramsStr andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback;
 
 //post异步请求方法
-- (void)postRequestAsynchronousToUrl:(NSString *) url byParamsDic:(NSDictionary *)paramsDic needAccessToken:(BOOL) isNeed andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback;
+- (void)postRequestAsynchronousToUrl:(NSString *) url byParamsDic:(id)paramsDic needAccessToken:(BOOL) isNeed andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback;
 
 //get异步请求方法
 - (void)getRequestAsynchronousToUrl:(NSString *) url andCallback:(void (^)(NSData *data,NSURLResponse *response,NSError *error)) callback;
