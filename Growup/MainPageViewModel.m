@@ -31,7 +31,12 @@
             
             id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
-            NSString *errorCode = [jsonObject objectForKey:RESPONSE_ERROR_CODE];
+            //判断是否NSDictionary类型
+            NSString *errorCode;
+            if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+                //是
+                errorCode = [jsonObject objectForKey:RESPONSE_ERROR_CODE];
+            }
             
             if (errorCode) {
                 //错误

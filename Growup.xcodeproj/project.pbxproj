@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B2589C61EBB8E3D0059A3CE /* music_template.xib */; };
+		3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B2589C81EBB8EFE0059A3CE /* picture_template.xib */; };
 		C41E7A801E462D560033D1AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E7A7F1E462D560033D1AF /* main.m */; };
 		C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E7A821E462D570033D1AF /* AppDelegate.m */; };
 		C41E7A891E462D570033D1AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41E7A871E462D570033D1AF /* Main.storyboard */; };
@@ -60,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B2589C61EBB8E3D0059A3CE /* music_template.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = music_template.xib; sourceTree = "<group>"; };
+		3B2589C81EBB8EFE0059A3CE /* picture_template.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = picture_template.xib; sourceTree = "<group>"; };
 		C41E7A7B1E462D560033D1AF /* 橙宝.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "橙宝.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41E7A7F1E462D560033D1AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C41E7A811E462D560033D1AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -558,6 +562,8 @@
 			children = (
 				C41E7A971E463AD50033D1AF /* MainPageViewController.h */,
 				C41E7A981E463AD50033D1AF /* MainPageViewController.m */,
+				3B2589C61EBB8E3D0059A3CE /* music_template.xib */,
+				3B2589C81EBB8EFE0059A3CE /* picture_template.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -938,7 +944,9 @@
 			files = (
 				C41E7A8E1E462D570033D1AF /* LaunchScreen.storyboard in Resources */,
 				C41E7A8B1E462D570033D1AF /* Assets.xcassets in Resources */,
+				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
+				3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

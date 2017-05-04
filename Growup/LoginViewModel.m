@@ -34,14 +34,17 @@
         BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
         [requestHelper postRequestAsynchronousToUrl:url_request byParamsDic:paramsDic needAccessToken:NO andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
             
+            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+            
             if (data) {
                 NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                 
                 NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
                 
                 if (errorCode) {
+                    //服务器错误
                     NSString *errorMsg = [jsonDic objectForKey:@"errorMsg"];
-                    NSLog(@"errorMsg : %@",errorMsg);
+                    [resultDic setObject:errorMsg forKey:RESULT_KEY_ERROR_MESSAGE];
                 }else{
                     NSString *accessToken = [jsonDic objectForKey:@"accessToken"];
                     
@@ -130,16 +133,15 @@
                     [userInfo setChildArray:childInfoArray];
                     
                     //成功，跳转到首页
-                    NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
                     [resultDic setObject:IdentifyNameMainViewController forKey:RESULT_KEY_JUMP_PATH];
-                    callback(resultDic);
                 }
             }else{
                 //返回数据为空
-                NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
                 [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
-                callback(resultDic);
+                
             }
+            
+            callback(resultDic);
         }];
     }
 }

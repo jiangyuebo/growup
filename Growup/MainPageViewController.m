@@ -239,38 +239,40 @@ bool isBubbleShowed = false;
                 });
             }else{
                 NSArray *popInfoArray = [resultDic objectForKey:RESULT_KEY_DATA];
-                [self.popArray addObjectsFromArray:popInfoArray];
+                if ([popInfoArray count] > 0) {
+                    [self.popArray addObjectsFromArray:popInfoArray];
+                }
             }
         }];
         
         //获取孩子首页数据
-//        [self.viewModel queryChildStatusInfoByChildId:kidModel.childID andAgeType:kidModel.ageTypeKey andCallback:^(NSDictionary *resultDic) {
-//            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-//            if (errorMessage) {
-//                dispatch_sync(dispatch_get_main_queue(), ^{
-//                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-//                });
-//            }else{
-//                AbilityModel *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
-//                BOOL isAbilityExpired = [abilityModel isAbilityExpired];
-//                NSString *buttonStr;
-//                if (isAbilityExpired) {
-//                    //需要测评
-//                    buttonStr = @"开始测评";
-//                    self.viewModel.needTest = YES;
-//                }else{
-//                    //不需要测评
-//                    buttonStr = @"详细报告";
-//                    self.viewModel.needTest = NO;
-//                }
-//                
-//                dispatch_sync(dispatch_get_main_queue(), ^{
-//                    [self.btnReport setTitle:buttonStr forState:UIControlStateNormal];
-//                    
-//                    [self setAbilityStatus:abilityModel];
-//                });
-//            }
-//        }];
+        [self.viewModel queryChildStatusInfoByChildId:kidModel.childID andAgeType:kidModel.ageTypeKey andCallback:^(NSDictionary *resultDic) {
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                AbilityModel *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
+                BOOL isAbilityExpired = [abilityModel isAbilityExpired];
+                NSString *buttonStr;
+                if (isAbilityExpired) {
+                    //需要测评
+                    buttonStr = @"开始测评";
+                    self.viewModel.needTest = YES;
+                }else{
+                    //不需要测评
+                    buttonStr = @"详细报告";
+                    self.viewModel.needTest = NO;
+                }
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self.btnReport setTitle:buttonStr forState:UIControlStateNormal];
+                    
+                    [self setAbilityStatus:abilityModel];
+                });
+            }
+        }];
         
         
         //获取行动项
