@@ -18,6 +18,10 @@
 #import "AbilityModel.h"
 #import "PopInfoModel.h"
 #import "MainPageActionInfoModel.h"
+#import "ActionCell.h"
+#import "ActionSubject.h"
+#import "ActionExperience.h"
+#import "ActionTask.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -26,7 +30,7 @@
 #define face_science 13//科学
 #define face_art 14//艺术
 
-@interface MainPageViewController ()
+@interface MainPageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIImageView *mainBackgroundView;
 
@@ -65,6 +69,13 @@
 @property (strong,nonatomic) NSMutableArray *popArray;
 
 @property (strong, nonatomic) IBOutlet UIButton *btnReport;
+
+@property (strong, nonatomic) IBOutlet UITableView *actionTable;
+
+@property (strong,nonatomic) NSMutableArray *actionTableItems;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *actionTableHeight;
+
 
 @end
 
@@ -110,9 +121,9 @@ bool isBubbleShowed = false;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initView];
-    
     [self initData];
+    
+    [self initView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -148,7 +159,7 @@ bool isBubbleShowed = false;
     [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
 
     self.btnReport.titleLabel.text = @"test";
-
+    
 }
 
 - (void)hideNavigationBar{
@@ -156,6 +167,7 @@ bool isBubbleShowed = false;
 }
 
 - (void)initData{
+    
     //初始化 数据模型
     self.viewModel = [[MainPageViewModel alloc] init];
     
@@ -165,6 +177,13 @@ bool isBubbleShowed = false;
     //绑定VIEW与MODEL
     [self modelBinding];
     
+    self.actionTableItems = [[NSMutableArray alloc] init];
+    self.actionTable.dataSource = self;
+    self.actionTable.delegate = self;
+    
+    self.actionTable.separatorStyle = NO;
+    self.actionTable.scrollEnabled = NO;
+    self.actionTable.allowsSelection = NO;
 }
 
 - (void)mainPageUpdage{
@@ -278,31 +297,47 @@ bool isBubbleShowed = false;
             }
         }];
         
-        
-        //获取行动项
-        [self.viewModel queryActionListByAgeType:kidModel.ageTypeKey andActionDate:[NSDate date] andIsRefresh:NO andCallback:^(NSDictionary *resultDic) {
-            
-            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-            if (errorMessage) {
-                //error
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-                });
-            }else{
-                MainPageActionInfoModel *actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
-                //获取行动项个数及完成数
-                NSNumber *actionFinishNumber = [actionInfo actionFinishNumber];
-                NSNumber *actionNumber = [actionInfo actionNumber];
+        if ([self.actionTableItems count] == 0) {
+            //获取行动项
+            [self.viewModel queryActionListByAgeType:kidModel.ageTypeKey andActionDate:[NSDate date] andIsRefresh:NO andCallback:^(NSDictionary *resultDic) {
                 
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self.taskProgress setMaximumValue:[actionNumber floatValue]];
-                    [self.taskProgress setMinimumValue:0];
-                    [self.taskProgress setValue:[actionFinishNumber floatValue]];
-                });
-            }
-        }];
+                NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+                if (errorMessage) {
+                    //error
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                    });
+                }else{
+                    MainPageActionInfoModel *actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
+                    //获取行动项个数及完成数
+                    NSNumber *actionFinishNumber = [actionInfo actionFinishNumber];
+                    NSNumber *actionNumber = [actionInfo actionNumber];
+                    
+                    //获取行动项
+                    NSArray *userActionSubjects = [actionInfo userActionSubjects];
+                    NSArray *userActionTasks = [actionInfo userActionTasks];
+                    NSArray *userActionExperiences = [actionInfo userActionExperiences];
+                    
+                    [self.actionTableItems addObjectsFromArray:userActionSubjects];
+                    [self.actionTableItems addObjectsFromArray:userActionTasks];
+                    [self.actionTableItems addObjectsFromArray:userActionExperiences];
+                    
+                    
+                    
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [self.taskProgress setMaximumValue:[actionNumber floatValue]];
+                        [self.taskProgress setMinimumValue:0];
+                        [self.taskProgress setValue:[actionFinishNumber floatValue]];
+                        
+                        [self.actionTable reloadData];
+                        
+                        //重设列表高度
+                        self.actionTableHeight.constant = [self.actionTableItems count] * 370;
+                    });
+                }
+            }];
+        }
     }
-
 }
 
 #pragma mark 设置
@@ -340,7 +375,8 @@ bool isBubbleShowed = false;
         return veryGood;
     }
     
-    return nil;
+    UIImage *veryGood = [UIImage imageNamed:@"face_mark"];
+    return veryGood;
 }
 
 //为娃娃脸设置点击事件
@@ -460,6 +496,60 @@ bool isBubbleShowed = false;
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+//tableview
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.actionTableItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cellId";
+    //定义标志，保证仅为该表格注册一次单元格视图
+    static BOOL isRegist = NO;
+    if (!isRegist) {
+        UINib *nib = [UINib nibWithNibName:@"ActionCell" bundle:nil];
+        //注册单元格
+        [self.actionTable registerNib:nib forCellReuseIdentifier:cellId];
+        isRegist = YES;
+    }
+    
+    ActionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    id item = [self.actionTableItems objectAtIndex:indexPath.row];
+    
+    if ([item isKindOfClass:[ActionSubject class]]) {
+        ActionSubject *subject = item;
+        NSString *description = [subject subjectDescription];
+        if ([JerryTools stringIsNull:description]) {
+            description = @"无数据";
+        }
+        tableCell.brif.text = description;
+        
+    }else if ([item isKindOfClass:[ActionTask class]]){
+        ActionTask *task = item;
+        NSString *brif = [task taskDescription];
+        if ([JerryTools stringIsNull:brif]) {
+            brif = @"无数据";
+        }
+        tableCell.brif.text = brif;
+    }else if ([item isKindOfClass:[ActionExperience class]]){
+        ActionExperience *experience = item;
+        NSString *brif = [experience experienceName];
+        if ([JerryTools stringIsNull:brif]) {
+            brif = @"无数据";
+        }
+        tableCell.brif.text = brif;
+    }
+    
+    return tableCell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 370;
 }
 
 /*
