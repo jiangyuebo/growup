@@ -17,8 +17,8 @@
 #pragma mark 获取题目
 - (void)getTestSubjectByChildId:(NSNumber *)childId andAgeType:(NSString *)ageType andEvaluationType:(NSString *)evaluationType andSex:(NSNumber *)sex andCallback:(void (^)(NSDictionary *resultDic)) callback{
     
-    //user/evaluation/get/{childID}/{ageType}/{evaluationType}/{sex}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@/%@/%@",URL_REQUEST,URL_REQUEST_TEST_SUBJECT_LIST,childId,ageType,evaluationType,sex];
+    //https://api.growtree.cn:443/cb/api/v1/user/evaluation/get/D24B99?ageType=D07B01&sex=1
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@?ageType=%@&sex=%@",URL_REQUEST,URL_REQUEST_TEST_SUBJECT_LIST,evaluationType,ageType,sex];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -153,9 +153,18 @@
         if (data) {
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            callback(nil);
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            if (errorMessage) {
+                //错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                //解析
+                
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
         }
-        
+        callback(nil);
     }];
 }
 

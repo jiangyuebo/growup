@@ -30,7 +30,8 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSString *dateStr = [dateFormatter stringFromDate:birthday];
-    [childDic setObject:dateStr forKey:@"birthday"];
+    NSString *dateParam = [NSString stringWithFormat:@"%@T00:00:00",dateStr];
+    [childDic setObject:dateParam forKey:@"birthdayTS"];
     //性别
     NSNumber *sex = [settingDataDic objectForKey:COLUMN_SEX];
     [childDic setObject:sex forKey:@"sex"];

@@ -32,6 +32,10 @@
 
 @property (strong,nonatomic) NSString *avatorUrl;
 
+@property (strong,nonatomic) NSNumber *accompanyRate;
+
+@property (strong,nonatomic) NSNumber *accompanyTime;
+
 //使用者与孩子的关系
 @property (strong,nonatomic) NSString *educationRoleTypeKey;
 //教育类型

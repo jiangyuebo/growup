@@ -50,6 +50,15 @@
 		C48A89B91EB97FA40076D741 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B81EB97FA40076D741 /* TestModel.m */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
+		C4C8BB811EBCA986001D6B98 /* MainPageActionInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB801EBCA986001D6B98 /* MainPageActionInfoModel.m */; };
+		C4C8BB841EBCB39C001D6B98 /* ActionSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB831EBCB39C001D6B98 /* ActionSubject.m */; };
+		C4C8BB871EBCC970001D6B98 /* ActionExperience.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB861EBCC970001D6B98 /* ActionExperience.m */; };
+		C4C8BB8A1EBCD237001D6B98 /* ActionTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB891EBCD237001D6B98 /* ActionTask.m */; };
+		C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */; };
+		C4C8BB901EBCE9E9001D6B98 /* GrowupRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB8F1EBCE9E9001D6B98 /* GrowupRecordViewModel.m */; };
+		C4C8BB931EBCED4D001D6B98 /* ExperienceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB921EBCED4D001D6B98 /* ExperienceViewModel.m */; };
+		C4C8BB961EBD077C001D6B98 /* TrackUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB951EBD077C001D6B98 /* TrackUploadModel.m */; };
+		C4C8BB991EBD97B3001D6B98 /* ExperienceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */; };
 		C4E5333F1E79681B0041DDDA /* AbilityBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */; };
 		C4E533471E7AFC820041DDDA /* JerryAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533461E7AFC820041DDDA /* JerryAnimation.m */; };
 		C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533841E7FC9EF0041DDDA /* CZChangePasswordViewController.m */; };
@@ -145,6 +154,24 @@
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
 		C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JerryTools.m; sourceTree = "<group>"; };
+		C4C8BB7F1EBCA986001D6B98 /* MainPageActionInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageActionInfoModel.h; sourceTree = "<group>"; };
+		C4C8BB801EBCA986001D6B98 /* MainPageActionInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageActionInfoModel.m; sourceTree = "<group>"; };
+		C4C8BB821EBCB39C001D6B98 /* ActionSubject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSubject.h; sourceTree = "<group>"; };
+		C4C8BB831EBCB39C001D6B98 /* ActionSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSubject.m; sourceTree = "<group>"; };
+		C4C8BB851EBCC970001D6B98 /* ActionExperience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionExperience.h; sourceTree = "<group>"; };
+		C4C8BB861EBCC970001D6B98 /* ActionExperience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionExperience.m; sourceTree = "<group>"; };
+		C4C8BB881EBCD237001D6B98 /* ActionTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTask.h; sourceTree = "<group>"; };
+		C4C8BB891EBCD237001D6B98 /* ActionTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTask.m; sourceTree = "<group>"; };
+		C4C8BB8B1EBCE984001D6B98 /* CZGrowupRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZGrowupRecordViewController.h; sourceTree = "<group>"; };
+		C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZGrowupRecordViewController.m; sourceTree = "<group>"; };
+		C4C8BB8E1EBCE9E9001D6B98 /* GrowupRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowupRecordViewModel.h; sourceTree = "<group>"; };
+		C4C8BB8F1EBCE9E9001D6B98 /* GrowupRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowupRecordViewModel.m; sourceTree = "<group>"; };
+		C4C8BB911EBCED4D001D6B98 /* ExperienceViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceViewModel.h; sourceTree = "<group>"; };
+		C4C8BB921EBCED4D001D6B98 /* ExperienceViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceViewModel.m; sourceTree = "<group>"; };
+		C4C8BB941EBD077C001D6B98 /* TrackUploadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackUploadModel.h; sourceTree = "<group>"; };
+		C4C8BB951EBD077C001D6B98 /* TrackUploadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackUploadModel.m; sourceTree = "<group>"; };
+		C4C8BB971EBD97B3001D6B98 /* ExperienceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceModel.h; sourceTree = "<group>"; };
+		C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceModel.m; sourceTree = "<group>"; };
 		C4E5333D1E79681B0041DDDA /* AbilityBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityBeforeViewController.h; sourceTree = "<group>"; };
 		C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityBeforeViewController.m; sourceTree = "<group>"; };
 		C4E533451E7AFC820041DDDA /* JerryAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryAnimation.h; sourceTree = "<group>"; };
@@ -286,6 +313,10 @@
 		C43364AE1E82712100606538 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8BB8E1EBCE9E9001D6B98 /* GrowupRecordViewModel.h */,
+				C4C8BB8F1EBCE9E9001D6B98 /* GrowupRecordViewModel.m */,
+				C4C8BB941EBD077C001D6B98 /* TrackUploadModel.h */,
+				C4C8BB951EBD077C001D6B98 /* TrackUploadModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -295,6 +326,8 @@
 			children = (
 				C43364B11E82715B00606538 /* CZTrackUploadViewController.h */,
 				C43364B21E82715B00606538 /* CZTrackUploadViewController.m */,
+				C4C8BB8B1EBCE984001D6B98 /* CZGrowupRecordViewController.h */,
+				C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -437,6 +470,8 @@
 		C43BC6331E78535300468837 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8BB911EBCED4D001D6B98 /* ExperienceViewModel.h */,
+				C4C8BB921EBCED4D001D6B98 /* ExperienceViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -453,6 +488,8 @@
 		C43BC6351E78536000468837 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8BB971EBD97B3001D6B98 /* ExperienceModel.h */,
+				C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -579,6 +616,14 @@
 				C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */,
 				C48A89AC1EB3EA550076D741 /* AbilityModel.h */,
 				C48A89AD1EB3EA550076D741 /* AbilityModel.m */,
+				C4C8BB7F1EBCA986001D6B98 /* MainPageActionInfoModel.h */,
+				C4C8BB801EBCA986001D6B98 /* MainPageActionInfoModel.m */,
+				C4C8BB821EBCB39C001D6B98 /* ActionSubject.h */,
+				C4C8BB831EBCB39C001D6B98 /* ActionSubject.m */,
+				C4C8BB851EBCC970001D6B98 /* ActionExperience.h */,
+				C4C8BB861EBCC970001D6B98 /* ActionExperience.m */,
+				C4C8BB881EBCD237001D6B98 /* ActionTask.h */,
+				C4C8BB891EBCD237001D6B98 /* ActionTask.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -965,8 +1010,13 @@
 				C48824AE1E66D639005D8FED /* CZMemberCenterViewController.m in Sources */,
 				C48824F51E75C4D5005D8FED /* FastTestViewController.m in Sources */,
 				C41E7AA81E4647F80033D1AF /* JerryViewTools.m in Sources */,
+				C4C8BB961EBD077C001D6B98 /* TrackUploadModel.m in Sources */,
+				C4C8BB931EBCED4D001D6B98 /* ExperienceViewModel.m in Sources */,
 				C4E533A01E8116D30041DDDA /* CZNewsViewController.m in Sources */,
+				C4C8BB8A1EBCD237001D6B98 /* ActionTask.m in Sources */,
+				C4C8BB871EBCC970001D6B98 /* ActionExperience.m in Sources */,
 				C4E5338B1E7FDC9A0041DDDA /* CZGenderSettingViewController.m in Sources */,
+				C4C8BB841EBCB39C001D6B98 /* ActionSubject.m in Sources */,
 				C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */,
 				C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */,
 				C48A89A61EAF4D1F0076D741 /* CZForgotPasswordViewController.m in Sources */,
@@ -981,6 +1031,7 @@
 				C41E7A991E463AD50033D1AF /* MainPageViewController.m in Sources */,
 				C4E533881E7FD17A0041DDDA /* CZBirthdaySettingViewController.m in Sources */,
 				C48A89B91EB97FA40076D741 /* TestModel.m in Sources */,
+				C4C8BB991EBD97B3001D6B98 /* ExperienceModel.m in Sources */,
 				C48824DA1E6F105B005D8FED /* GameViewController.m in Sources */,
 				C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */,
 				C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */,
@@ -990,6 +1041,7 @@
 				C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */,
 				C41E7A801E462D560033D1AF /* main.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
+				C4C8BB811EBCA986001D6B98 /* MainPageActionInfoModel.m in Sources */,
 				C48A89AB1EB3ABA20076D741 /* PopInfoModel.m in Sources */,
 				C48824E51E7058F8005D8FED /* DetailReportViewController.m in Sources */,
 				C43BC62A1E784F5300468837 /* GamesViewController.m in Sources */,
@@ -1001,6 +1053,8 @@
 				C48824A01E65D55D005D8FED /* UIColor+NSString.m in Sources */,
 				C43BC6311E78523C00468837 /* LabViewController.m in Sources */,
 				C48824FC1E75C679005D8FED /* TodayTaskViewController.m in Sources */,
+				C4C8BB901EBCE9E9001D6B98 /* GrowupRecordViewModel.m in Sources */,
+				C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */,
 				C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */,
 				C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */,
 				C48824ED1E718D59005D8FED /* AbilityExplainViewController.m in Sources */,

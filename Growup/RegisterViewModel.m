@@ -17,35 +17,37 @@
 @implementation RegisterViewModel
 
 #pragma mark 获取验证码
-- (void)getVerifyCode:(NSString *) phoneNumber{
+- (void)getVerifyCode:(NSString *) phoneNumber andCallback:(void (^)(NSDictionary *result)) callback{
     
     if (phoneNumber) {
         NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
         
         BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
         [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+            
             if (data) {
+                
                 NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                 
-                NSString *resultVerifyCode = [jsonDic objectForKey:OBSERVE_KEY_VERIFYCODE];
+                NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
                 
-                if (resultVerifyCode) {
-                    self.verifyCode = resultVerifyCode;
+                if (errorMessage) {
+                    //有错误
+                    [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
                 }else{
-                    NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
-                    NSString *errorMsg = [jsonDic objectForKey:@"errorMsg"];
+                    NSString *resultVerifyCode = [jsonDic objectForKey:OBSERVE_KEY_VERIFYCODE];
                     
-                    NSLog(@"errorCode:%@ ,errorMsg:%@",errorCode,errorMsg);
+                    if (resultVerifyCode) {
+                        self.verifyCode = resultVerifyCode;
+                    }
                 }
-                
-                //expiredIn
-                //phoneNumber
-                //verifyCode
-                //verifyTypeKey
-                
             }else{
-                NSLog(@"返回值中 data 是空");
+                [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
             }
+            
+            callback(resultDic);
         }];
     }
 }

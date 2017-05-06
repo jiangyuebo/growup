@@ -22,7 +22,7 @@
 @property (strong,nonatomic) NSString *errorMessage;
 
 #pragma mark 获取验证码
-- (void)getVerifyCode:(NSString *) phoneNumber;
+- (void)getVerifyCode:(NSString *) phoneNumber andCallback:(void (^)(NSDictionary *result)) callback;
 
 #pragma mark 用户注册
 - (void)CZUserRegister:(NSString *) _phoneNumber andPassword:(NSString *) _password andVerifyCode:(NSString *) _verifyCode andCallback:(void (^)(NSDictionary * resultDic)) callback;

@@ -40,6 +40,6 @@
 - (void)queryActionListByAgeType:(NSString *)ageType andActionDate:(NSDate *) date andIsRefresh:(BOOL) isRefresh andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
 #pragma mark 提交行动项
-- (void)submitActionByParams:(NSDictionary *) params andCallback:(void (^)(NSDictionary * resultDic))callback;
+- (void)submitActionByUserActionID:(NSString *)userAction andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSString *)userActionExperienceID andUserActionTaskID:(NSString *)userActionTaskID andUserActionSubjectID:(NSString *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback;
 
 @end

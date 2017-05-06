@@ -96,7 +96,19 @@
 - (IBAction)getVerifyCode:(UIButton *)sender {
     NSString *phoneNumberText = self.registerPhoneNumber.text;
     
-    [self.viewModel getVerifyCode:phoneNumberText];
+    [self.viewModel getVerifyCode:phoneNumberText andCallback:^(NSDictionary *resultDic) {
+        
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                [self clickPageView];
+                
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }
+    }];
     
 }
 

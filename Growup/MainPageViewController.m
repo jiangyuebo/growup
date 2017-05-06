@@ -17,6 +17,7 @@
 #import "KidInfoModel.h"
 #import "AbilityModel.h"
 #import "PopInfoModel.h"
+#import "MainPageActionInfoModel.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -117,8 +118,9 @@ bool isBubbleShowed = false;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self hideNavigationBar];
-    
     [self mainPageUpdage];
+    
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)initView{
@@ -146,6 +148,7 @@ bool isBubbleShowed = false;
     [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
 
     self.btnReport.titleLabel.text = @"test";
+
 }
 
 - (void)hideNavigationBar{
@@ -249,6 +252,7 @@ bool isBubbleShowed = false;
         [self.viewModel queryChildStatusInfoByChildId:kidModel.childID andAgeType:kidModel.ageTypeKey andCallback:^(NSDictionary *resultDic) {
             NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
             if (errorMessage) {
+                //error
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                 });
@@ -276,9 +280,27 @@ bool isBubbleShowed = false;
         
         
         //获取行动项
-//        [self.viewModel queryActionListByAgeType:kidModel.ageTypeKey andActionDate:[NSDate date] andIsRefresh:NO andCallback:^(NSDictionary *resultDic) {
-//            NSLog(@"its back");
-//        }];
+        [self.viewModel queryActionListByAgeType:kidModel.ageTypeKey andActionDate:[NSDate date] andIsRefresh:NO andCallback:^(NSDictionary *resultDic) {
+            
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                MainPageActionInfoModel *actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
+                //获取行动项个数及完成数
+                NSNumber *actionFinishNumber = [actionInfo actionFinishNumber];
+                NSNumber *actionNumber = [actionInfo actionNumber];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self.taskProgress setMaximumValue:[actionNumber floatValue]];
+                    [self.taskProgress setMinimumValue:0];
+                    [self.taskProgress setValue:[actionFinishNumber floatValue]];
+                });
+            }
+        }];
     }
 
 }
@@ -377,13 +399,16 @@ bool isBubbleShowed = false;
 }
 
 - (void)orangeBabyClicked{
-    if (!isBubbleShowed) {
-        [JerryAnimation shakeToShow:self.orangeBaby];
-        //弹出一句话
-        [self showBubble];
-        //3秒后消失
-        [self performSelector:@selector(hideBubble) withObject:nil afterDelay:3.0];
-        
+    //如果气泡无内容，则不进行动作
+    if ([self.popArray count] > 0) {
+        if (!isBubbleShowed) {
+            [JerryAnimation shakeToShow:self.orangeBaby];
+            //弹出一句话
+            [self showBubble];
+            //3秒后消失
+            [self performSelector:@selector(hideBubble) withObject:nil afterDelay:3.0];
+            
+        }
     }
 }
 

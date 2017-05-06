@@ -68,10 +68,9 @@
                     [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                 });
             }else{
-                //path
-                NSString *path = [resultDic objectForKey:RESULT_KEY_JUMP_PATH];
+                //返回首页
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [JerryViewTools jumpFrom:self ToViewController:path];
+                    [self.navigationController popViewControllerAnimated:YES];
                 });
             }
         }];

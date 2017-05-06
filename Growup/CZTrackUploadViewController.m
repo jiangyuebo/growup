@@ -7,8 +7,19 @@
 //
 
 #import "CZTrackUploadViewController.h"
+#import "globalHeader.h"
+#import "TrackUploadModel.h"
+#import "JerryTools.h"
 
 @interface CZTrackUploadViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextView *uploadText;
+
+@property (strong, nonatomic) IBOutlet UILabel *locationText;
+
+@property (strong, nonatomic) IBOutlet UILabel *authorityText;
+
+@property (strong,nonatomic) TrackUploadModel *viewModel;
 
 @end
 
@@ -20,7 +31,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initData];
+    
+    [self initView];
+}
+
+- (void)initView{
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    self.uploadText.contentOffset = CGPointMake(0, -64);
+    
+    //添加发送按钮
+    UIBarButtonItem *sendRecord = [[UIBarButtonItem alloc]
+                                initWithTitle:@"发送"
+                                style:UIBarButtonItemStylePlain
+                                target:self
+                                action:@selector(sendRecord)];
+    
+    self.navigationItem.rightBarButtonItem = sendRecord;
+}
+
+- (void)sendRecord{
+    //检查内容是否为空
+    NSString *contentStr = self.uploadText.text;
+    
+    if ([JerryTools stringIsNull:contentStr]) {
+        
+    }else{
+        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
+        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
+        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
+        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
+        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
+        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
+        
+        //详细，照片
+        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
+            
+        }];
+    }
+}
+
+- (void)initData{
+    self.viewModel = [[TrackUploadModel alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {

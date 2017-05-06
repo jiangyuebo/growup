@@ -104,6 +104,12 @@
                         NSString *educationTypeKey = [childModeInfo objectForKey:@"educationTypeKey"];
                         [kidInfoMode setEducationTypeKey:educationTypeKey];
                         
+                        NSNumber *accompanyRate = [childModeInfo objectForKey:@"accompanyRate"];
+                        [kidInfoMode setAccompanyRate:accompanyRate];
+                        
+                        NSNumber *accompanyTime = [childModeInfo objectForKey:@"accompanyTime"];
+                        [kidInfoMode setAccompanyTime:accompanyTime];
+                        
                         NSDictionary *childInfo = [childModeInfo objectForKey:@"child"];
                         
                         NSNumber *childId = [childInfo objectForKey:@"childID"];

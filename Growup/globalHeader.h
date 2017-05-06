@@ -68,8 +68,20 @@
 #define URL_REQUEST_TEST_SUBJECT_LIST @"user/evaluation/get"
 //提交答案
 #define URL_REQUEST_SEND_ANWSER @"user/evaluation/submit"
+//提交行动结果
+#define URL_REQUEST_SUBMIT_ACTION @"user/action/submit"
 //获取题目列表
 #define URL_REQUEST_GET_ACTION_LIST @"user/action/getAll"
+//获取体验内容列表
+#define URL_REQUEST_GET_EXPERIENCE_LIST @"experience/getAll"
+//获取体验内容明细
+#define URL_REQUEST_GET_EXPERIENCE_DETAIL @"experience/get"
+//获取成长记列表
+#define URL_REQUEST_GET_GROWUP_RECORD @"record/getAll"
+//获取橙长记详细
+#define URL_RECORD_DETAIL @"record/get"
+//上传成长记
+#define URL_RECORD_UPLOAD @"record/add"
 
 //******total key
 #define RESULT_KEY_JUMP_PATH @"jumpPath"
@@ -83,6 +95,20 @@
 #define VALUE_VERYGOOD @"D18B01"
 #define VALUE_GOOD @"D18B02"
 #define VALUE_NORMAL @"D18B03"
+//体验
+#define EXPERIENCE_GAME @"D26B01" //互动游戏
+#define EXPERIENCE_SCIENCE @"D26B02" //科学实验
+#define EXPERIENCE_SONG @"D26B04" //互动儿歌
+#define EXPERIENCE_STORY @"D26B05" //互动故事
+#define EXPERIENCE_SCHOOL @"D26B09" //幼升小
+//橙长记
+#define GROWUP_INITIATIVE @"D31B01" //主动
+#define GROWUP_QUOTE @"D31B02" //主动
+#define GROWUP_RECORD_FREEDOM @"D34B01" //自由
+#define GROWUP_RECORD_PUBLIC_ALL @"D32B01" //完全公开
+#define GROWUP_RECORD_PUBLIC_FRIEND @"D32B02" //好友公开
+#define GROWUP_RECORD_PUBLIC_PRIVITE @"D32B03"//隐私
+#define GROWUP_RECORD_PUBLIC_TYPE_PUBLIC @"D33B02"//发布
 
 //person center
 #define TOKEN @"token"

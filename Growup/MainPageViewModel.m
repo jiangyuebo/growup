@@ -11,6 +11,10 @@
 #import "BMRequestHelper.h"
 #import "PopInfoModel.h"
 #import "AbilityModel.h"
+#import "MainPageActionInfoModel.h"
+#import "ActionSubject.h"
+#import "ActionExperience.h"
+#import "ActionTask.h"
 
 @implementation MainPageViewModel
 
@@ -19,8 +23,8 @@
 #pragma mark 根据id获取气泡信息
 - (void)queryOrangePopInfoById:(NSNumber *) childId andDynamicId:(NSNumber *) dynamicId andCallBack:(void(^)(NSDictionary * resultDic)) callback{
     
-    //getDynamic?childID={childID}&dynamicID={dynamicID}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@?childID=%@&dynamicID=%@",URL_REQUEST,URL_REQUEST_POP_GET_DYNAMIC,childId,dynamicId];
+    //getDynamic?dynamicID={dynamicID}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?dynamicID=%@",URL_REQUEST,URL_REQUEST_POP_GET_DYNAMIC,dynamicId];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -71,10 +75,10 @@
                     NSNumber *correctAnswerValue = [infoDic objectForKey:@"correctAnswerValue"];
                     [popInfo setCorrectAnswerValue:correctAnswerValue];
                     
-                    NSString *infoDescription = [infoDic objectForKey:@"infoDescription"];
+                    NSString *infoDescription = [infoDic objectForKey:@"dynamicDescription"];
                     [popInfo setInfoDescription:infoDescription];
                     
-                    NSString *infoName = [infoDic objectForKey:@"infoName"];
+                    NSString *infoName = [infoDic objectForKey:@"dynamicName"];
                     [popInfo setInfoName:infoName];
                     
                     NSString *logoResourceTypeKey = [infoDic objectForKey:@"logoResourceTypeKey"];
@@ -107,8 +111,8 @@
 #pragma mark 获取橙娃能力动态
 - (void)queryChildStatusInfoByChildId:(NSNumber *) childId andAgeType:(NSString *) ageType andCallback:(void (^)(NSDictionary * resultDic)) callback{
     
-    //ability/getResult/{childID}/{ageType}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@",URL_REQUEST,URL_REQUEST_CHILD_STATUS_INFO,childId,ageType];
+    //ability/getResult/{ageType}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@",URL_REQUEST,URL_REQUEST_CHILD_STATUS_INFO,ageType];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -178,21 +182,236 @@
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
         
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
         if (data) {
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            NSString *errorCode = [jsonDic objectForKey:@"errorCode"];
             NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
             
+            if (errorMessage) {
+                //有错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                //解析数据
+                MainPageActionInfoModel *mainPageActionInfoModel = [[MainPageActionInfoModel alloc] init];
+                
+                //总体参数
+                NSNumber *actionFinishNumber = [jsonDic objectForKey:@"actionFinishNumber"];
+                [mainPageActionInfoModel setActionFinishNumber:actionFinishNumber];
+                
+                NSNumber *actionNumber = [jsonDic objectForKey:@"actionNumber"];
+                [mainPageActionInfoModel setActionNumber:actionNumber];
+                
+                NSDate *actionTS = [jsonDic objectForKey:@"actionTS"];
+                [mainPageActionInfoModel setActionTS:actionTS];
+                
+                NSNumber *childID = [jsonDic objectForKey:@"childID"];
+                [mainPageActionInfoModel setChildID:childID];
+                
+                BOOL isFinish = [jsonDic objectForKey:@"isFinish"];
+                [mainPageActionInfoModel setIsFinish:isFinish];
+                
+                NSNumber *userActionID = [jsonDic objectForKey:@"userActionID"];
+                [mainPageActionInfoModel setUserActionID:userActionID];
+                
+                //userActionSubjects
+                NSArray *userActionSubjects = [jsonDic objectForKey:@"userActionSubjects"];
+                NSMutableArray *userActionSubjectReturnArray = [[NSMutableArray alloc] init];
+                
+                
+                for (int i = 0; i < [userActionSubjects count]; i++) {
+                    ActionSubject *actionSubject = [[ActionSubject alloc] init];
+                    
+                    NSDictionary *userActionSubject = userActionSubjects[i];
+                    BOOL isAction = [userActionSubject objectForKey:@"isAction"];
+                    [actionSubject setIsAction:isAction];
+                    
+                    NSString *actionStatusTypeKey = [userActionSubject objectForKey:@"actionStatusTypeKey"];
+                    [actionSubject setActionStatusTypeKey:actionStatusTypeKey];
+                    
+                    NSDate *actionTS = [userActionSubject objectForKey:@"actionTS"];
+                    [actionSubject setActionTS:actionTS];
+                    
+                    NSDictionary *subject = [userActionSubject objectForKey:@"subject"];
+                    NSString *contentResourceTypeKey = [subject objectForKey:@"contentResourceTypeKey"];
+                    [actionSubject setContentResourceTypeKey:contentResourceTypeKey];
+                    
+                    NSString *contentResourceUrl = [subject objectForKey:@"contentResourceUrl"];
+                    [actionSubject setContentResourceUrl:contentResourceUrl];
+                    
+                    NSString *logoResourceTypeKey = [subject objectForKey:@"logoResourceTypeKey"];
+                    [actionSubject setLogoResourceTypeKey:logoResourceTypeKey];
+                    
+                    NSString *logoResourceUrl = [subject objectForKey:@"logoResourceUrl"];
+                    [actionSubject setLogoResourceUrl:logoResourceUrl];
+                    
+                    NSString *subjectDescription = [subject objectForKey:@"subjectDescription"];
+                    [actionSubject setSubjectDescription:subjectDescription];
+                    
+                    NSNumber *subjectID = [subject objectForKey:@"subjectID"];
+                    [actionSubject setSubjectID:subjectID];
+                    
+                    NSString *subjectName = [subject objectForKey:@"subjectName"];
+                    [actionSubject setSubjectName:subjectName];
+                    
+                    NSString *subjectNum = [subject objectForKey:@"subjectNum"];
+                    [actionSubject setSubjectNum:subjectNum];
+                    
+                    NSString *subjectOptionTypeKey = [subject objectForKey:@"subjectOptionTypeKey"];
+                    [actionSubject setSubjectOptionTypeKey:subjectOptionTypeKey];
+                    
+                    NSString *subjectTypeKey = [subject objectForKey:@"subjectTypeKey"];
+                    [actionSubject setSubjectTypeKey:subjectTypeKey];
+                    
+                    NSString *subjectUseTypeKey = [subject objectForKey:@"subjectUseTypeKey"];
+                    [actionSubject setSubjectUseTypeKey:subjectUseTypeKey];
+                    
+                    [userActionSubjectReturnArray addObject:actionSubject];
+                }
+                [mainPageActionInfoModel setUserActionSubjects:userActionSubjectReturnArray];
+                
+                //userActionExperiences
+                NSArray *userActionExperiences = [jsonDic objectForKey:@"userActionExperiences"];
+                NSMutableArray *userActionExperiencesReturnArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < [userActionExperiences count]; i++) {
+                    ActionExperience *actionExperience = [[ActionExperience alloc] init];
+                    
+                    NSDictionary *userActionExperience = userActionExperiences[i];
+                    
+                    NSString *actionStatusTypeKey = [userActionExperience objectForKey:@"actionStatusTypeKey"];
+                    [actionExperience setActionStatusTypeKey:actionStatusTypeKey];
+                    
+                    NSDate *actionTS = [userActionExperience objectForKey:@"actionTS"];
+                    [actionExperience setActionTS:actionTS];
+                    
+                    BOOL isAction = [userActionExperience objectForKey:@"isAction"];
+                    [actionExperience setIsAction:isAction];
+                    
+                    NSDictionary *experience = [userActionExperience objectForKey:@"experience"];
+                    NSString *contentResourceUrl = [experience objectForKey:@"contentResourceUrl"];
+                    [actionExperience setContentResourceUrl:contentResourceUrl];
+                    
+                    NSNumber *experienceID = [experience objectForKey:@"experienceID"];
+                    [actionExperience setExperienceID:experienceID];
+                    
+                    NSString *experienceName = [experience objectForKey:@"experienceName"];
+                    [actionExperience setExperienceName:experienceName];
+                    
+                    NSString *experienceTypeKey = [experience objectForKey:@"experienceTypeKey"];
+                    [actionExperience setExperienceTypeKey:experienceTypeKey];
+                    
+                    NSString *logoResourceTypeKey = [experience objectForKey:@"logoResourceTypeKey"];
+                    [actionExperience setLogoResourceTypeKey:logoResourceTypeKey];
+                    
+                    NSString *logoResourceUrl = [experience objectForKey:@"logoResourceUrl"];
+                    [actionExperience setLogoResourceUrl:logoResourceUrl];
+                    
+                    [userActionExperiencesReturnArray addObject:actionExperience];
+                }
+                [mainPageActionInfoModel setUserActionExperiences:userActionExperiencesReturnArray];
+                
+                //userActionTasks
+                NSArray *userActionTasks = [jsonDic objectForKey:@"userActionTasks"];
+                NSMutableArray *userActionTasksReturnArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < [userActionTasks count]; i++) {
+                    ActionTask *actionTask = [[ActionTask alloc] init];
+                    
+                    NSDictionary *userActionTask = userActionTasks[i];
+                    
+                    NSString *actionStatusTypeKey = [userActionTask objectForKey:@"actionStatusTypeKey"];
+                    [actionTask setActionStatusTypeKey:actionStatusTypeKey];
+                    
+                    NSDate *actionTS = [userActionTask objectForKey:@"actionTS"];
+                    [actionTask setActionTS:actionTS];
+                    
+                    BOOL isAction = [userActionTask objectForKey:@"isAction"];
+                    [actionTask setIsAction:isAction];
+                    
+                    //task
+                    NSDictionary *task = [userActionTask objectForKey:@"task"];
+                    
+                    NSString *contentResourceTypeKey = [task objectForKey:@"contentResourceTypeKey"];
+                    [actionTask setContentResourceTypeKey:contentResourceTypeKey];
+                    
+                    NSString *contentResourceUrl = [task objectForKey:@"contentResourceUrl"];
+                    [actionTask setContentResourceUrl:contentResourceUrl];
+                    
+                    NSString *logoResourceTypeKey = [task objectForKey:@"logoResourceTypeKey"];
+                    [actionTask setLogoResourceTypeKey:logoResourceTypeKey];
+                    
+                    NSString *logoResourceUrl = [task objectForKey:@"logoResourceUrl"];
+                    [actionTask setLogoResourceUrl:logoResourceUrl];
+                    
+                    NSString *taskActionDescription = [task objectForKey:@"taskActionDescription"];
+                    [actionTask setTaskActionDescription:taskActionDescription];
+                    
+                    NSString *taskActionTypeKey = [task objectForKey:@"taskActionTypeKey"];
+                    [actionTask setTaskActionTypeKey:taskActionTypeKey];
+                    
+                    NSString *taskDescription = [task objectForKey:@"taskDescription"];
+                    [actionTask setTaskDescription:taskDescription];
+                    
+                    NSNumber *taskID = [task objectForKey:@"taskID"];
+                    [actionTask setTaskID:taskID];
+                    
+                    NSString *taskName = [task objectForKey:@"taskName"];
+                    [actionTask setTaskName:taskName];
+                    
+                    NSString *taskTypeKey = [task objectForKey:@"taskTypeKey"];
+                    [actionTask setTaskTypeKey:taskTypeKey];
+                    
+                    NSString *taskUseTypeKey = [task objectForKey:@"taskUseTypeKey"];
+                    [actionTask setTaskUseTypeKey:taskUseTypeKey];
+                    
+                    [userActionTasksReturnArray addObject:actionTask];
+                }
+                [mainPageActionInfoModel setUserActionTasks:userActionTasksReturnArray];
+                
+                [resultDic setObject:mainPageActionInfoModel forKey:RESULT_KEY_DATA];
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
         }
+        
+        callback(resultDic);
         
     }];
 }
 
 #pragma mark 提交行动项
-- (void)submitActionByParams:(NSDictionary *) params andCallback:(void (^)(NSDictionary * resultDic))callback{
+- (void)submitActionByUserActionID:(NSString *)userActionID andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSString *)userActionExperienceID andUserActionTaskID:(NSString *)userActionTaskID andUserActionSubjectID:(NSString *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback{
     
+    //api/v1/user/action/submit/{userActionID}/{optionResultType}?userActionExperienceID={userActionExperienceID}&userActionTaskID={userActionTaskID}&userActionSubjectID={userActionSubjectID}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@?userActionExperienceID=%@&userActionTaskID=%@&userActionSubjectID=%@",URL_REQUEST,URL_REQUEST_SUBMIT_ACTION,userActionID,optionResultType,userActionExperienceID,userActionTaskID,userActionSubjectID];
     
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
+        if (data) {
+            
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            
+            if (errorMessage) {
+                //有错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+            
+        }
+        
+        callback(resultDic);
+        
+    }];
 }
 
 @end
