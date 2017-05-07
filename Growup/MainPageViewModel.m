@@ -151,7 +151,7 @@
             NSString *indexSociologyStatusTypeKey = [jsonDic objectForKey:@"indexSociologyStatusTypeKey"];
             [abilityModel setIndexSociologyStatusTypeKey:indexSociologyStatusTypeKey];
             
-            BOOL isAbilityExpired = [jsonDic objectForKey:@"isAbilityExpired"];
+            BOOL isAbilityExpired = [[jsonDic objectForKey:@"isAbilityExpired"] boolValue];
             [abilityModel setIsAbilityExpired:isAbilityExpired];
             
             NSNumber *userAbilityID = [jsonDic objectForKey:@"userAbilityID"];
@@ -209,7 +209,7 @@
                 NSNumber *childID = [jsonDic objectForKey:@"childID"];
                 [mainPageActionInfoModel setChildID:childID];
                 
-                BOOL isFinish = [jsonDic objectForKey:@"isFinish"];
+                BOOL isFinish = [[jsonDic objectForKey:@"isFinish"] boolValue];
                 [mainPageActionInfoModel setIsFinish:isFinish];
                 
                 NSNumber *userActionID = [jsonDic objectForKey:@"userActionID"];
@@ -224,7 +224,7 @@
                     ActionSubject *actionSubject = [[ActionSubject alloc] init];
                     
                     NSDictionary *userActionSubject = userActionSubjects[i];
-                    BOOL isAction = [userActionSubject objectForKey:@"isAction"];
+                    BOOL isAction = [[userActionSubject objectForKey:@"isAction"] boolValue];
                     [actionSubject setIsAction:isAction];
                     
                     NSString *actionStatusTypeKey = [userActionSubject objectForKey:@"actionStatusTypeKey"];
@@ -286,7 +286,7 @@
                     NSDate *actionTS = [userActionExperience objectForKey:@"actionTS"];
                     [actionExperience setActionTS:actionTS];
                     
-                    BOOL isAction = [userActionExperience objectForKey:@"isAction"];
+                    BOOL isAction = [[userActionExperience objectForKey:@"isAction"] boolValue];
                     [actionExperience setIsAction:isAction];
                     
                     NSDictionary *experience = [userActionExperience objectForKey:@"experience"];
@@ -327,7 +327,7 @@
                     NSDate *actionTS = [userActionTask objectForKey:@"actionTS"];
                     [actionTask setActionTS:actionTS];
                     
-                    BOOL isAction = [userActionTask objectForKey:@"isAction"];
+                    BOOL isAction = [[userActionTask objectForKey:@"isAction"] boolValue];
                     [actionTask setIsAction:isAction];
                     
                     //task

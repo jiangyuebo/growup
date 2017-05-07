@@ -125,7 +125,7 @@ int currentSubjectIndex = 0;
     
     NSUInteger totalCount = [self.subjectsArray count];
     
-    NSString *countStr = [NSString stringWithFormat:@"%d/%ld",(subjectIndex + 1),totalCount];
+    NSString *countStr = [NSString stringWithFormat:@"%d/%ld",(subjectIndex + 1),(unsigned long)totalCount];
     self.count.text = countStr;
     
     TestSubjectModel *testSubjectModel = [self.subjectsArray objectAtIndex:subjectIndex];
