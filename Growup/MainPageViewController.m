@@ -88,8 +88,17 @@ bool isClick = true;
 bool isBubbleShowed = false;
 
 - (IBAction)avatarClicked:(UIButton *)sender {
-    //跳转到登录界面
-    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameLoginViewController];
+    //判断当前是否有用户数据
+    UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+    
+    if ([currentUser userID]) {
+        //有用户
+        
+    }else{
+        //无用户
+        //跳转到登录界面
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameLoginViewController];
+    }
 }
 
 - (IBAction)changeDemo:(UIButton *)sender {
@@ -129,6 +138,7 @@ bool isBubbleShowed = false;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self hideNavigationBar];
+    
     [self mainPageUpdage];
     
     self.tabBarController.tabBar.hidden = NO;
@@ -174,9 +184,6 @@ bool isBubbleShowed = false;
     //创建气泡信息
     self.popArray = [[NSMutableArray alloc] init];
     
-    //绑定VIEW与MODEL
-    [self modelBinding];
-    
     self.actionTableItems = [[NSMutableArray alloc] init];
     self.actionTable.dataSource = self;
     self.actionTable.delegate = self;
@@ -184,6 +191,7 @@ bool isBubbleShowed = false;
     self.actionTable.separatorStyle = NO;
     self.actionTable.scrollEnabled = NO;
     self.actionTable.allowsSelection = NO;
+
 }
 
 - (void)mainPageUpdage{
@@ -217,29 +225,54 @@ bool isBubbleShowed = false;
             }
             self.avatarLabel.text = birthdayStr;
             
+            //设置头像不可点
+            
+            
             [self fetchDataFromServer];
+        }else{
+            //有用户数据但无孩子数据，弹出添加孩子信息界面 IdentifyNameBirthdaySettingViewController
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameBirthdaySettingViewController];
         }
     }else{
         //无数据，显示未登录状态UI
         //判断是否满足免登条件
-        if ([JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN]) {
+        NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
+        if (accessToken) {
             //有access token,发起请求
-            
+            [self.viewModel getUserInfoByAccesstoken:accessToken andCallback:^(NSDictionary *resultDic) {
+                NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+                if (errorMessage) {
+                    //error
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                    });
+                }else{
+                    NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+                    if ([result isEqualToString:@"success"]) {
+                        //数据加载完成
+                        [self fetchDataFromServer];
+                    }
+                }
+            }];
         }else{
             //无access token
+            NSLog(@"无数据");
+            self.avatarLabel.text = @"登录";
+            
+            //设置娃娃头为默认图片
+            UIImage *defaultImage = [UIImage imageNamed:@"face_mark"];
+            
+            [self.imageFaceHealth setImage:defaultImage];
+            [self.imageFaceSociety setImage:defaultImage];
+            [self.imageFaceLanguage setImage:defaultImage];
+            [self.imageFaceScience setImage:defaultImage];
+            [self.imageFaceArt setImage:defaultImage];
+            
+            //设置行动项列表不显示
+            self.actionTableHeight.constant = 0;
+            //设置行动完成进度条
+            [self.taskProgress setValue:0];
         }
-        
-        NSLog(@"无数据");
-        self.avatarLabel.text = @"登录";
-        
-        //设置娃娃头为默认图片
-        UIImage *defaultImage = [UIImage imageNamed:@"face_mark"];
-        
-        [self.imageFaceHealth setImage:defaultImage];
-        [self.imageFaceSociety setImage:defaultImage];
-        [self.imageFaceLanguage setImage:defaultImage];
-        [self.imageFaceScience setImage:defaultImage];
-        [self.imageFaceArt setImage:defaultImage];
     }
 
 }
@@ -484,11 +517,6 @@ bool isBubbleShowed = false;
     view.layer.masksToBounds = YES;
 }
 
-//绑定VIEW与MODEL
-- (void)modelBinding{
-//    [self.viewModel addObserver:self forKeyPath:@"userId" options:NSKeyValueObservingOptionNew context:nil];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -522,26 +550,26 @@ bool isBubbleShowed = false;
     
     if ([item isKindOfClass:[ActionSubject class]]) {
         ActionSubject *subject = item;
-        NSString *description = [subject subjectDescription];
-        if ([JerryTools stringIsNull:description]) {
-            description = @"无数据";
+        NSString *subjectName = [subject subjectName];
+        if ([JerryTools stringIsNull:subjectName]) {
+            subjectName = @"无数据";
         }
-        tableCell.brif.text = description;
+        tableCell.brif.text = subjectName;
         
     }else if ([item isKindOfClass:[ActionTask class]]){
         ActionTask *task = item;
-        NSString *brif = [task taskDescription];
-        if ([JerryTools stringIsNull:brif]) {
-            brif = @"无数据";
+        NSString *taskName = [task taskName];
+        if ([JerryTools stringIsNull:taskName]) {
+            taskName = @"无数据";
         }
-        tableCell.brif.text = brif;
+        tableCell.brif.text = taskName;
     }else if ([item isKindOfClass:[ActionExperience class]]){
         ActionExperience *experience = item;
-        NSString *brif = [experience experienceName];
-        if ([JerryTools stringIsNull:brif]) {
-            brif = @"无数据";
+        NSString *experienceName = [experience experienceName];
+        if ([JerryTools stringIsNull:experienceName]) {
+            experienceName = @"无数据";
         }
-        tableCell.brif.text = brif;
+        tableCell.brif.text = experienceName;
     }
     
     return tableCell;

@@ -17,10 +17,10 @@
 @implementation RegisterViewModel
 
 #pragma mark 获取验证码
-- (void)getVerifyCode:(NSString *) phoneNumber andCallback:(void (^)(NSDictionary *result)) callback{
+- (void)getVerifyCode:(NSString *) phoneNumber andVerifyCodeType:(NSString *)verifyCodeType andCallback:(void (^)(NSDictionary *result)) callback{
     
     if (phoneNumber) {
-        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/D02B01",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber];
+        NSString *url_request = [NSString stringWithFormat:@"%@%@%@/%@",URL_REQUEST,URL_REQUEST_SESSION_GET_VERIFYCODE,phoneNumber,verifyCodeType];
         
         BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
         [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -41,6 +41,7 @@
                     
                     if (resultVerifyCode) {
                         self.verifyCode = resultVerifyCode;
+                        [resultDic setObject:resultVerifyCode forKey:RESULT_KEY_DATA];
                     }
                 }
             }else{
@@ -137,6 +138,46 @@
                 callback(resultDic);
             }
         }
+    }];
+}
+
+#pragma mark 使用手机号 + 验证码 登录
+- (void)getUserInfoByVerifyCode:(NSString *) verifyCode andPhoneNumber:(NSString *) phoneNumber andVerifyCodeType:(NSString *) verifyCodeType andCallback:(void (^)(NSDictionary *resultDic)) callback{
+    
+    //请求地址
+    NSString *url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_SESSION_PASSWORD_RESET];
+    
+    //请求报文
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:phoneNumber forKey:@"phoneNumber"];
+    [params setObject:verifyCode forKey:@"verifyCode"];
+    [params setObject:verifyCodeType forKey:@"verifyTypeKey"];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper postRequestAsynchronousToUrl:url_request byParamsDic:params needAccessToken:NO andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
+        if (data) {
+            
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            
+            if (errorMessage) {
+                //有错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                
+                
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+            
+        }
+        
+        callback(resultDic);
+        
     }];
 }
 

@@ -58,10 +58,18 @@
 #define URL_REQUEST_SESSION_REGISTER @"session/register"
 //用户登录
 #define URL_REQUEST_SESSION_LOGIN @"session/login/password"
+//通过验证码登录
+#define URL_REQUEST_SESSION_LOGIN_VERIFY_CODE @"session/login/verifyCode"
+//忘记密码
+#define URL_REQUEST_SESSION_PASSWORD_RESET @"session/password/reset"
+//通过accesstoken重置密码
+#define URL_REQUEST_SESSION_PASSWORD_RESET_BY_TOKEN @"session/password/resetByAccessToken"
 //孩子数据注册
 #define URL_REQUEST_CHILD_SETTING @"child/add"
 //根据橙娃ID获取气泡信息
 #define URL_REQUEST_POP_GET_DYNAMIC @"child/getDynamic"
+//通过access-token获取用户信息
+#define URL_REQUEST_GET_USER_INFO @"user/get"
 //获取橙娃能力动态
 #define URL_REQUEST_CHILD_STATUS_INFO @"user/ability/getResult"
 //获取题目
@@ -91,6 +99,12 @@
 
 #define OBSERVE_KEY_ERROR_MESSAGE @"errorMessage"
 
+//注册
+//验证码
+#define VERIFY_CODE_REGISTER @"D02B01"//注册
+#define VERIFY_CODE_FORGET_PASSWORD @"D02B02"//忘记密码
+#define VERIFY_CODE_CHANGE_PASSWORD @"D02B03"//修改密码
+#define VERIFY_CODE_VERIFY_CODE_LOGIN @"D02B04"//验证码登录
 //主页
 #define VALUE_VERYGOOD @"D18B01"
 #define VALUE_GOOD @"D18B02"

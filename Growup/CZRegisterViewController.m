@@ -96,7 +96,17 @@
 - (IBAction)getVerifyCode:(UIButton *)sender {
     NSString *phoneNumberText = self.registerPhoneNumber.text;
     
-    [self.viewModel getVerifyCode:phoneNumberText andCallback:^(NSDictionary *resultDic) {
+    if ([JerryTools stringIsNull:phoneNumberText]) {
+        //账号为空
+        [JerryAnimation shakeToShow:self.registerPhoneNumber];
+        //收起键盘
+        [self clickPageView];
+        //显示Toast
+        [JerryViewTools showCZToastInViewController:self andText:@"请输入注册手机号"];
+        return;
+    }
+    
+    [self.viewModel getVerifyCode:phoneNumberText andVerifyCodeType:VERIFY_CODE_REGISTER andCallback:^(NSDictionary *resultDic) {
         
         NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
         if (errorMessage) {

@@ -40,7 +40,7 @@
     [viewModel setChildSetting:self.passDataDic andJumpTo:^(NSString *address) {
         //回弹到首页
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [JerryViewTools jumpFrom:self ToViewController:address];
+            [[self navigationController] popToRootViewControllerAnimated:YES];
         });
     }];
 }

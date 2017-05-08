@@ -14,6 +14,9 @@
 #pragma mark 获取设备device ID
 + (NSString *) getCZDeviceId;
 
+#pragma mark 设置全局用户数据
++ (void) setUserInfoModel:(id)userInfoMode;
+
 #pragma mark 获取全局用户数据
 + (UserInfoModel *) getUserInfoModel;
 

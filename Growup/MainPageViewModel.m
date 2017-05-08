@@ -15,6 +15,8 @@
 #import "ActionSubject.h"
 #import "ActionExperience.h"
 #import "ActionTask.h"
+#import "JerryTools.h"
+#import "KidInfoModel.h"
 
 @implementation MainPageViewModel
 
@@ -411,6 +413,129 @@
         
         callback(resultDic);
         
+    }];
+}
+
+#pragma mark 根据access-token获取用户及孩子信息
+- (void)getUserInfoByAccesstoken:(NSString *) accesstoken andCallback:(void (^)(NSDictionary *resultDic)) callback{
+    
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?accessToken=%@",URL_REQUEST,URL_REQUEST_GET_USER_INFO,accesstoken];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
+        if (data) {
+            
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            
+            if (errorMessage) {
+                //有错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                //全局用户数据
+                UserInfoModel *userInfo = [JerryTools getUserInfoModel];
+                if (userInfo) {
+                    //
+                    NSLog(@"globle userInfo ok");
+                }else{
+                    NSLog(@"globle userInfo nil");
+                }
+                
+                NSString *avatarUrl = [jsonDic objectForKey:@"avatarUrl"];
+                [userInfo setAvatarUrl:avatarUrl];
+                
+                NSDate *birthdayTS = [jsonDic objectForKey:@"birthdayTS"];
+                [userInfo setBirthdayTS:birthdayTS];
+                
+                NSString *contactInfo = [jsonDic objectForKey:@"contactInfo"];
+                [userInfo setContactInfo:contactInfo];
+                
+                NSString *familyAddress = [jsonDic objectForKey:@"familyAddress"];
+                [userInfo setFamilyAddress:familyAddress];
+                
+                NSString *nickName = [jsonDic objectForKey:@"nickName"];
+                [userInfo setNickName:nickName];
+                
+                NSString *password = [jsonDic objectForKey:@"password"];
+                [userInfo setPassword:password];
+                
+                NSString *phoneNumber = [jsonDic objectForKey:@"phoneNumber"];
+                [userInfo setPhoneNumber:phoneNumber];
+                
+                NSNumber *userID = [jsonDic objectForKey:@"userID"];
+                [userInfo setUserID:userID];
+                
+                NSString *userName = [jsonDic objectForKey:@"userName"];
+                [userInfo setUserName:userName];
+                
+                NSString *userTypeKey = [jsonDic objectForKey:@"userTypeKey"];
+                [userInfo setUserTypeKey:userTypeKey];
+                
+                //设置默认选择第一个孩子
+                [userInfo setCurrentSelectedChild:0];
+                
+                //获取孩子信息
+                NSArray *childArray = [jsonDic objectForKey:@"userChild"];
+                //用来存储孩子信息的ARRAY
+                NSMutableArray *childInfoArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < [childArray count]; i++) {
+                    KidInfoModel *kidInfoMode = [[KidInfoModel alloc] init];
+                    
+                    NSDictionary *childModeInfo = [childArray objectAtIndex:i];
+                    NSString *educationRoleTypeKey = [childModeInfo objectForKey:@"educationRoleTypeKey"];
+                    [kidInfoMode setEducationRoleTypeKey:educationRoleTypeKey];
+                    
+                    NSString *educationTypeKey = [childModeInfo objectForKey:@"educationTypeKey"];
+                    [kidInfoMode setEducationTypeKey:educationTypeKey];
+                    
+                    NSNumber *accompanyRate = [childModeInfo objectForKey:@"accompanyRate"];
+                    [kidInfoMode setAccompanyRate:accompanyRate];
+                    
+                    NSNumber *accompanyTime = [childModeInfo objectForKey:@"accompanyTime"];
+                    [kidInfoMode setAccompanyTime:accompanyTime];
+                    
+                    NSDictionary *childInfo = [childModeInfo objectForKey:@"child"];
+                    
+                    NSNumber *childId = [childInfo objectForKey:@"childID"];
+                    [kidInfoMode setChildID:childId];
+                    
+                    NSString *avatorUrl = [childInfo objectForKey:@"avatorUrl"];
+                    [kidInfoMode setAvatorUrl:avatorUrl];
+                    
+                    NSNumber *sex = [childInfo objectForKey:@"sex"];
+                    [kidInfoMode setSex:sex];
+                    
+                    NSDate *birthdayTS = [childInfo objectForKey:@"birthdayTS"];
+                    [kidInfoMode setBirthDay:birthdayTS];
+                    
+                    NSDictionary *birthday = [childInfo objectForKey:@"birthday"];
+                    [kidInfoMode setBirthdayDic:birthday];
+                    
+                    NSNumber *age_server = [childInfo objectForKey:@"age"];
+                    [kidInfoMode setAge:age_server];
+                    
+                    NSString *ageTypeKey = [birthday objectForKey:@"ageTypeKey"];
+                    [kidInfoMode setAgeTypeKey:ageTypeKey];
+                    
+                    [childInfoArray addObject:kidInfoMode];
+                }
+                
+                [userInfo setChildArray:childInfoArray];
+                
+                //完成
+                [resultDic setObject:@"success" forKey:RESULT_KEY_DATA];
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+            
+        }
+        
+        callback(resultDic);
     }];
 }
 

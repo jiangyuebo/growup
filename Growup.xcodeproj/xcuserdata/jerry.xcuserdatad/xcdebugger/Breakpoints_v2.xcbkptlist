@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/InterestingSettingViewModel.m"
-            timestampString = "515771080.792228"
+            filePath = "Growup/RegisterViewModel.m"
+            timestampString = "515928237.550878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-setChildSetting:andJumpTo:"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-getUserInfoByVerifyCode:andPhoneNumber:andVerifyCodeType:andCallback:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/MainPageViewController.m"
-            timestampString = "515781951.379467"
+            filePath = "Growup/RegisterViewModel.m"
+            timestampString = "515928319.759399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Growup/MainPageViewController.m"
-            timestampString = "515782075.1595"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "-fetchDataFromServer"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "-getUserInfoByVerifyCode:andPhoneNumber:andVerifyCodeType:andCallback:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

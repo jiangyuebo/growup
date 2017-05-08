@@ -77,6 +77,13 @@
                                     <action selector="rightBtnClicked:" destination="oEq-U7-r3s" eventType="touchUpInside" id="07c-Q9-wHD"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8z-gE-hfY">
+                                <rect key="frame" x="0.0" y="365" width="376" height="5"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="5" id="sgT-uN-fhz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -87,6 +94,7 @@
                             <constraint firstItem="uX8-hL-VZQ" firstAttribute="width" secondItem="ulb-nO-noK" secondAttribute="width" id="MDf-tj-LAB"/>
                             <constraint firstItem="eza-pk-f3r" firstAttribute="leading" secondItem="aEa-ro-BNs" secondAttribute="leading" constant="17" id="QyY-Kf-PPX"/>
                             <constraint firstItem="eza-pk-f3r" firstAttribute="top" secondItem="zE7-H6-b9W" secondAttribute="bottom" constant="20" id="Ryd-AR-3KM"/>
+                            <constraint firstItem="k8z-gE-hfY" firstAttribute="leading" secondItem="aEa-ro-BNs" secondAttribute="leading" id="USA-TG-8pp"/>
                             <constraint firstItem="ulb-nO-noK" firstAttribute="top" secondItem="JAA-qx-j3P" secondAttribute="bottom" constant="8" id="Vw9-wk-2lw"/>
                             <constraint firstItem="1ix-ME-lB7" firstAttribute="leading" secondItem="aEa-ro-BNs" secondAttribute="leading" constant="17" id="YMe-JQ-GYs"/>
                             <constraint firstAttribute="trailing" secondItem="eza-pk-f3r" secondAttribute="trailing" constant="17" id="YwD-Kn-a0f"/>
@@ -95,6 +103,8 @@
                             <constraint firstItem="zE7-H6-b9W" firstAttribute="top" secondItem="1ix-ME-lB7" secondAttribute="bottom" constant="21" id="ckA-nG-YD8"/>
                             <constraint firstItem="uX8-hL-VZQ" firstAttribute="top" secondItem="JAA-qx-j3P" secondAttribute="bottom" constant="8" id="fLA-45-I07"/>
                             <constraint firstItem="1ix-ME-lB7" firstAttribute="top" secondItem="aEa-ro-BNs" secondAttribute="top" constant="20" id="h47-Mt-vRJ"/>
+                            <constraint firstAttribute="trailing" secondItem="k8z-gE-hfY" secondAttribute="trailing" id="jCz-PJ-0AS"/>
+                            <constraint firstAttribute="bottom" secondItem="k8z-gE-hfY" secondAttribute="bottom" id="kJe-73-f0J"/>
                             <constraint firstItem="9vw-35-mm1" firstAttribute="top" secondItem="eza-pk-f3r" secondAttribute="bottom" constant="17" id="kmW-RD-egM"/>
                             <constraint firstItem="9vw-35-mm1" firstAttribute="centerX" secondItem="aEa-ro-BNs" secondAttribute="centerX" id="lnH-6A-ueO"/>
                             <constraint firstAttribute="bottom" secondItem="ulb-nO-noK" secondAttribute="bottom" constant="8" id="qqr-0B-Nqi"/>

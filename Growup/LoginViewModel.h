@@ -18,4 +18,10 @@
 
 - (void)userLoginByUserName:(NSString *) userName andPassword:(NSString *) password callback:(void (^)(NSDictionary * resultDic)) callback;
 
+#pragma mark 通过验证码登录
+- (void)userLoginByPhoneNumber:(NSString *) phoneNumber andVerifyCode:(NSString *) verifyCode andCallback:(void (^)(NSDictionary *resultDic)) callback;
+
+#pragma mark 通过验证码修改密码
+- (void)resetPassword:(NSString *) password ByAccessTokenAndCallback:(void (^)(NSDictionary *resultDic)) callback;
+
 @end

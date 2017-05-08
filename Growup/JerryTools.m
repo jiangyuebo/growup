@@ -16,6 +16,11 @@
     return delegate.deviceID;
 }
 
++ (void) setUserInfoModel:(id)userInfoMode{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    delegate.currentUserInfo = userInfoMode;
+}
+
 + (UserInfoModel *) getUserInfoModel{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     return delegate.currentUserInfo;

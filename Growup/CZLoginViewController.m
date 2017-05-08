@@ -100,10 +100,8 @@
 }
 
 - (void)initView{
-    
-    self.pageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPageView)];
-    [self.pageView addGestureRecognizer:singleTap];
+    //设置键盘收起点击
+    [self setPageViewClickable];
     
     [self displayNavigationBar];
     
@@ -111,6 +109,12 @@
     [JerryViewTools setCZTextField:self.loginPhoneNumber];
     [JerryViewTools setCZTextField:self.loginPassword];
     
+}
+
+- (void)setPageViewClickable{
+    self.pageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPageView)];
+    [self.pageView addGestureRecognizer:singleTap];
 }
 
 //显示navigation bar
