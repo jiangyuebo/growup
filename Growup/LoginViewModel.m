@@ -128,9 +128,6 @@
                         NSDictionary *birthday = [childInfo objectForKey:@"birthday"];
                         [kidInfoMode setBirthdayDic:birthday];
                         
-                        NSNumber *age = [childInfo objectForKey:@"age"];
-                        [kidInfoMode setAge:age];
-                        
                         NSString *ageTypeKey = [birthday objectForKey:@"ageTypeKey"];
                         [kidInfoMode setAgeTypeKey:ageTypeKey];
                         
@@ -317,9 +314,6 @@
         
         NSDictionary *birthday = [childInfo objectForKey:@"birthday"];
         [kidInfoMode setBirthdayDic:birthday];
-        
-        NSNumber *age = [childInfo objectForKey:@"age"];
-        [kidInfoMode setAge:age];
         
         NSString *ageTypeKey = [birthday objectForKey:@"ageTypeKey"];
         [kidInfoMode setAgeTypeKey:ageTypeKey];

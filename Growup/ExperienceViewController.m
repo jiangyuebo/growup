@@ -79,7 +79,6 @@
                 NSArray *experienceArray = [resultDic objectForKey:RESULT_KEY_DATA];
                 NSLog(@"experienceArray count : %ld",(unsigned long)[experienceArray count]);
             }
-            
         }];
     }
 }

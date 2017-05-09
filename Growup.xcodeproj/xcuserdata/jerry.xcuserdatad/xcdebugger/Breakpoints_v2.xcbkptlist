@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/RegisterViewModel.m"
-            timestampString = "515928237.550878"
+            filePath = "Growup/InterestingSettingViewModel.m"
+            timestampString = "516010356.080752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-getUserInfoByVerifyCode:andPhoneNumber:andVerifyCodeType:andCallback:"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-setChildSetting:andJumpTo:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Growup/RegisterViewModel.m"
-            timestampString = "515928319.759399"
+            filePath = "Growup/ExperienceViewController.m"
+            timestampString = "516012049.117945"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-getUserInfoByVerifyCode:andPhoneNumber:andVerifyCodeType:andCallback:"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "-getExperienceList"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

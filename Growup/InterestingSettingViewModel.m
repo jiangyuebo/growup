@@ -55,42 +55,60 @@
             }else{
                 //使用者信息对象
                 UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
-                //孩子信息对象
-                KidInfoModel *kidInfo = [[KidInfoModel alloc] init];
+                
                 
                 NSDictionary *childInfoDic = [jsonDic objectForKey:@"child"];
                 
-                NSNumber *childAge = [childInfoDic objectForKey:@"age"];
-                [kidInfo setAge:childAge];
-                
-                NSString *ageTypeKey = [childInfoDic objectForKey:@"ageTypeKey"];
-                [kidInfo setAgeTypeKey:ageTypeKey];
-                
-                NSDate *birthDay = [childInfoDic objectForKey:@"birthdayTS"];
-                [kidInfo setBirthDay:birthDay];
-                
-                NSNumber *childId = [childInfoDic objectForKey:@"childID"];
-                [kidInfo setChildID:childId];
-                
-                //存储childID
-                [JerryTools saveInfo:childId name:SAVE_KEY_CHILD_ID];
-                
-                NSNumber *sex = [childInfoDic objectForKey:@"sex"];
-                [kidInfo setSex:sex];
+                //孩子信息对象
+                KidInfoModel *kidInfoMode = [[KidInfoModel alloc] init];
                 
                 NSString *educationRoleTypeKey = [jsonDic objectForKey:@"educationRoleTypeKey"];
-                [kidInfo setEducationRoleTypeKey:educationRoleTypeKey];
+                [kidInfoMode setEducationRoleTypeKey:educationRoleTypeKey];
+                
+                NSString *userChildID = [jsonDic objectForKey:@"userChildID"];
+                [kidInfoMode setUserChildID:userChildID];
                 
                 NSString *educationTypeKey = [jsonDic objectForKey:@"educationTypeKey"];
-                [kidInfo setEducationTypeKey:educationTypeKey];
+                [kidInfoMode setEducationTypeKey:educationTypeKey];
+                
+                NSNumber *accompanyRate = [childInfoDic objectForKey:@"accompanyRate"];
+                if (!accompanyRate) {
+                    accompanyRate = [NSNumber numberWithInt:0];
+                }
+                [kidInfoMode setAccompanyRate:accompanyRate];
+                
+                NSNumber *accompanyTime = [childInfoDic objectForKey:@"accompanyTime"];
+                if (!accompanyTime) {
+                    accompanyTime = [NSNumber numberWithInt:0];
+                }
+                [kidInfoMode setAccompanyTime:accompanyTime];
+                
+                NSNumber *childId = [childInfoDic objectForKey:@"childID"];
+                [kidInfoMode setChildID:childId];
+                
+                NSString *avatorUrl = [childInfoDic objectForKey:@"avatorUrl"];
+                [kidInfoMode setAvatorUrl:avatorUrl];
+                
+                NSNumber *sex = [childInfoDic objectForKey:@"sex"];
+                [kidInfoMode setSex:sex];
+                
+                NSDate *birthdayTS = [childInfoDic objectForKey:@"birthdayTS"];
+                [kidInfoMode setBirthDay:birthdayTS];
+                
+                NSDictionary *birthday = [childInfoDic objectForKey:@"birthday"];
+                [kidInfoMode setBirthdayDic:birthday];
+                
+                NSString *ageTypeKey = [birthday objectForKey:@"ageTypeKey"];
+                [kidInfoMode setAgeTypeKey:ageTypeKey];
+                
                 //将孩子对象添加到使用者对象中
                 if ([userInfoMode childArray]) {
                     //数组已存在
-                    [[userInfoMode childArray] addObject:kidInfo];
+                    [[userInfoMode childArray] addObject:kidInfoMode];
                 }else{
                     //数组不存在
                     NSMutableArray *childInfoArray = [[NSMutableArray alloc] init];
-                    [childInfoArray addObject:kidInfo];
+                    [childInfoArray addObject:kidInfoMode];
                     
                     userInfoMode.childArray = childInfoArray;
                 }

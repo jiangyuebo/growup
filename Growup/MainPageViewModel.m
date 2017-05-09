@@ -516,9 +516,6 @@
                     NSDictionary *birthday = [childInfo objectForKey:@"birthday"];
                     [kidInfoMode setBirthdayDic:birthday];
                     
-                    NSNumber *age_server = [childInfo objectForKey:@"age"];
-                    [kidInfoMode setAge:age_server];
-                    
                     NSString *ageTypeKey = [birthday objectForKey:@"ageTypeKey"];
                     [kidInfoMode setAgeTypeKey:ageTypeKey];
                     

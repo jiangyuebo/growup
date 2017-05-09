@@ -225,9 +225,6 @@ bool isBubbleShowed = false;
             }
             self.avatarLabel.text = birthdayStr;
             
-            //设置头像不可点
-            
-            
             [self fetchDataFromServer];
         }else{
             //有用户数据但无孩子数据，弹出添加孩子信息界面 IdentifyNameBirthdaySettingViewController

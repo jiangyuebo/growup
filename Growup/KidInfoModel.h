@@ -10,12 +10,9 @@
 
 @interface KidInfoModel : NSObject
 
-//年龄显示字符串
-@property (strong,nonatomic) NSString *ageStr;
-//孩子年龄
-@property (strong,nonatomic) NSNumber *age;
-//
 @property (strong,nonatomic) NSString *name;
+
+@property (strong,nonatomic) NSString *userChildID;
 
 //是否需要测评
 @property (nonatomic) BOOL needTest;
