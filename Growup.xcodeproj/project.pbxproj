@@ -62,6 +62,8 @@
 		C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BB9A1EBE11EF001D6B98 /* science_template.xib */; };
 		C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BB9C1EBE18ED001D6B98 /* ActionCell.xib */; };
 		C4C8BBA01EBE2200001D6B98 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */; };
+		C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */; };
+		C4C8BBA51EC1C1ED001D6B98 /* ExperienceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BBA41EC1C1ED001D6B98 /* ExperienceCell.m */; };
 		C4E5333F1E79681B0041DDDA /* AbilityBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */; };
 		C4E533471E7AFC820041DDDA /* JerryAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533461E7AFC820041DDDA /* JerryAnimation.m */; };
 		C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533841E7FC9EF0041DDDA /* CZChangePasswordViewController.m */; };
@@ -179,6 +181,9 @@
 		C4C8BB9C1EBE18ED001D6B98 /* ActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionCell.xib; sourceTree = "<group>"; };
 		C4C8BB9E1EBE2200001D6B98 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
 		C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
+		C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceCell.xib; sourceTree = "<group>"; };
+		C4C8BBA31EC1C1ED001D6B98 /* ExperienceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceCell.h; sourceTree = "<group>"; };
+		C4C8BBA41EC1C1ED001D6B98 /* ExperienceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceCell.m; sourceTree = "<group>"; };
 		C4E5333D1E79681B0041DDDA /* AbilityBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityBeforeViewController.h; sourceTree = "<group>"; };
 		C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityBeforeViewController.m; sourceTree = "<group>"; };
 		C4E533451E7AFC820041DDDA /* JerryAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryAnimation.h; sourceTree = "<group>"; };
@@ -488,6 +493,7 @@
 			children = (
 				C43BC6361E78537100468837 /* ExperienceViewController.h */,
 				C43BC6371E78537100468837 /* ExperienceViewController.m */,
+				C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -497,6 +503,8 @@
 			children = (
 				C4C8BB971EBD97B3001D6B98 /* ExperienceModel.h */,
 				C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */,
+				C4C8BBA31EC1C1ED001D6B98 /* ExperienceCell.h */,
+				C4C8BBA41EC1C1ED001D6B98 /* ExperienceCell.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1001,6 +1009,7 @@
 				C41E7A8E1E462D570033D1AF /* LaunchScreen.storyboard in Resources */,
 				C41E7A8B1E462D570033D1AF /* Assets.xcassets in Resources */,
 				C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */,
+				C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */,
 				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
 				C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */,
@@ -1048,6 +1057,7 @@
 				C4C8BB991EBD97B3001D6B98 /* ExperienceModel.m in Sources */,
 				C48824DA1E6F105B005D8FED /* GameViewController.m in Sources */,
 				C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */,
+				C4C8BBA51EC1C1ED001D6B98 /* ExperienceCell.m in Sources */,
 				C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */,
 				C48A89AE1EB3EA560076D741 /* AbilityModel.m in Sources */,
 				C43BC63F1E78547B00468837 /* ThemeViewController.m in Sources */,

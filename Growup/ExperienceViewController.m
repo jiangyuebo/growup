@@ -13,14 +13,22 @@
 #import "ExperienceViewModel.h"
 #import "globalHeader.h"
 #import "JerryViewTools.h"
+#import "ExperienceCell.h"
+#import "ExperienceModel.h"
 
-@interface ExperienceViewController ()
+@interface ExperienceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UILabel *companyTime;
 
 @property (strong, nonatomic) IBOutlet UILabel *companyRante;
 
 @property (strong,nonatomic) ExperienceViewModel *viewModel;
+
+@property (strong, nonatomic) IBOutlet UITableView *gameTable;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *gameTableHeight;
+
+@property (strong,nonatomic) NSArray *gameTableArray;
 
 @end
 
@@ -58,6 +66,10 @@
 - (void)initData{
     self.viewModel = [[ExperienceViewModel alloc] init];
     
+    //初始化表格
+    self.gameTable.delegate = self;
+    self.gameTable.dataSource = self;
+    
     //获取体验体验内容列表
     [self getExperienceList];
 }
@@ -77,7 +89,11 @@
                 });
             }else{
                 NSArray *experienceArray = [resultDic objectForKey:RESULT_KEY_DATA];
-                NSLog(@"experienceArray count : %ld",(unsigned long)[experienceArray count]);
+                
+                if ([experienceArray count] > 0) {
+                    self.gameTableArray = experienceArray;
+                    [self.gameTable reloadData];
+                }
             }
         }];
     }
@@ -90,6 +106,55 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+#pragma mark table view
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.gameTableArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellId = @"cellId";
+    //定义标志，保证仅为该表格注册一次单元格视图
+    static BOOL isExperienceCellRegist = NO;
+    if (!isExperienceCellRegist) {
+        UINib *nib = [UINib nibWithNibName:@"ExperienceCell" bundle:nil];
+        //注册单元格
+        [self.gameTable registerNib:nib forCellReuseIdentifier:cellId];
+        isExperienceCellRegist = YES;
+    }
+    
+    ExperienceCell *tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    id item = [self.gameTableArray objectAtIndex:indexPath.row];
+    
+    if ([item isKindOfClass:[ExperienceModel class]]) {
+        ExperienceModel *subject = item;
+        //标题
+        NSString *experienceName = [subject experienceName];
+        if ([JerryTools stringIsNull:experienceName]) {
+            experienceName = @"无数据";
+        }
+        tableCell.title.text = experienceName;
+        
+        //subtitle
+        
+        //图片
+        NSString *logoResourceUrl = [subject logoResourceUrl];
+        if ([JerryTools stringIsNull:logoResourceUrl]) {
+            //默认图片
+            tableCell.logoImageView.image = [UIImage imageNamed:@"game1"];
+        }else{
+            NSLog(@"url not nil");
+        }
+        
+    }
+    
+    return tableCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
 }
 
 /*
