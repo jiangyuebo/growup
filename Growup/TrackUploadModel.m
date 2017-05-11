@@ -31,7 +31,7 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                
+                [resultDic setObject:@"success" forKey:RESULT_KEY_DATA];
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];

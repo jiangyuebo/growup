@@ -64,6 +64,10 @@
 		C4C8BBA01EBE2200001D6B98 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */; };
 		C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */; };
 		C4C8BBA51EC1C1ED001D6B98 /* ExperienceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BBA41EC1C1ED001D6B98 /* ExperienceCell.m */; };
+		C4D6BB911EC2207500063A5D /* ExperienceTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D6BB901EC2207500063A5D /* ExperienceTableHeader.xib */; };
+		C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D6BB921EC30A3F00063A5D /* RecordCell.xib */; };
+		C4D6BB961EC3164B00063A5D /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB951EC3164B00063A5D /* RecordCell.m */; };
+		C4D6BB991EC3689800063A5D /* ActionCellButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB981EC3689800063A5D /* ActionCellButton.m */; };
 		C4E5333F1E79681B0041DDDA /* AbilityBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */; };
 		C4E533471E7AFC820041DDDA /* JerryAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533461E7AFC820041DDDA /* JerryAnimation.m */; };
 		C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533841E7FC9EF0041DDDA /* CZChangePasswordViewController.m */; };
@@ -184,6 +188,12 @@
 		C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceCell.xib; sourceTree = "<group>"; };
 		C4C8BBA31EC1C1ED001D6B98 /* ExperienceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceCell.h; sourceTree = "<group>"; };
 		C4C8BBA41EC1C1ED001D6B98 /* ExperienceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceCell.m; sourceTree = "<group>"; };
+		C4D6BB901EC2207500063A5D /* ExperienceTableHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceTableHeader.xib; sourceTree = "<group>"; };
+		C4D6BB921EC30A3F00063A5D /* RecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
+		C4D6BB941EC3164B00063A5D /* RecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordCell.h; sourceTree = "<group>"; };
+		C4D6BB951EC3164B00063A5D /* RecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
+		C4D6BB971EC3689800063A5D /* ActionCellButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCellButton.h; sourceTree = "<group>"; };
+		C4D6BB981EC3689800063A5D /* ActionCellButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCellButton.m; sourceTree = "<group>"; };
 		C4E5333D1E79681B0041DDDA /* AbilityBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityBeforeViewController.h; sourceTree = "<group>"; };
 		C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityBeforeViewController.m; sourceTree = "<group>"; };
 		C4E533451E7AFC820041DDDA /* JerryAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryAnimation.h; sourceTree = "<group>"; };
@@ -340,6 +350,7 @@
 				C43364B21E82715B00606538 /* CZTrackUploadViewController.m */,
 				C4C8BB8B1EBCE984001D6B98 /* CZGrowupRecordViewController.h */,
 				C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */,
+				C4D6BB921EC30A3F00063A5D /* RecordCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -347,6 +358,8 @@
 		C43364B01E82712F00606538 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4D6BB941EC3164B00063A5D /* RecordCell.h */,
+				C4D6BB951EC3164B00063A5D /* RecordCell.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -494,6 +507,7 @@
 				C43BC6361E78537100468837 /* ExperienceViewController.h */,
 				C43BC6371E78537100468837 /* ExperienceViewController.m */,
 				C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */,
+				C4D6BB901EC2207500063A5D /* ExperienceTableHeader.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -643,6 +657,8 @@
 				C4C8BB891EBCD237001D6B98 /* ActionTask.m */,
 				C4C8BB9E1EBE2200001D6B98 /* ActionCell.h */,
 				C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */,
+				C4D6BB971EC3689800063A5D /* ActionCellButton.h */,
+				C4D6BB981EC3689800063A5D /* ActionCellButton.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1010,9 +1026,11 @@
 				C41E7A8B1E462D570033D1AF /* Assets.xcassets in Resources */,
 				C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */,
 				C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */,
+				C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */,
 				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
 				C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */,
+				C4D6BB911EC2207500063A5D /* ExperienceTableHeader.xib in Resources */,
 				3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1071,6 +1089,7 @@
 				C43BC62A1E784F5300468837 /* GamesViewController.m in Sources */,
 				C48824B81E670CF4005D8FED /* CZRegisterViewController.m in Sources */,
 				C48A899C1EAB50AB0076D741 /* InterestingSettingViewModel.m in Sources */,
+				C4D6BB991EC3689800063A5D /* ActionCellButton.m in Sources */,
 				C48824CB1E6C8423005D8FED /* KidInfoModel.m in Sources */,
 				C43BC6381E78537100468837 /* ExperienceViewController.m in Sources */,
 				C4E533991E8108270041DDDA /* CZBabyShowViewController.m in Sources */,
@@ -1081,6 +1100,7 @@
 				C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */,
 				C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */,
 				C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */,
+				C4D6BB961EC3164B00063A5D /* RecordCell.m in Sources */,
 				C48824ED1E718D59005D8FED /* AbilityExplainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

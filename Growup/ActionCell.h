@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActionCellButton.h"
 
 @interface ActionCell : UITableViewCell
 
 
-@property (strong, nonatomic) IBOutlet UIImageView *contentPic;
-
 @property (strong, nonatomic) IBOutlet UILabel *brif;
 
+@property (strong, nonatomic) IBOutlet ActionCellButton *btnCan;
+
+@property (strong, nonatomic) IBOutlet ActionCellButton *btnCant;
+
+@property (strong, nonatomic) IBOutlet ActionCellButton *btnNotSure;
 
 
 @end

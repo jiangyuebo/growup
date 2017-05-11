@@ -22,6 +22,7 @@
 #import "ActionSubject.h"
 #import "ActionExperience.h"
 #import "ActionTask.h"
+#import "ActionCellButton.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -62,6 +63,12 @@
 
 @property (strong, nonatomic) IBOutlet UIView *middleView;
 
+//进度条所在view
+@property (strong, nonatomic) IBOutlet UIView *progressView;
+
+//完成度文字
+@property (strong, nonatomic) IBOutlet UILabel *finishPercentLabel;
+
 //任务进度条
 @property (strong, nonatomic) IBOutlet UISlider *taskProgress;
 
@@ -72,6 +79,9 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *actionTable;
 
+//行动项总体对象
+@property (strong,nonatomic) MainPageActionInfoModel *actionInfo;
+//行动项列表数据
 @property (strong,nonatomic) NSMutableArray *actionTableItems;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *actionTableHeight;
@@ -155,6 +165,9 @@ bool isBubbleShowed = false;
     //设置中间view绿色
     [self.middleView setBackgroundColor:[UIColor colorWithString:@"#6aa71b"]];
     
+    //设置进度条view颜色
+    [self.progressView setBackgroundColor:[UIColor colorWithString:@"#6aa71b"]];
+    
     //为笑脸图标添加点击事件
     [self setFaceInteractionEnable];
     
@@ -164,9 +177,9 @@ bool isBubbleShowed = false;
     [self hideBubble];
     
     //进度条设置
-    [self.taskProgress setMaximumTrackImage:[UIImage imageNamed:@"progress_grey"] forState:UIControlStateNormal];
-    [self.taskProgress setMinimumTrackImage:[UIImage imageNamed:@"progress_color"] forState:UIControlStateNormal];
-    [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
+//    [self.taskProgress setMaximumTrackImage:[UIImage imageNamed:@"progress_grey"] forState:UIControlStateNormal];
+//    [self.taskProgress setMinimumTrackImage:[UIImage imageNamed:@"progress_color"] forState:UIControlStateNormal];
+//    [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
 
     self.btnReport.titleLabel.text = @"test";
     
@@ -338,15 +351,15 @@ bool isBubbleShowed = false;
                         [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                     });
                 }else{
-                    MainPageActionInfoModel *actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
+                    self.actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
                     //获取行动项个数及完成数
-                    NSNumber *actionFinishNumber = [actionInfo actionFinishNumber];
-                    NSNumber *actionNumber = [actionInfo actionNumber];
+                    NSNumber *actionFinishNumber = [self.actionInfo actionFinishNumber];
+                    NSNumber *actionNumber = [self.actionInfo actionNumber];
                     
                     //获取行动项
-                    NSArray *userActionSubjects = [actionInfo userActionSubjects];
-                    NSArray *userActionTasks = [actionInfo userActionTasks];
-                    NSArray *userActionExperiences = [actionInfo userActionExperiences];
+                    NSArray *userActionSubjects = [self.actionInfo userActionSubjects];
+                    NSArray *userActionTasks = [self.actionInfo userActionTasks];
+                    NSArray *userActionExperiences = [self.actionInfo userActionExperiences];
                     
                     [self.actionTableItems addObjectsFromArray:userActionSubjects];
                     [self.actionTableItems addObjectsFromArray:userActionTasks];
@@ -361,13 +374,22 @@ bool isBubbleShowed = false;
                         
                         [self.actionTable reloadData];
                         
+                        //设置完成度文字提示
+                        int temp = (int)([actionNumber floatValue]/[actionFinishNumber floatValue] * 100);
+                        self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：%d%%",temp];
+                        
                         //重设列表高度
-                        self.actionTableHeight.constant = [self.actionTableItems count] * 370;
+                        [self resetActionTableHeight];
                     });
                 }
             }];
         }
     }
+}
+
+#pragma mark 重设行动项列表高度
+- (void) resetActionTableHeight{
+    self.actionTableHeight.constant = [self.actionTableItems count] * 240;
 }
 
 #pragma mark 设置
@@ -514,6 +536,83 @@ bool isBubbleShowed = false;
     view.layer.masksToBounds = YES;
 }
 
+#pragma mark 点击行动项CELL中的按钮
+- (void)cellButtonClicked:(id) sender{
+    ActionCellButton *button = (ActionCellButton *)sender;
+    NSUInteger tag = button.tag;
+    NSUInteger row = button.rowIndex;
+    
+    NSIndexPath *indexPath = button.indexPath;
+    
+    //获取行动项对象
+    id clickedItem = [self.actionTableItems objectAtIndex:row];
+    
+    NSNumber *userActionSubjectId;
+    NSNumber *userActionExperienceId;
+    NSNumber *userActionTaskId;
+    if ([clickedItem isKindOfClass:[ActionSubject class]]) {
+        userActionSubjectId = [clickedItem subjectID];
+    }else if ([clickedItem isKindOfClass:[ActionExperience class]]){
+        userActionExperienceId = [clickedItem experienceID];
+    }else if ([clickedItem isKindOfClass:[ActionTask class]]){
+        userActionTaskId = [clickedItem taskID];
+    }
+    
+    NSString *optionResultType;
+    if (tag == TAG_CELL_ACTION_BUTTON_CAN) {
+        optionResultType = OPTION_RESULT_TYPE_Y;
+    }else if (tag == TAG_CELL_ACTION_BUTTON_CANT){
+        optionResultType = OPTION_RESULT_TYPE_N;
+    }else if (tag == TAG_CELL_ACTION_BUTTON_CANTSURE){
+        optionResultType = OPTION_RESULT_TYPE_O;
+    }
+    
+    [self.viewModel submitActionByUserActionID:self.actionInfo.userActionID andOptionResultType:optionResultType andUserActionExperienceID:userActionExperienceId andUserActionTaskID:userActionTaskId andUserActionSubjectID:userActionSubjectId andCallback:^(NSDictionary *resultDic) {
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }else{
+            NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+            if ([result isEqualToString:@"success"]) {
+                //处理成功
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self deleteActionCardFromTable:indexPath];
+                });
+            }
+        }
+    }];
+}
+
+#pragma mark 删除行动项列表中的卡片
+- (void)deleteActionCardFromTable:(NSIndexPath *) indexPath {
+    
+    [self.actionTableItems removeObjectAtIndex:indexPath.row];
+    NSArray *deleteArray = [[NSArray alloc] initWithObjects:indexPath, nil];
+    
+    [CATransaction begin];
+    [self.actionTable beginUpdates];
+    
+    [CATransaction setCompletionBlock: ^{
+        // 回调
+        [self.actionTable reloadData];
+        [self resetActionTableHeight];
+    }];
+    
+    [self.actionTable deleteRowsAtIndexPaths:deleteArray withRowAnimation:UITableViewRowAnimationTop];
+    [self.actionTable endUpdates];
+    [CATransaction commit];
+    
+//    [self performSelector:@selector(afterDeleteTableRow) withObject:nil afterDelay:1.0];
+}
+
+- (void)afterDeleteTableRow{
+//    [self resetActionTableHeight];
+    [self.actionTable reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -523,7 +622,7 @@ bool isBubbleShowed = false;
     return UIStatusBarStyleLightContent;
 }
 
-//tableview
+#pragma mark TableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.actionTableItems.count;
@@ -569,12 +668,24 @@ bool isBubbleShowed = false;
         tableCell.brif.text = experienceName;
     }
     
+    tableCell.btnCan.rowIndex = indexPath.row;
+    tableCell.btnCant.rowIndex = indexPath.row;
+    tableCell.btnNotSure.rowIndex = indexPath.row;
+    
+    tableCell.btnCan.indexPath = indexPath;
+    tableCell.btnCant.indexPath = indexPath;
+    tableCell.btnNotSure.indexPath = indexPath;
+    
+    [tableCell.btnCan addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tableCell.btnCant addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tableCell.btnNotSure addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     return tableCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 370;
+    return 240;
 }
 
 /*

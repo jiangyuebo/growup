@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ke1-py-6b7">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="互动游戏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZ1-yv-qUx">
+                            <rect key="frame" x="17" y="17" width="77.5" height="23"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgT-rq-11k">
+                            <rect key="frame" x="258" y="0.0" width="100" height="57"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="c6n-nF-AQ4"/>
+                            </constraints>
+                            <state key="normal" image="arrow_right"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="AgT-rq-11k" firstAttribute="top" secondItem="Ke1-py-6b7" secondAttribute="top" id="7sb-PI-tlc"/>
+                        <constraint firstItem="TZ1-yv-qUx" firstAttribute="leading" secondItem="Ke1-py-6b7" secondAttribute="leading" constant="17" id="DaH-Sb-kpQ"/>
+                        <constraint firstAttribute="trailing" secondItem="AgT-rq-11k" secondAttribute="trailing" constant="17" id="J49-RI-Udz"/>
+                        <constraint firstItem="TZ1-yv-qUx" firstAttribute="centerY" secondItem="Ke1-py-6b7" secondAttribute="centerY" id="jFf-FI-Tf4"/>
+                        <constraint firstAttribute="bottom" secondItem="AgT-rq-11k" secondAttribute="bottom" id="qMJ-ee-Lez"/>
+                        <constraint firstAttribute="height" constant="57" id="zIU-K8-b4L"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0q-gJ-G9c">
+                    <rect key="frame" x="0.0" y="56" width="375" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="YIV-al-kIW"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ke1-py-6b7" secondAttribute="trailing" id="4DN-hn-z8d"/>
+                <constraint firstAttribute="bottom" secondItem="Ke1-py-6b7" secondAttribute="bottom" id="4mu-Uo-F3O"/>
+                <constraint firstItem="Ke1-py-6b7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6YG-HZ-PAV"/>
+                <constraint firstAttribute="trailing" secondItem="G0q-gJ-G9c" secondAttribute="trailing" id="EOh-vH-wSk"/>
+                <constraint firstAttribute="bottom" secondItem="G0q-gJ-G9c" secondAttribute="bottom" id="XvD-Ca-Q81"/>
+                <constraint firstItem="Ke1-py-6b7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bzg-aq-ud7"/>
+                <constraint firstItem="G0q-gJ-G9c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tnw-6w-Ala"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="34.5" y="-174.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow_right" width="16" height="16"/>
+    </resources>
+</document>

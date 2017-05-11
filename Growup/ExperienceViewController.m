@@ -24,11 +24,18 @@
 
 @property (strong,nonatomic) ExperienceViewModel *viewModel;
 
+//互动游戏table
 @property (strong, nonatomic) IBOutlet UITableView *gameTable;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *gameTableHeight;
 
 @property (strong,nonatomic) NSArray *gameTableArray;
+
+//科学实验table
+@property (strong, nonatomic) IBOutlet UITableView *science;
+
+@property (strong,nonatomic) NSArray *scienceTalbeArray;
+
 
 @end
 
@@ -60,7 +67,24 @@
 }
 
 - (void)initView{
+    self.gameTable.scrollEnabled = NO;
+    self.gameTable.allowsSelection = NO;
     
+    self.science.scrollEnabled = NO;
+    self.science.allowsSelection = NO;
+    
+    [self initTableViewHeader];
+}
+
+- (void)initTableViewHeader{
+    //获取游戏列表头view
+    UIView *tableHeader_game = [JerryViewTools getViewByXibName:@"ExperienceTableHeader"];
+    self.gameTable.tableHeaderView = tableHeader_game;
+    
+    UIView *tableHeader_science = [JerryViewTools getViewByXibName:@"ExperienceTableHeader"];
+    UILabel *title_science = [tableHeader_science viewWithTag:1];
+    title_science.text = @"科学小实验";
+    self.science.tableHeaderView = tableHeader_science;
 }
 
 - (void)initData{
@@ -69,6 +93,9 @@
     //初始化表格
     self.gameTable.delegate = self;
     self.gameTable.dataSource = self;
+    
+    self.science.delegate = self;
+    self.science.dataSource = self;
     
     //获取体验体验内容列表
     [self getExperienceList];
@@ -79,6 +106,7 @@
     KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
     
     if (child) {
+        //获取互动游戏
         [self.viewModel getExperiencesListByAgeType:[child ageTypeKey] andExperienceType:EXPERIENCE_GAME andPageIndex:[NSNumber numberWithInt:1] andPageSize:[NSNumber numberWithInt:4] andCallback:^(NSDictionary *resultDic) {
             
             NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
@@ -92,9 +120,29 @@
                 
                 if ([experienceArray count] > 0) {
                     self.gameTableArray = experienceArray;
+                    
                     [self.gameTable reloadData];
                 }
             }
+        }];
+        
+        //获取科学小实验
+        [self.viewModel getExperiencesListByAgeType:[child ageTypeKey] andExperienceType:EXPERIENCE_SCIENCE andPageIndex:[NSNumber numberWithInt:1] andPageSize:[NSNumber numberWithInt:4] andCallback:^(NSDictionary *resultDic) {
+            
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                NSArray *scienceArray = [resultDic objectForKey:RESULT_KEY_DATA];
+                if ([scienceArray count] > 0) {
+                    self.scienceTalbeArray = scienceArray;
+                    [self.science reloadData];
+                }
+            }
+            
         }];
     }
 }
@@ -121,6 +169,8 @@
         UINib *nib = [UINib nibWithNibName:@"ExperienceCell" bundle:nil];
         //注册单元格
         [self.gameTable registerNib:nib forCellReuseIdentifier:cellId];
+        [self.science registerNib:nib forCellReuseIdentifier:cellId];
+        
         isExperienceCellRegist = YES;
     }
     
@@ -147,7 +197,27 @@
         }else{
             NSLog(@"url not nil");
         }
+    }
+    
+    if ([item isKindOfClass:[ExperienceModel class]]) {
+        ExperienceModel *subject = item;
+        //标题
+        NSString *experienceName = [subject experienceName];
+        if ([JerryTools stringIsNull:experienceName]) {
+            experienceName = @"无数据";
+        }
+        tableCell.title.text = experienceName;
         
+        //subtitle
+        
+        //图片
+        NSString *logoResourceUrl = [subject logoResourceUrl];
+        if ([JerryTools stringIsNull:logoResourceUrl]) {
+            //默认图片
+            tableCell.logoImageView.image = [UIImage imageNamed:@"game1"];
+        }else{
+            NSLog(@"url not nil");
+        }
     }
     
     return tableCell;

@@ -384,10 +384,20 @@
 }
 
 #pragma mark 提交行动项
-- (void)submitActionByUserActionID:(NSString *)userActionID andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSString *)userActionExperienceID andUserActionTaskID:(NSString *)userActionTaskID andUserActionSubjectID:(NSString *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback{
+- (void)submitActionByUserActionID:(NSNumber *)userActionID andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSNumber *)userActionExperienceID andUserActionTaskID:(NSNumber *)userActionTaskID andUserActionSubjectID:(NSNumber *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback{
     
     //api/v1/user/action/submit/{userActionID}/{optionResultType}?userActionExperienceID={userActionExperienceID}&userActionTaskID={userActionTaskID}&userActionSubjectID={userActionSubjectID}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@?userActionExperienceID=%@&userActionTaskID=%@&userActionSubjectID=%@",URL_REQUEST,URL_REQUEST_SUBMIT_ACTION,userActionID,optionResultType,userActionExperienceID,userActionTaskID,userActionSubjectID];
+    
+    NSString *requestTail;
+    if (userActionExperienceID) {
+        requestTail = [NSString stringWithFormat:@"userActionExperienceID=%@",userActionExperienceID];
+    }else if (userActionTaskID){
+        requestTail = [NSString stringWithFormat:@"userActionTaskID=%@",userActionTaskID];
+    }else if (userActionSubjectID){
+        requestTail = [NSString stringWithFormat:@"userActionSubjectID=%@",userActionSubjectID];
+    }
+    
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@/%@?%@",URL_REQUEST,URL_REQUEST_SUBMIT_ACTION,userActionID,optionResultType,requestTail];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -404,7 +414,7 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                
+                [resultDic setObject:@"success" forKey:RESULT_KEY_DATA];
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];

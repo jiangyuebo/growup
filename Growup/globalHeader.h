@@ -109,6 +109,11 @@
 #define VALUE_VERYGOOD @"D18B01"
 #define VALUE_GOOD @"D18B02"
 #define VALUE_NORMAL @"D18B03"
+
+#define OPTION_RESULT_TYPE_Y @"D46B01" //CAN
+#define OPTION_RESULT_TYPE_N @"D46B02" //CANT
+#define OPTION_RESULT_TYPE_O @"D46B03" //NOT SURE
+
 //体验
 #define EXPERIENCE_GAME @"D26B01" //互动游戏
 #define EXPERIENCE_SCIENCE @"D26B02" //科学实验
@@ -137,5 +142,10 @@
 //存储KEY
 #define SAVE_KEY_ACCESS_TOKEN @"accessToken"
 #define SAVE_KEY_CHILD_ID @"childId"
+
+//view tag
+#define TAG_CELL_ACTION_BUTTON_CAN 50 //首页行动项卡片按钮，能
+#define TAG_CELL_ACTION_BUTTON_CANT 51 //首页行动项卡片按钮，不能
+#define TAG_CELL_ACTION_BUTTON_CANTSURE 52 //首页行动项卡片按钮，不确定
 
 #endif /* globalHeader_h */

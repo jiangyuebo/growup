@@ -1,16 +1,14 @@
 //
-//  ActionCell.m
+//  RecordCell.m
 //  Growup
 //
-//  Created by Jerry on 2017/5/6.
+//  Created by Jerry on 2017/5/10.
 //  Copyright © 2017年 orange. All rights reserved.
 //
 
-#import "ActionCell.h"
+#import "RecordCell.h"
 
-@implementation ActionCell
-
-@synthesize btnCan,btnCant,btnNotSure;
+@implementation RecordCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

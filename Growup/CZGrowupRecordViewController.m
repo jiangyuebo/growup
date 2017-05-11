@@ -9,10 +9,13 @@
 #import "CZGrowupRecordViewController.h"
 #import "GrowupRecordViewModel.h"
 #import "globalHeader.h"
+#import "JerryViewTools.h"
 
 @interface CZGrowupRecordViewController ()
 
 @property (strong,nonatomic) GrowupRecordViewModel *viewModel;
+
+@property (strong,nonatomic) NSArray *recordsArray;
 
 @end
 
@@ -22,6 +25,8 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [self loadSelfRecord];
 }
 
 - (void)viewDidLoad {
@@ -34,20 +39,33 @@
 
 - (void)initData{
     self.viewModel = [[GrowupRecordViewModel alloc] init];
-    //获取橙长记列表
-    [self getSelfRecord];
+
 }
 
 - (void)initView{
-
-    [self.viewModel getGrowupRecordByRecordType:nil andPublicType:nil andIsInfo:NO andCallback:^(NSDictionary *resultDic) {
-        
-    }];
+    
+    
 }
 
 #pragma mark 查看自己橙长记
-- (void)getSelfRecord{
+- (void)loadSelfRecord{
     
+    [self.viewModel getGrowupRecordByRecordType:nil andPublicType:nil andIsInfo:NO andCallback:^(NSDictionary *resultDic) {
+        
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }else{
+            NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
+            
+            //设置橙长记列表数组
+            self.recordsArray = [result objectForKey:@"records"];
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

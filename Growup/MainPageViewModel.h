@@ -40,7 +40,7 @@
 - (void)queryActionListByAgeType:(NSString *)ageType andActionDate:(NSDate *) date andIsRefresh:(BOOL) isRefresh andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
 #pragma mark 提交行动项
-- (void)submitActionByUserActionID:(NSString *)userAction andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSString *)userActionExperienceID andUserActionTaskID:(NSString *)userActionTaskID andUserActionSubjectID:(NSString *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback;
+- (void)submitActionByUserActionID:(NSNumber *)userAction andOptionResultType:(NSString *)optionResultType andUserActionExperienceID:(NSNumber *)userActionExperienceID andUserActionTaskID:(NSNumber *)userActionTaskID andUserActionSubjectID:(NSNumber *)userActionSubjectID andCallback:(void (^)(NSDictionary * resultDic))callback;
 
 #pragma mark 根据access-token获取用户及孩子信息
 - (void)getUserInfoByAccesstoken:(NSString *) accesstoken andCallback:(void (^)(NSDictionary *resultDic)) callback;

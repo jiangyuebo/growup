@@ -10,6 +10,7 @@
 #import "globalHeader.h"
 #import "TrackUploadModel.h"
 #import "JerryTools.h"
+#import "JerryViewTools.h"
 
 @interface CZTrackUploadViewController ()
 
@@ -69,7 +70,15 @@
         
         //详细，照片
         [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
-            
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                id result = [resultDic objectForKey:RESULT_KEY_DATA];
+            }
         }];
     }
 }

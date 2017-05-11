@@ -38,11 +38,30 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                
+//                NSDictionary *page = [jsonDic objectForKey:@"page"];
+//                NSNumber *pageIndex = [page objectForKey:@"pageIndex"];
+//                NSNumber *pageSize = [page objectForKey:@"pageSize"];
+//                NSNumber *totalCount = [page objectForKey:@"totalCount"];
+//                
+//                NSArray *records = [jsonDic objectForKey:@"records"];
+//                for (int i = 0; i < [records count]; i ++) {
+//                    NSDictionary *recordDic = records[i];
+//                    NSNumber *childID = [recordDic objectForKey:@"childID"];
+//                    NSString *contentResourceTypeKey = [recordDic objectForKey:@"contentResourceTypeKey"];
+//                    NSString *publicTypeKey = [recordDic objectForKey:@"publicTypeKey"];
+//                    NSDate *publishDate = [recordDic objectForKey:@"publishDate"];
+//                    NSString *recordContent = [recordDic objectForKey:@"recordContent"];
+//                    NSDate *recordDate = [recordDic objectForKey:@"recordDate"];
+//                    NSNumber *recordID = [recordDic objectForKey:@"recordID"];
+//                    NSString *recordPublishTypeKey = [recordDic objectForKey:@"recordPublishTypeKey"];
+//                    NSString *recordSourceTypeKey = [recordDic objectForKey:@"recordSourceTypeKey"];
+//                    NSString *recordTypeKey = [recordDic objectForKey:@"recordTypeKey"];
+//                    NSNumber *userID = [recordDic objectForKey:@"userID"];
+//                }
+                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
-            
         }
         
         callback(resultDic);
