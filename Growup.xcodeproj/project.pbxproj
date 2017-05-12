@@ -68,6 +68,10 @@
 		C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D6BB921EC30A3F00063A5D /* RecordCell.xib */; };
 		C4D6BB961EC3164B00063A5D /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB951EC3164B00063A5D /* RecordCell.m */; };
 		C4D6BB991EC3689800063A5D /* ActionCellButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D6BB981EC3689800063A5D /* ActionCellButton.m */; };
+		C4D6BB9B1EC43CA600063A5D /* RecordHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */; };
+		C4D6BBAA1EC499DE00063A5D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D6BBA91EC499DE00063A5D /* SystemConfiguration.framework */; };
+		C4D6BBAC1EC499E900063A5D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D6BBAB1EC499E900063A5D /* CoreTelephony.framework */; };
+		C4D6BBB51EC49A3D00063A5D /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D6BBB41EC49A3D00063A5D /* libstdc++.6.tbd */; };
 		C4E5333F1E79681B0041DDDA /* AbilityBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */; };
 		C4E533471E7AFC820041DDDA /* JerryAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533461E7AFC820041DDDA /* JerryAnimation.m */; };
 		C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E533841E7FC9EF0041DDDA /* CZChangePasswordViewController.m */; };
@@ -194,6 +198,16 @@
 		C4D6BB951EC3164B00063A5D /* RecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
 		C4D6BB971EC3689800063A5D /* ActionCellButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCellButton.h; sourceTree = "<group>"; };
 		C4D6BB981EC3689800063A5D /* ActionCellButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCellButton.m; sourceTree = "<group>"; };
+		C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordHeader.xib; sourceTree = "<group>"; };
+		C4D6BBA11EC4986700063A5D /* TXYBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXYBase.h; sourceTree = "<group>"; };
+		C4D6BBA21EC4986700063A5D /* TXYUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXYUploadManager.h; sourceTree = "<group>"; };
+		C4D6BBA71EC4998D00063A5D /* libTXYUploader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTXYUploader.a; path = ../lib/libTXYUploader.a; sourceTree = "<group>"; };
+		C4D6BBA91EC499DE00063A5D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C4D6BBAB1EC499E900063A5D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C4D6BBAD1EC499F600063A5D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C4D6BBAF1EC49A0300063A5D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		C4D6BBB11EC49A1100063A5D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C4D6BBB41EC49A3D00063A5D /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		C4E5333D1E79681B0041DDDA /* AbilityBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityBeforeViewController.h; sourceTree = "<group>"; };
 		C4E5333E1E79681B0041DDDA /* AbilityBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityBeforeViewController.m; sourceTree = "<group>"; };
 		C4E533451E7AFC820041DDDA /* JerryAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryAnimation.h; sourceTree = "<group>"; };
@@ -219,6 +233,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D6BBB51EC49A3D00063A5D /* libstdc++.6.tbd in Frameworks */,
+				C4D6BBAC1EC499E900063A5D /* CoreTelephony.framework in Frameworks */,
+				C4D6BBAA1EC499DE00063A5D /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +256,7 @@
 			children = (
 				C41E7A7D1E462D560033D1AF /* Growup */,
 				C41E7A7C1E462D560033D1AF /* Products */,
+				C4D6BBA81EC499DE00063A5D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -253,6 +271,7 @@
 		C41E7A7D1E462D560033D1AF /* Growup */ = {
 			isa = PBXGroup;
 			children = (
+				C4D6BB9E1EC4982400063A5D /* TXY */,
 				C43364AC1E8270FB00606538 /* 成长季 */,
 				C4E533921E8107C30041DDDA /* 发现页签 */,
 				C43BC6231E783F8A00468837 /* 体验页签 */,
@@ -351,6 +370,7 @@
 				C4C8BB8B1EBCE984001D6B98 /* CZGrowupRecordViewController.h */,
 				C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */,
 				C4D6BB921EC30A3F00063A5D /* RecordCell.xib */,
+				C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -854,6 +874,29 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		C4D6BB9E1EC4982400063A5D /* TXY */ = {
+			isa = PBXGroup;
+			children = (
+				C4D6BBA71EC4998D00063A5D /* libTXYUploader.a */,
+				C4D6BBA11EC4986700063A5D /* TXYBase.h */,
+				C4D6BBA21EC4986700063A5D /* TXYUploadManager.h */,
+			);
+			name = TXY;
+			sourceTree = "<group>";
+		};
+		C4D6BBA81EC499DE00063A5D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4D6BBB41EC49A3D00063A5D /* libstdc++.6.tbd */,
+				C4D6BBB11EC49A1100063A5D /* libz.tbd */,
+				C4D6BBAF1EC49A0300063A5D /* libxml2.tbd */,
+				C4D6BBAD1EC499F600063A5D /* MobileCoreServices.framework */,
+				C4D6BBAB1EC499E900063A5D /* CoreTelephony.framework */,
+				C4D6BBA91EC499DE00063A5D /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C4E533411E7AF05D0041DDDA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1026,6 +1069,7 @@
 				C41E7A8B1E462D570033D1AF /* Assets.xcassets in Resources */,
 				C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */,
 				C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */,
+				C4D6BB9B1EC43CA600063A5D /* RecordHeader.xib in Resources */,
 				C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */,
 				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
@@ -1223,6 +1267,11 @@
 				INFOPLIST_FILE = Growup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Growup",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.OrangeGrowup;
 				PRODUCT_NAME = "橙宝";
 			};
@@ -1236,6 +1285,11 @@
 				INFOPLIST_FILE = Growup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Growup",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jerry.OrangeGrowup;
 				PRODUCT_NAME = "橙宝";
 			};

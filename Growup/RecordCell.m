@@ -10,6 +10,8 @@
 
 @implementation RecordCell
 
+@synthesize cellType,contentText,contentPics;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

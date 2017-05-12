@@ -177,12 +177,35 @@ bool isBubbleShowed = false;
     [self hideBubble];
     
     //进度条设置
-//    [self.taskProgress setMaximumTrackImage:[UIImage imageNamed:@"progress_grey"] forState:UIControlStateNormal];
-//    [self.taskProgress setMinimumTrackImage:[UIImage imageNamed:@"progress_color"] forState:UIControlStateNormal];
-//    [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_title"] forState:UIControlStateNormal];
-
-    self.btnReport.titleLabel.text = @"test";
+    UIImage *leftTrack = [[UIImage imageNamed:@"progress_color"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
+    UIImage *rightTrack = [[UIImage imageNamed:@"progress_white"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
     
+    [self.taskProgress setMinimumTrackImage:leftTrack forState:UIControlStateNormal];
+    [self.taskProgress setMaximumTrackImage:rightTrack forState:UIControlStateNormal];
+    [self.taskProgress setThumbImage:[UIImage imageNamed:@"progress_icon"] forState:UIControlStateNormal];
+    
+    self.taskProgress.userInteractionEnabled = NO;
+    
+    self.btnReport.titleLabel.text = @"test";
+}
+
+#pragma mark 获得加上数字的滑块图片
+- (UIImage *)getNumberedThumbImage:(NSNumber *) number{
+    
+    UIImage *originImage = [UIImage imageNamed:@"progress_icon"];
+    NSString *numberStr = [NSString stringWithFormat:@"%@",number];
+    UIImage *numberedImage = nil;
+    
+    UIGraphicsBeginImageContextWithOptions(originImage.size, NO, 0.0);
+    [originImage drawAtPoint: CGPointZero];
+    
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], NSFontAttributeName,[UIColor darkGrayColor],NSForegroundColorAttributeName, nil];
+    [numberStr drawAtPoint:CGPointMake(7,0) withAttributes:attrs];
+    numberedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return numberedImage;
 }
 
 - (void)hideNavigationBar{
@@ -371,6 +394,9 @@ bool isBubbleShowed = false;
                         [self.taskProgress setMaximumValue:[actionNumber floatValue]];
                         [self.taskProgress setMinimumValue:0];
                         [self.taskProgress setValue:[actionFinishNumber floatValue]];
+                        
+                        UIImage *numberedImage = [self getNumberedThumbImage:actionFinishNumber];
+                        [self.taskProgress setThumbImage:numberedImage forState:UIControlStateNormal];
                         
                         [self.actionTable reloadData];
                         

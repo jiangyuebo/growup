@@ -10,4 +10,10 @@
 
 @interface RecordCell : UITableViewCell
 
+@property (strong,nonatomic) NSNumber *cellType;
+
+@property (strong, nonatomic) IBOutlet UITextView *contentText;
+
+@property (strong, nonatomic) IBOutlet UICollectionView *contentPics;
+
 @end

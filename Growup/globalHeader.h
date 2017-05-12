@@ -15,6 +15,9 @@
 #define NAVIGATION_BAR_HEIGHT self.navigationController.navigationBar.frame.size.height
 #define TAB_BAR_HEIGHT self.tabBarController.tabBar.frame.size.height
 
+//腾讯云SDK TXYUploadPersistenceId
+#define TXYUploadPersistenceId @"TXYUploadPersistenceId"
+
 //******颜色
 //navigation bar color
 #define color_navigation_bar @"#F86400"
