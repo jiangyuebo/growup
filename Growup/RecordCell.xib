@@ -36,7 +36,7 @@
                     <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="小王带着儿子去湖边玩。儿子问：“爸爸，为什么月亮只剩一半了？” 小王支支吾吾半天，突然说：“你没看到另一半在湖里吗？”" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmQ-fg-FOf">
                         <rect key="frame" x="67" y="4" width="291" height="92.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gFp-kC-2zq">

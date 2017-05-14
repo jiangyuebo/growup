@@ -10,4 +10,8 @@
 
 @interface CZNewsViewController : UIViewController
 
+@property (strong,nonatomic) NSString *infoTypeKey;
+
+@property (strong,nonatomic) NSString *infoDetailTypeKey;
+
 @end

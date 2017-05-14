@@ -15,6 +15,7 @@
 #import "JerryViewTools.h"
 #import "ExperienceCell.h"
 #import "ExperienceModel.h"
+#import "ExperienceListViewController.h"
 
 @interface ExperienceViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -36,6 +37,21 @@
 
 @property (strong,nonatomic) NSArray *scienceTalbeArray;
 
+//互动故事
+@property (strong, nonatomic) IBOutlet UITableView *storyTable;
+
+//分类按钮
+@property (strong, nonatomic) IBOutlet UIImageView *gameBtn;
+
+@property (strong, nonatomic) IBOutlet UIImageView *scienceBtn;
+
+@property (strong, nonatomic) IBOutlet UIImageView *gameGuide;
+
+@property (strong, nonatomic) IBOutlet UIImageView *songBtn;
+
+@property (strong, nonatomic) IBOutlet UIImageView *storyBtn;
+
+@property (strong, nonatomic) IBOutlet UIImageView *schoolBtn;
 
 @end
 
@@ -43,6 +59,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //显示陪伴时间和陪伴等级
     UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
@@ -67,13 +85,42 @@
 }
 
 - (void)initView{
+    //初始分类点击
+    NSMutableArray *iconArray = [[NSMutableArray alloc] init];
+    
+    [iconArray addObject:self.gameBtn];
+    [iconArray addObject:self.scienceBtn];
+    [iconArray addObject:self.gameGuide];
+    [iconArray addObject:self.songBtn];
+    [iconArray addObject:self.storyBtn];
+    [iconArray addObject:self.schoolBtn];
+    
+    for (int i = 0; i < [iconArray count]; i++) {
+        UITapGestureRecognizer *gestureTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(iconClicked:)];
+        UIImageView *imageIcon = [iconArray objectAtIndex:i];
+        imageIcon.userInteractionEnabled = YES;
+        imageIcon.tag = 20 + i;
+        [imageIcon addGestureRecognizer:gestureTap];
+    }
+    
     self.gameTable.scrollEnabled = NO;
-    self.gameTable.allowsSelection = NO;
     
     self.science.scrollEnabled = NO;
-    self.science.allowsSelection = NO;
+    
+    self.storyTable.scrollEnabled = NO;
     
     [self initTableViewHeader];
+}
+
+- (void)iconClicked:(UITapGestureRecognizer *) recognizer{
+    
+    NSNumber *tagNumber = [NSNumber numberWithLong:recognizer.view.tag];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ExperienceListViewController *experienceListViewController = [storyboard instantiateViewControllerWithIdentifier:IdentifyExperienceListViewController];
+    experienceListViewController.tagNumber = tagNumber;
+    
+    [self.navigationController pushViewController:experienceListViewController animated:YES];
 }
 
 - (void)initTableViewHeader{
@@ -85,6 +132,11 @@
     UILabel *title_science = [tableHeader_science viewWithTag:1];
     title_science.text = @"科学小实验";
     self.science.tableHeaderView = tableHeader_science;
+    
+    UIView *tableHeader_story = [JerryViewTools getViewByXibName:@"ExperienceTableHeader"];
+    UILabel *title_story = [tableHeader_story viewWithTag:1];
+    title_story.text = @"互动故事";
+    self.storyTable.tableHeaderView = tableHeader_story;
 }
 
 - (void)initData{
@@ -97,8 +149,11 @@
     self.science.delegate = self;
     self.science.dataSource = self;
     
+    self.storyTable.delegate = self;
+    self.storyTable.dataSource = self;
+    
     //获取体验体验内容列表
-    [self getExperienceList];
+//    [self getExperienceList];
 }
 
 - (void)getExperienceList{
@@ -144,6 +199,25 @@
             }
             
         }];
+        
+        //获取互动故事
+        [self.viewModel getExperiencesListByAgeType:[child ageTypeKey] andExperienceType:EXPERIENCE_STORY andPageIndex:[NSNumber numberWithInt:1] andPageSize:[NSNumber numberWithInt:4] andCallback:^(NSDictionary *resultDic) {
+            
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                NSArray *scienceArray = [resultDic objectForKey:RESULT_KEY_DATA];
+                if ([scienceArray count] > 0) {
+                    NSLog(@"scienceArray count > 0");
+                }else{
+                    NSLog(@"scienceArray is empty");
+                }
+            }
+        }];
     }
 }
 
@@ -162,6 +236,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *cellId = @"cellId";
     //定义标志，保证仅为该表格注册一次单元格视图
     static BOOL isExperienceCellRegist = NO;
@@ -170,15 +245,16 @@
         //注册单元格
         [self.gameTable registerNib:nib forCellReuseIdentifier:cellId];
         [self.science registerNib:nib forCellReuseIdentifier:cellId];
+        [self.storyTable registerNib:nib forCellReuseIdentifier:cellId];
         
         isExperienceCellRegist = YES;
     }
     
     ExperienceCell *tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    id item = [self.gameTableArray objectAtIndex:indexPath.row];
-    
-    if ([item isKindOfClass:[ExperienceModel class]]) {
+    if (tableView == self.gameTable) {
+        NSLog(@"游戏列表");
+        id item = [self.gameTableArray objectAtIndex:indexPath.row];
         ExperienceModel *subject = item;
         //标题
         NSString *experienceName = [subject experienceName];
@@ -199,7 +275,10 @@
         }
     }
     
-    if ([item isKindOfClass:[ExperienceModel class]]) {
+    if (tableView == self.science) {
+        NSLog(@"科学小游戏");
+        id item = [self.scienceTalbeArray objectAtIndex:indexPath.row];
+        
         ExperienceModel *subject = item;
         //标题
         NSString *experienceName = [subject experienceName];
@@ -218,6 +297,11 @@
         }else{
             NSLog(@"url not nil");
         }
+    }
+    
+    if (tableView == self.storyTable) {
+        NSLog(@"互动故事");
+        
     }
     
     return tableCell;

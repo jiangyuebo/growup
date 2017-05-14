@@ -37,6 +37,12 @@
 #define IdentifyNameGenderSettingViewController @"czgendersettingviewcontroller"
 //我的
 #define IdentifyNamePersonCenterViewController @"czpersoncenterviewcontroller"
+//宝宝信息
+#define IdentifyNameBabyInfoViewController @"babyinfoviewcontroller"
+//用户信息
+#define IdentifyNamePersonInfoViewController @"personinfoviewcontroller"
+//发现信息列表
+#define IdentifyNameDiscoverInfoListViewController @"czdiscoverinfolistviewcontroller"
 
 //社会能力评测解读界面
 #define IdentifyNameSocietyExplainViewController @"czsocietyexplaincontroller"
@@ -50,6 +56,10 @@
 #define IdentifyNameDetailReportViewController @"czdetailreportviewcontroller"
 //快速测评
 #define IdentifyFastTestViewController @"cztestviewcontroller"
+//体验列表
+#define IdentifyExperienceListViewController @"experiencelistviewcontroller"
+//体验详细
+#define IdentifyExperienceDetailViewController @"experiencedetailviewcontroller"
 
 //******网络请求接口
 //根域名
@@ -93,6 +103,8 @@
 #define URL_RECORD_DETAIL @"record/get"
 //上传成长记
 #define URL_RECORD_UPLOAD @"record/add"
+//获取咨询信息
+#define URL_INFO_GET @"info/getAll"
 
 //******total key
 #define RESULT_KEY_JUMP_PATH @"jumpPath"
@@ -120,9 +132,11 @@
 //体验
 #define EXPERIENCE_GAME @"D26B01" //互动游戏
 #define EXPERIENCE_SCIENCE @"D26B02" //科学实验
+#define EXPERIENCE_GAMEGUAID @"D26B03" //游戏攻略
 #define EXPERIENCE_SONG @"D26B04" //互动儿歌
 #define EXPERIENCE_STORY @"D26B05" //互动故事
 #define EXPERIENCE_SCHOOL @"D26B09" //幼升小
+#define EXPERIENCE_ALL @"D26B99" //综合
 //橙长记
 #define GROWUP_INITIATIVE @"D31B01" //主动
 #define GROWUP_QUOTE @"D31B02" //主动
@@ -131,6 +145,18 @@
 #define GROWUP_RECORD_PUBLIC_FRIEND @"D32B02" //好友公开
 #define GROWUP_RECORD_PUBLIC_PRIVITE @"D32B03"//隐私
 #define GROWUP_RECORD_PUBLIC_TYPE_PUBLIC @"D33B02"//发布
+
+//资讯
+#define INFO_BABY @"D29B01"//萌娃
+#define INFO_ARTICLE @"D29B02"//文章
+#define INFO_TOURISM @"D29B03"//旅游
+#define INFO_ALL @"D29B99"//综合
+
+#define INFO_DETAIL_TYPE_INSPIRE @"D30B01" //励志
+#define INFO_DETAIL_TYPE_SCHOOL @"D30B02" //上学
+#define INFO_DETAIL_TYPE_FEED @"D30B03" //育儿
+#define INFO_DETAIL_TYPE_MIND @"D30B04" //心理
+#define INFO_DETAIL_TYPE_ALL @"D30B99" //综合
 
 //person center
 #define TOKEN @"token"
@@ -150,5 +176,13 @@
 #define TAG_CELL_ACTION_BUTTON_CAN 50 //首页行动项卡片按钮，能
 #define TAG_CELL_ACTION_BUTTON_CANT 51 //首页行动项卡片按钮，不能
 #define TAG_CELL_ACTION_BUTTON_CANTSURE 52 //首页行动项卡片按钮，不确定
+
+//UI
+#define icon_game 20//互动游戏
+#define icon_science 21//科学实验
+#define icon_gameguide 22//游戏攻略
+#define icon_song 23//儿歌
+#define icon_story 24//故事
+#define icon_school 25//互动面试
 
 #endif /* globalHeader_h */

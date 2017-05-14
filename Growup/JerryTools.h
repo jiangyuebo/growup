@@ -20,6 +20,9 @@
 #pragma mark 获取全局用户数据
 + (UserInfoModel *) getUserInfoModel;
 
+#pragma mark 擦除用户登录态
++ (void) eraseUserLoginStatus;
+
 #pragma mark 设置全局access token
 + (void) setAccessToken:(NSString *) accessToken;
 
@@ -28,6 +31,9 @@
 
 #pragma mark 设置 access token 过期时间
 + (void) setAccessExpireTime:(NSNumber *) expireTime;
+
+#pragma mark 获取当前时间毫秒数
++ (long long)getCurrentTimestamp;
 
 #pragma mark - 判断字符串是否为空，包括(nil，nsnull，@"")
 + (BOOL)stringIsNull:(NSString *)str;

@@ -38,6 +38,7 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
+                
 //                NSDictionary *page = [jsonDic objectForKey:@"page"];
 //                NSNumber *pageIndex = [page objectForKey:@"pageIndex"];
 //                NSNumber *pageSize = [page objectForKey:@"pageSize"];

@@ -27,6 +27,13 @@
     [viewController.navigationController pushViewController:targetViewController animated:YES];
 }
 
+#pragma mark 通过ID获取viewcontroller
++ (id)getViewControllerById:(NSString *) viewControllerId{
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    id targetViewController = [story instantiateViewControllerWithIdentifier:viewControllerId];
+    return targetViewController;
+}
+
 #pragma mark navigationcontroller 跳转界面 并携带参数
 + (void)jumpFrom:(UIViewController *)viewController ToViewController:(NSString *) controllerIdentifyName carryDataDic:(NSMutableDictionary *) passDataDic{
     

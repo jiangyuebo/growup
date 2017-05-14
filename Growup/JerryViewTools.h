@@ -17,6 +17,9 @@
 #pragma mark navigationcontroller 跳转界面
 + (void)jumpFrom:(UIViewController *)viewController ToViewController:(NSString *) controllerIdentifyName;
 
+#pragma mark 通过ID获取viewcontroller
++ (id)getViewControllerById:(NSString *) viewControllerId;
+
 #pragma mark navigationcontroller 跳转界面 并携带参数
 + (void)jumpFrom:(UIViewController *)viewController ToViewController:(NSString *) controllerIdentifyName carryDataDic:(NSMutableDictionary *) passDataDic;
 

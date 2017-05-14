@@ -70,7 +70,7 @@
             }else{
                 //返回首页
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 });
             }
         }];

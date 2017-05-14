@@ -11,6 +11,11 @@
 #import "TrackUploadModel.h"
 #import "JerryTools.h"
 #import "JerryViewTools.h"
+#import "COSClient.h"
+#import "COSTask.h"
+#import "UserInfoModel.h"
+#import "KidInfoModel.h"
+#import "QCloudUtils.h"
 
 @interface CZTrackUploadViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -31,6 +36,11 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
 
 @property (strong,nonatomic) NSMutableArray *selectedPicsArray;
+
+@property (strong,nonatomic) NSString *selectedPicPath;
+
+//图片上传
+@property (strong,nonatomic) COSClient *cosClient;
 
 @end
 
@@ -103,38 +113,42 @@
 }
 
 - (void)sendRecord{
-    //检查内容是否为空
-    NSString *contentStr = self.uploadText.text;
     
-    if ([JerryTools stringIsNull:contentStr]) {
-        
-    }else{
-        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
-        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
-        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
-        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
-        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
-        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
-        
-        //详细，照片
-        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
-            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-            if (errorMessage) {
-                //error
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-                });
-            }else{
-                NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
-                if ([result isEqualToString:@"success"]) {
-                    //发送成功
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [[self navigationController] popViewControllerAnimated:YES];
-                    });
-                }
-            }
-        }];
-    }
+    //test pic upload
+    [self uploadImage];
+    
+//    //检查内容是否为空
+//    NSString *contentStr = self.uploadText.text;
+//    
+//    if ([JerryTools stringIsNull:contentStr]) {
+//        
+//    }else{
+//        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
+//        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
+//        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
+//        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
+//        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
+//        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
+//        
+//        //详细，照片
+//        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
+//            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+//            if (errorMessage) {
+//                //error
+//                dispatch_sync(dispatch_get_main_queue(), ^{
+//                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+//                });
+//            }else{
+//                NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+//                if ([result isEqualToString:@"success"]) {
+//                    //发送成功
+//                    dispatch_sync(dispatch_get_main_queue(), ^{
+//                        [[self navigationController] popViewControllerAnimated:YES];
+//                    });
+//                }
+//            }
+//        }];
+//    }
 }
 
 - (void)setPageViewClickable{
@@ -149,15 +163,18 @@
 }
 
 - (void)initData{
-    self.viewModel = [[TrackUploadModel alloc] init];
+    //图片上传
+    self.cosClient = [[COSClient alloc] initWithAppId:@"1253116201" withRegion:@"sh"];
+    [self.cosClient openHTTPSrequset:YES];
     
+    self.viewModel = [[TrackUploadModel alloc] init];
+
     self.selectedPicsArray = [[NSMutableArray alloc] init];
     
     self.picCollectionView.delegate = self;
     self.picCollectionView.dataSource = self;
     
     //test data
-    
     [self.selectedPicsArray addObject:[UIImage imageNamed:@"pic_upload_1"]];
     
     [self resetCollectionViewHeight];
@@ -165,6 +182,37 @@
 
 - (void)uploadImage{
     
+    UserInfoModel *userInfoModel = [JerryTools getUserInfoModel];
+    
+    NSString *bucket = [NSString stringWithFormat:@"%@/rec",userInfoModel.userID];
+    
+    NSString *picPath = self.selectedPicPath;
+    
+    COSObjectPutTask *cosPutTask = [COSObjectPutTask new];
+    cosPutTask.filePath = picPath;
+    cosPutTask.fileName = @"test";
+    cosPutTask.bucket = bucket;
+    cosPutTask.attrs = @"test";
+    cosPutTask.directory = @"dir";
+    cosPutTask.insertOnly = YES;
+    cosPutTask.sign = @"";
+    
+    self.cosClient.completionHandler = ^(COSTaskRsp *resp, NSDictionary *context) {
+        if (resp.retCode == 0) {
+            //sucess
+            NSLog(@"resp:%@ context:%@",resp,context);
+            
+        }else{
+            NSLog(@"上传失败");
+            
+        }
+    };
+    
+    self.cosClient.progressHandler = ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        
+    };
+    
+    [self.cosClient putObject:cosPutTask];
 }
 
 - (void)addImageToArray:(UIImage *)selectedImage{
@@ -205,12 +253,39 @@
     // 设置图片
     UIImage *selectedImage = info[UIImagePickerControllerOriginalImage];
     
+    NSURL *url  = [info objectForKey:UIImagePickerControllerReferenceURL];
+    NSString *photoPath = [self photoSavePathForURL:url];
+    self.selectedPicPath = photoPath;
+    
     //添加到数组中
     [self addImageToArray:selectedImage];
     
     [self resetCollectionViewHeight];
     [self.picCollectionView reloadData];
 }
+
+- (NSString *)photoSavePathForURL:(NSURL *)url
+{
+    NSString *photoSavePath = nil;
+    NSString *urlString = [url absoluteString];
+    NSString *uuid = nil;
+    if (urlString) {
+        uuid = [QCloudUtils findUUID:urlString];
+    } else {
+        uuid = [QCloudUtils uuid];
+    }
+    
+    NSString *resourceCacheDir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/UploadPhoto/"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:resourceCacheDir]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:resourceCacheDir withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    photoSavePath = [resourceCacheDir stringByAppendingPathComponent:uuid];
+    
+    return photoSavePath;
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

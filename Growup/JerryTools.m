@@ -26,6 +26,15 @@
     return delegate.currentUserInfo;
 }
 
+#pragma mark 擦除用户登录态
++ (void) eraseUserLoginStatus{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    UserInfoModel *blankModel = [[UserInfoModel alloc] init];
+    delegate.currentUserInfo = blankModel;
+    
+    delegate.accessToken = @"";
+}
+
 + (void) setAccessToken:(NSString *) accessToken{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     delegate.accessToken = accessToken;
@@ -39,6 +48,11 @@
 + (void) setAccessExpireTime:(NSNumber *) expireTime{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     delegate.accessExpiredIn = expireTime;
+}
+
+#pragma mark 获取当前时间毫秒数
++ (long long)getCurrentTimestamp{
+    return [[NSDate date] timeIntervalSince1970]*1000;
 }
 
 #pragma mark - 判断字符串是否为空，包括(nil，nsnull，@"")

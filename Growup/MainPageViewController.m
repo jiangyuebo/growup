@@ -23,6 +23,7 @@
 #import "ActionExperience.h"
 #import "ActionTask.h"
 #import "ActionCellButton.h"
+#import "PersonInfoViewController.h"
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -102,8 +103,10 @@ bool isBubbleShowed = false;
     UserInfoModel *currentUser = [JerryTools getUserInfoModel];
     
     if ([currentUser userID]) {
-        //有用户
+        //有用户 IdentifyNamePersonInfoViewController
+        PersonInfoViewController *personInfoViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonInfoViewController];
         
+        [self.navigationController pushViewController:personInfoViewController animated:YES];
     }else{
         //无用户
         //跳转到登录界面
@@ -169,7 +172,7 @@ bool isBubbleShowed = false;
     [self.progressView setBackgroundColor:[UIColor colorWithString:@"#6aa71b"]];
     
     //为笑脸图标添加点击事件
-    [self setFaceInteractionEnable];
+//    [self setFaceInteractionEnable];
     
     //为橙宝添加点击事件
     [self setOrangeBabyInteractionEnable];
@@ -200,7 +203,7 @@ bool isBubbleShowed = false;
     [originImage drawAtPoint: CGPointZero];
     
     NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], NSFontAttributeName,[UIColor darkGrayColor],NSForegroundColorAttributeName, nil];
-    [numberStr drawAtPoint:CGPointMake(7,0) withAttributes:attrs];
+    [numberStr drawAtPoint:CGPointMake(7,-1) withAttributes:attrs];
     numberedImage = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
