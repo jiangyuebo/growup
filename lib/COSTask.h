@@ -57,7 +57,7 @@
  * @brief 文件上传任务初始化函数
  * @param filePath 文件路径，必填
  * @param attrs 文件属性，选填
- * @param uploadDirectory 上传文件到哪个目录
+ * @param directory 上传文件到哪个目录
  * @param insert 上传动作是插入或者覆盖
  * @return COSFileUploadTask实例
  */

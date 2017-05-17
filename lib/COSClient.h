@@ -98,7 +98,7 @@ typedef void (^COSCommandCompletionHandler)(COSTaskRsp *resp);
 
 /*!
  @abstract 文件上传方法
- @param COSObjectPutTask：文件上传任务
+ @param task：文件上传任务
  */
 - (BOOL)putObject:(COSObjectPutTask *)task;
 

@@ -60,6 +60,8 @@
 #define IdentifyExperienceListViewController @"experiencelistviewcontroller"
 //体验详细
 #define IdentifyExperienceDetailViewController @"experiencedetailviewcontroller"
+//webview viewController
+#define IdentifyNameWebViewController @"czwebviewviewcontroller"
 
 //******网络请求接口
 //根域名
@@ -139,7 +141,7 @@
 #define EXPERIENCE_ALL @"D26B99" //综合
 //橙长记
 #define GROWUP_INITIATIVE @"D31B01" //主动
-#define GROWUP_QUOTE @"D31B02" //主动
+#define GROWUP_QUOTE @"D31B02" //引用
 #define GROWUP_RECORD_FREEDOM @"D34B01" //自由
 #define GROWUP_RECORD_PUBLIC_ALL @"D32B01" //完全公开
 #define GROWUP_RECORD_PUBLIC_FRIEND @"D32B02" //好友公开
@@ -184,5 +186,7 @@
 #define icon_song 23//儿歌
 #define icon_story 24//故事
 #define icon_school 25//互动面试
+
+#define SIGH @"BDiZujK4f3D3tgHhG9fFh6KofSJhPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NDgxNDg1MCZyPTUxNjg2ODQ5NSZmPS8xMjUzMTE2MjAxL2NidS90ZXN0JmI9Y2J1"
 
 #endif /* globalHeader_h */

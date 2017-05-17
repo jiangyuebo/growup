@@ -25,6 +25,8 @@
 @property (strong,nonatomic) NSNumber *pageSize;
 @property (strong,nonatomic) NSNumber *totalCount;
 
+
+
 @property (nonatomic) BOOL isLoaded;
 
 @end
@@ -65,7 +67,9 @@
     self.recordListArray = [[NSMutableArray alloc] init];
     self.viewMode = [[GrowupRecordViewModel alloc] init];
     
-    [self.viewMode getGrowupRecordByRecordType:nil andPublicType:nil andIsInfo:nil andCallback:^(NSDictionary *resultDic) {
+    
+    
+    [self.viewMode getGrowupRecordByRecordType:GROWUP_INITIATIVE andPublicType:GROWUP_RECORD_PUBLIC_ALL andIsInfo:nil andCallback:^(NSDictionary *resultDic) {
         NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
         if (errorMessage) {
             //error

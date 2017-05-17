@@ -85,6 +85,11 @@
             self.sortedGroupRecordDic = [self sortOutRecordToGroupData:recordArray];
             
             self.recordKeysArray = [self.sortedGroupRecordDic allKeys];
+            //排序
+            self.recordKeysArray = [self.recordKeysArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                NSComparisonResult result = [obj1 compare:obj2 options:NSNumericSearch];
+                return result == NSOrderedAscending; // 降序;
+            }];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.recordTable reloadData];
@@ -119,7 +124,9 @@
         if (![dateStr isEqualToString:cacheDateStr]) {
             if (dateRecord) {
                 //放入
-                [resultDic setValue:dateRecord forKey:cacheDateStr];
+                //倒序一下
+                NSArray *reverseArray = [[dateRecord reverseObjectEnumerator] allObjects];
+                [resultDic setValue:reverseArray forKey:cacheDateStr];
             }
             
             //创建新的
@@ -131,7 +138,8 @@
         
         //最后一组
         if (i == ([recordArray count] -1)) {
-            [resultDic setValue:dateRecord forKey:cacheDateStr];
+            NSArray *reverseArray = [[dateRecord reverseObjectEnumerator] allObjects];
+            [resultDic setValue:reverseArray forKey:cacheDateStr];
         }
     }
     

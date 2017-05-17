@@ -44,7 +44,7 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good_gray" translatesAutoresizingMaskIntoConstraints="NO" id="WDT-FR-tsU">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good_gray" translatesAutoresizingMaskIntoConstraints="NO" id="WDT-FR-tsU">
                         <rect key="frame" x="340" y="100.5" width="19" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="19" id="A9U-rt-AbK"/>

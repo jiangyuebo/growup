@@ -13,4 +13,6 @@
 #pragma mark 获取资讯信息
 - (void)getDiscoverInfoByAgeType:(NSString *) ageType andInfoTypeKey:(NSString *)infoTypeKey andInfoDetailTypeKey:(NSString *)infoDetailTypeKey andPageIndex:(NSNumber *) pageIndex andPageSize:(NSNumber *) pageSize andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
+
+
 @end

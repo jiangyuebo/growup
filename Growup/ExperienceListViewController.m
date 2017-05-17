@@ -56,8 +56,8 @@
     
     self.isLoaded = NO;
     
-//    UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
-//    KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
+    UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
+    KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
     
     self.experienceListTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
     
@@ -91,8 +91,9 @@
     }
     
     //test
-//    experienceTypeKey = EXPERIENCE_ALL;
-    self.ageTypeKey = @"D07B99";
+//    self.ageTypeKey = EXPERIENCE_ALL;
+    self.ageTypeKey = child.ageTypeKey;
+    NSLog(@"self.ageTypeKey = %@",self.ageTypeKey);
     
     [self.viewModel getExperiencesListByAgeType:self.ageTypeKey andExperienceType:self.experienceTypeKey andPageIndex:[NSNumber numberWithInt:1] andPageSize:[NSNumber numberWithInt:10] andCallback:^(NSDictionary *resultDic) {
         
@@ -152,7 +153,6 @@
                 [self.experienceListTable reloadData];
             });
         }
-        
     }];
 }
 

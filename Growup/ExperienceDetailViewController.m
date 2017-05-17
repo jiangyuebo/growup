@@ -8,10 +8,14 @@
 
 #import "ExperienceDetailViewController.h"
 #import "ExperienceViewModel.h"
+#import "JerryViewTools.h"
+#import "globalHeader.h"
 
 @interface ExperienceDetailViewController ()
 
 @property (strong,nonatomic) ExperienceViewModel *viewModel;
+
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
@@ -24,10 +28,28 @@
     
     self.viewModel = [[ExperienceViewModel alloc] init];
     
-    [self.viewModel getExperienceDetailByID:[dataDic objectForKey:@"experienceID"] andCallback:^(NSDictionary *resultDic) {
-        
-    }];
     
+    
+    [self.viewModel getExperienceDetailByID:[dataDic objectForKey:@"experienceID"] andCallback:^(NSDictionary *resultDic) {
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }else{
+            NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
+            NSString *url = [result objectForKey:@"url"];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                self.title = [result objectForKey:@"experienceName"];
+                
+                NSURL *nsurl = [NSURL URLWithString:url];
+                NSData *urlData = [NSData dataWithContentsOfURL:nsurl];
+                [self.webView loadData:urlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nsurl];
+            });
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

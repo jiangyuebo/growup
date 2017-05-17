@@ -191,6 +191,10 @@
     return 80;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dataDic = [self.newsArray objectAtIndex:indexPath.row];
+}
+
 
 /*
 #pragma mark - Navigation

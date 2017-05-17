@@ -21,6 +21,8 @@
     //查询自己记录
     if ([JerryTools stringIsNull:recordType] && [JerryTools stringIsNull:publicType]) {
         url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD];
+    }else{
+        url_request = [NSString stringWithFormat:@"%@%@?recordType=%@&publicType=%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD,recordType,publicType];
     }
 
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
