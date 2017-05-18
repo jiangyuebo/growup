@@ -16,6 +16,7 @@
 #import "UserInfoModel.h"
 #import "KidInfoModel.h"
 #import "QCloudUtils.h"
+#import "CZCellDeleteButton.h"
 
 #import "Auth.h"
 
@@ -38,8 +39,15 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
 
 @property (strong,nonatomic) NSMutableArray *selectedPicsArray;
+@property (strong,nonatomic) NSMutableArray *selectedPicPathArray;
+@property (strong,nonatomic) NSMutableArray *selectedPicUrlArray;
 
-@property (strong,nonatomic) NSString *selectedPicPath;
+@property (nonatomic) NSUInteger uploadIndex;
+@property (nonatomic) NSUInteger finishCount;
+
+@property (strong,nonatomic) UIBarButtonItem *sendRecord;
+
+@property (strong,nonatomic) UIView *uploadingMaskView;
 
 @end
 
@@ -69,13 +77,13 @@
     self.uploadText.delegate = self;
     
     //添加发送按钮
-    UIBarButtonItem *sendRecord = [[UIBarButtonItem alloc]
+    self.sendRecord = [[UIBarButtonItem alloc]
                                 initWithTitle:@"发送"
                                 style:UIBarButtonItemStylePlain
                                 target:self
-                                action:@selector(sendRecord)];
+                                action:@selector(sendOrangeRecord)];
     
-    self.navigationItem.rightBarButtonItem = sendRecord;
+    self.navigationItem.rightBarButtonItem = self.sendRecord;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -115,43 +123,57 @@
     
 }
 
-- (void)sendRecord{
+- (void)sendOrangeRecord{
     
-    //test pic upload
-    [self uploadImage];
+    [self UploadclickPageView];
     
+    //删除占位图片
+    [self.selectedPicsArray removeLastObject];
+    if ([self.selectedPicsArray count] > 0) {
+        [self showUploadingMask];
+        [self uploadImage];
+    }
+
     //检查内容是否为空
-//    NSString *contentStr = self.uploadText.text;
-//    
-//    if ([JerryTools stringIsNull:contentStr]) {
-//        
-//    }else{
-//        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
-//        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
-//        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
-//        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
-//        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
-//        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
-//        
-//        //详细，照片
-//        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
-//            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-//            if (errorMessage) {
-//                //error
-//                dispatch_sync(dispatch_get_main_queue(), ^{
-//                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-//                });
-//            }else{
-//                NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
-//                if ([result isEqualToString:@"success"]) {
-//                    //发送成功
-//                    dispatch_sync(dispatch_get_main_queue(), ^{
-//                        [[self navigationController] popViewControllerAnimated:YES];
-//                    });
-//                }
-//            }
-//        }];
-//    }
+    NSString *contentStr = self.uploadText.text;
+    if ([contentStr isEqualToString:@"参加活动的心情激动不，记录下来吧~"]) {
+        contentStr = @"";
+    }
+    
+    if ([JerryTools stringIsNull:contentStr]) {
+        //判断是否有图片
+        if (!([self.selectedPicsArray count] > 0)) {
+            //无图片无文字
+            [JerryViewTools showCZToastInViewController:self andText:@"写点儿什么再提交吧？"];
+            return;
+        }
+    }else{
+        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
+        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
+        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
+        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
+        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
+        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
+        
+        //详细，照片
+        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
+            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+            if (errorMessage) {
+                //error
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                });
+            }else{
+                NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+                if ([result isEqualToString:@"success"]) {
+                    //发送成功
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [[self navigationController] popViewControllerAnimated:YES];
+                    });
+                }
+            }
+        }];
+    }
 }
 
 - (void)setPageViewClickable{
@@ -170,9 +192,15 @@
     self.viewModel = [[TrackUploadModel alloc] init];
 
     self.selectedPicsArray = [[NSMutableArray alloc] init];
+    self.selectedPicPathArray = [[NSMutableArray alloc] init];
+    self.selectedPicUrlArray = [[NSMutableArray alloc] init];
     
     self.picCollectionView.delegate = self;
     self.picCollectionView.dataSource = self;
+    
+    //上传队列序号
+    self.uploadIndex = 0;
+    self.finishCount = 0;
     
     //test data
     [self.selectedPicsArray addObject:[UIImage imageNamed:@"pic_upload_1"]];
@@ -182,47 +210,108 @@
 
 - (void)uploadImage{
     
-//    UserInfoModel *userInfoModel = [JerryTools getUserInfoModel];
+    //判断是否还有图要传
+    if (self.uploadIndex <= ([self.selectedPicsArray count] - 1)) {
+        
+        if (self.uploadingMaskView) {
+             NSString *finishCountLabel = [NSString stringWithFormat:@"已完成 %ld/%ld",self.finishCount,[self.selectedPicsArray count]];
+            
+            //设置MASK显示
+            UILabel *processLabel = [self.uploadingMaskView viewWithTag:11];
+            processLabel.text = finishCountLabel;
+        }
+        
+        [self updateImageToCload:self.uploadIndex];
+    }
+}
+
+#pragma mark 上传图片到云端
+- (void)updateImageToCload:(NSUInteger) index{
+    //    UserInfoModel *userInfoModel = [JerryTools getUserInfoModel];
+    //    NSString *bucket = [NSString stringWithFormat:@"%@/rec",userInfoModel.userID];
     
-//    NSString *bucket = [NSString stringWithFormat:@"%@/rec",userInfoModel.userID];
-    
-    NSString *picPath = self.selectedPicPath;
+    NSString *picPath = self.selectedPicPathArray[index];
+    NSString *picName = [self getPicUploadName:picPath];
     
     COSObjectPutTask *task = [[COSObjectPutTask alloc] init];
     
     task.filePath = picPath;
-    task.fileName = @"test";
+    task.fileName = picName;
     task.bucket = @"cbu";
     task.attrs = @"customAttribute";
-    task.directory = @"/test";
+    task.directory = @"/rec";
     task.insertOnly = YES;
     task.sign = SIGH;
     
     COSClient *cosClient = [[COSClient alloc] initWithAppId:@"1253116201" withRegion:@"sh"];
     cosClient.region = @"sh";
-//    [cosClient openHTTPSrequset:YES];
+    //    [cosClient openHTTPSrequset:YES];
     
     cosClient.completionHandler = ^(COSTaskRsp *resp, NSDictionary *context) {
         if (resp.retCode == 0) {
             //sucess
+            self.finishCount ++;
+            self.uploadIndex ++;
             
+            if (self.finishCount == [self.selectedPicsArray count]) {
+                //全部完成
+                [self setBtnNoUploadingMode];
+            }else{
+                //还未完成，继续
+                [self uploadImage];
+            }
         }else{
             NSLog(@"上传失败");
+        }
+    };
+    
+    //监控进度
+    cosClient.progressHandler = ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        //progress
+        if (self.uploadingMaskView) {
+            UIProgressView *progress = [self.uploadingMaskView viewWithTag:10];
+            CGFloat percent = (CGFloat)totalBytesWritten/totalBytesExpectedToWrite;
             
+            [progress setProgress:percent];
         }
     };
     
     [cosClient putObject:task];
 }
 
+- (void)setBtnsUploadingMode{
+    //隐藏返回和发送按钮
+    [self.navigationItem setHidesBackButton:YES];
+    self.sendRecord.enabled = NO;
+}
+
+- (void)setBtnNoUploadingMode{
+    //显示返回和发送按钮
+    [self.navigationItem setHidesBackButton:NO];
+    self.sendRecord.enabled = YES;
+    
+    [self.uploadingMaskView removeFromSuperview];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (NSString *)getPicUploadName:(NSString *) picPath{
+    NSString *picName = [picPath lastPathComponent];
+    return picName;
+}
+
 - (void)addImageToArray:(UIImage *)selectedImage{
-    //移除最后一位
+    //移除最后一位占位
     [self.selectedPicsArray removeLastObject];
     //添加新的
     [self.selectedPicsArray addObject:selectedImage];
     //添加占位
     UIImage *offsetImage = [UIImage imageNamed:@"pic_upload_1"];
     [self.selectedPicsArray addObject:offsetImage];
+}
+
+- (void)addPathToArray:(NSString *) selectedPath{
+    //添加新的
+    [self.selectedPicPathArray addObject:selectedPath];
 }
 
 - (void)selectImage{
@@ -257,10 +346,10 @@
     NSString *photoPath = [self photoSavePathForURL:url];
     [imageData writeToFile:photoPath atomically:YES];
     
-    self.selectedPicPath = photoPath;
-    
     //添加到数组中
     [self addImageToArray:orginalImage];
+    //路径添加到数组
+    [self addPathToArray:photoPath];
     
     [self resetCollectionViewHeight];
     [self.picCollectionView reloadData];
@@ -301,6 +390,24 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)deletePicInCollection:(CZCellDeleteButton *) sender{
+    NSLog(@"delete indexPath.row = %ld",sender.row);
+    [self.selectedPicsArray removeObjectAtIndex:sender.row];
+    [self.selectedPicPathArray removeObjectAtIndex:sender.row];
+    
+    [self resetCollectionViewHeight];
+    [self.picCollectionView reloadData];
+}
+
+- (void)showUploadingMask{
+    
+    self.uploadingMaskView = [JerryViewTools getViewByXibName:@"UploadingMaskView"];
+    self.uploadingMaskView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+    [self.view addSubview:self.uploadingMaskView];
+    
+    [self setBtnsUploadingMode];
+}
+
 #pragma mark collection view 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -319,6 +426,11 @@
         
         UIImageView *imageView = [cell viewWithTag:1];
         [imageView setImage:[self.selectedPicsArray objectAtIndex:indexPath.row]];
+        NSLog(@"indexPath.row = %ld",indexPath.row);
+        
+        CZCellDeleteButton *deleteButton = [cell viewWithTag:2];
+        deleteButton.row = indexPath.row;
+        [deleteButton addTarget:self action:@selector(deletePicInCollection:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;

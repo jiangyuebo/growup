@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.80000000000000004" contentMode="scaleToFill" id="iN0-l3-epB" customClass="UploadingMaskView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <progressView opaque="NO" tag="10" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="z6H-ZH-xxv">
+                    <rect key="frame" x="8" y="232.5" width="359" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="ovT-ww-NfI"/>
+                    </constraints>
+                    <color key="progressTintColor" red="0.97254901959999995" green="0.3921568627" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="trackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已完成 1/6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crl-IS-5yh">
+                    <rect key="frame" x="287" y="203" width="80" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="z6H-ZH-xxv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1a6-Zp-7Hx"/>
+                <constraint firstItem="z6H-ZH-xxv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-100" id="8dJ-wy-inl"/>
+                <constraint firstAttribute="trailing" secondItem="z6H-ZH-xxv" secondAttribute="trailing" constant="8" id="aBB-ln-Qu8"/>
+                <constraint firstItem="Crl-IS-5yh" firstAttribute="trailing" secondItem="z6H-ZH-xxv" secondAttribute="trailing" id="ezL-d3-2Mf"/>
+                <constraint firstItem="z6H-ZH-xxv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="kzN-wY-rAt"/>
+                <constraint firstItem="z6H-ZH-xxv" firstAttribute="top" secondItem="Crl-IS-5yh" secondAttribute="bottom" constant="8" id="u9h-FU-ylZ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="processLabel" destination="Crl-IS-5yh" id="wKM-Jc-2zE"/>
+                <outlet property="processProgress" destination="z6H-ZH-xxv" id="pFg-Yu-or5"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="126.5"/>
+        </view>
+    </objects>
+</document>

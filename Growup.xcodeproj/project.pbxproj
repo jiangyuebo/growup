@@ -48,6 +48,9 @@
 		C48A89B31EB8B7E90076D741 /* FastTestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B21EB8B7E90076D741 /* FastTestViewModel.m */; };
 		C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B51EB8C7790076D741 /* TestSubjectModel.m */; };
 		C48A89B91EB97FA40076D741 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B81EB97FA40076D741 /* TestModel.m */; };
+		C4A66BB51ECCB4B200CE8BCE /* CZCellDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BB41ECCB4B200CE8BCE /* CZCellDeleteButton.m */; };
+		C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */; };
+		C4A66BBA1ECD871200CE8BCE /* UploadingMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
 		C4C8BB811EBCA986001D6B98 /* MainPageActionInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB801EBCA986001D6B98 /* MainPageActionInfoModel.m */; };
@@ -202,6 +205,11 @@
 		C48A89B51EB8C7790076D741 /* TestSubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubjectModel.m; sourceTree = "<group>"; };
 		C48A89B71EB97FA40076D741 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
 		C48A89B81EB97FA40076D741 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
+		C4A66BB31ECCB4B200CE8BCE /* CZCellDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZCellDeleteButton.h; sourceTree = "<group>"; };
+		C4A66BB41ECCB4B200CE8BCE /* CZCellDeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZCellDeleteButton.m; sourceTree = "<group>"; };
+		C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadingMaskView.xib; sourceTree = "<group>"; };
+		C4A66BB81ECD871200CE8BCE /* UploadingMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadingMaskView.h; sourceTree = "<group>"; };
+		C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadingMaskView.m; sourceTree = "<group>"; };
 		C4C3E0AC1EAA420A00AAC109 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
@@ -570,6 +578,7 @@
 				C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */,
 				C4D6BB921EC30A3F00063A5D /* RecordCell.xib */,
 				C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */,
+				C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -581,6 +590,10 @@
 				C4D6BB951EC3164B00063A5D /* RecordCell.m */,
 				C4D6BBEF1EC7194900063A5D /* RecordHeaderView.h */,
 				C4D6BBF01EC7194900063A5D /* RecordHeaderView.m */,
+				C4A66BB31ECCB4B200CE8BCE /* CZCellDeleteButton.h */,
+				C4A66BB41ECCB4B200CE8BCE /* CZCellDeleteButton.m */,
+				C4A66BB81ECD871200CE8BCE /* UploadingMaskView.h */,
+				C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1565,6 +1578,7 @@
 				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C4D6BC3B1EC807E700063A5D /* MJRefresh.bundle in Resources */,
 				C4D6BBF31EC73A5700063A5D /* DiscoverRecordCell.xib in Resources */,
+				C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */,
 				C4D6BCFF1EC8478600063A5D /* LICENSE in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
 				C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */,
@@ -1587,6 +1601,7 @@
 				C4C8BBA01EBE2200001D6B98 /* ActionCell.m in Sources */,
 				C48824B41E66F12F005D8FED /* GlobalBusinessLayer.m in Sources */,
 				C4D6BC2E1EC807E700063A5D /* MJRefreshBackFooter.m in Sources */,
+				C4A66BBA1ECD871200CE8BCE /* UploadingMaskView.m in Sources */,
 				C43364B61E82F81600606538 /* RegisterViewModel.m in Sources */,
 				C4D6BC321EC807E700063A5D /* MJRefreshAutoGifFooter.m in Sources */,
 				C43364B31E82715B00606538 /* CZTrackUploadViewController.mm in Sources */,
@@ -1604,6 +1619,7 @@
 				C4D6BC311EC807E700063A5D /* MJRefreshHeader.m in Sources */,
 				C4E533A01E8116D30041DDDA /* CZNewsViewController.m in Sources */,
 				C4D6BBEE1EC6F72300063A5D /* PersonInfoViewController.m in Sources */,
+				C4A66BB51ECCB4B200CE8BCE /* CZCellDeleteButton.m in Sources */,
 				C4D6BC351EC807E700063A5D /* MJRefreshBackGifFooter.m in Sources */,
 				C4C8BB8A1EBCD237001D6B98 /* ActionTask.m in Sources */,
 				C4D6BC301EC807E700063A5D /* MJRefreshFooter.m in Sources */,

@@ -161,6 +161,9 @@ bool isBubbleShowed = false;
     
     self.title = @"首页";
     
+    //设置橙娃动画 orange_1
+    self.orangeBaby.image = [UIImage animatedImageNamed:@"orange_" duration:0.7];
+    
     //设置VIEW圆角
     UIView *targetView = [self.view viewWithTag:1];
     [self setViewRoundCorner:targetView];

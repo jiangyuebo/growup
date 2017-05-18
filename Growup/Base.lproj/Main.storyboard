@@ -1489,11 +1489,22 @@
                                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KPq-Os-Vms">
                                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                                                 </imageView>
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tb-PE-aQq" customClass="CZCellDeleteButton">
+                                                                    <rect key="frame" x="47" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="25" id="Jbj-rt-dwb"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="waa-Mt-Gxu"/>
+                                                                    </constraints>
+                                                                    <inset key="imageEdgeInsets" minX="4" minY="-8" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" image="delete"/>
+                                                                </button>
                                                             </subviews>
                                                         </view>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="KPq-Os-Vms" secondAttribute="bottom" id="F4U-5T-8nb"/>
                                                             <constraint firstAttribute="trailing" secondItem="KPq-Os-Vms" secondAttribute="trailing" id="Jc8-UV-g9u"/>
+                                                            <constraint firstItem="4Tb-PE-aQq" firstAttribute="trailing" secondItem="KPq-Os-Vms" secondAttribute="trailing" id="QTk-7t-SoG"/>
+                                                            <constraint firstItem="4Tb-PE-aQq" firstAttribute="top" secondItem="KPq-Os-Vms" secondAttribute="top" id="jNv-SS-zmP"/>
                                                             <constraint firstItem="KPq-Os-Vms" firstAttribute="leading" secondItem="6mj-S7-z46" secondAttribute="leading" id="jmr-8i-X8M"/>
                                                             <constraint firstItem="KPq-Os-Vms" firstAttribute="top" secondItem="6mj-S7-z46" secondAttribute="top" id="zhQ-ml-jmD"/>
                                                         </constraints>
@@ -6591,6 +6602,7 @@
         <image name="color_hover" width="16" height="16"/>
         <image name="comment" width="16" height="16"/>
         <image name="cup" width="16" height="16"/>
+        <image name="delete" width="16" height="16"/>
         <image name="download" width="16" height="16"/>
         <image name="endmenu" width="16" height="16"/>
         <image name="face_mark" width="16" height="16"/>
