@@ -9,7 +9,6 @@
 #import "MainPageViewModel.h"
 #import "globalHeader.h"
 #import "BMRequestHelper.h"
-#import "PopInfoModel.h"
 #import "AbilityModel.h"
 #import "MainPageActionInfoModel.h"
 #import "ActionSubject.h"
@@ -50,55 +49,7 @@
                 [resultDic setObject:errorMsg forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
                 //无错误
-                NSArray *array = (NSArray *)jsonObject;
-                
-                NSMutableArray *popInfoArray = [[NSMutableArray alloc] init];
-                
-                for (int i = 0; i < [array count]; i++) {
-                    PopInfoModel *popInfo = [[PopInfoModel alloc] init];
-                    
-                    NSDictionary *infoDic = [array objectAtIndex:i];
-                    
-                    NSString *ageTypeKey = [infoDic objectForKey:@"ageTypeKey"];
-                    [popInfo setAgeTypeKey:ageTypeKey];
-                    
-                    NSNumber *childDynamicID = [infoDic objectForKey:@"childDynamicID"];
-                    [popInfo setChildDynamicID:childDynamicID];
-                    
-                    NSString *childDynamicTypeKey = [infoDic objectForKey:@"childDynamicTypeKey"];
-                    [popInfo setChildDynamicTypeKey:childDynamicTypeKey];
-                    
-                    NSString *contentResourceTypeKey = [infoDic objectForKey:@"contentResourceTypeKey"];
-                    [popInfo setContentResourceTypeKey:contentResourceTypeKey];
-                    
-                    NSString *contentResourceUrl = [infoDic objectForKey:@"contentResourceUrl"];
-                    [popInfo setContentResourceUrl:contentResourceUrl];
-                    
-                    NSNumber *correctAnswerValue = [infoDic objectForKey:@"correctAnswerValue"];
-                    [popInfo setCorrectAnswerValue:correctAnswerValue];
-                    
-                    NSString *infoDescription = [infoDic objectForKey:@"dynamicDescription"];
-                    [popInfo setInfoDescription:infoDescription];
-                    
-                    NSString *infoName = [infoDic objectForKey:@"dynamicName"];
-                    [popInfo setInfoName:infoName];
-                    
-                    NSString *logoResourceTypeKey = [infoDic objectForKey:@"logoResourceTypeKey"];
-                    [popInfo setLogoResourceTypeKey:logoResourceTypeKey];
-                    
-                    NSString *logoResourceUrl = [infoDic objectForKey:@"logoResourceUrl"];
-                    [popInfo setLogoResourceUrl:logoResourceUrl];
-                    
-                    NSNumber *score = [infoDic objectForKey:@"score"];
-                    [popInfo setScore:score];
-                    
-                    NSNumber *weight = [infoDic objectForKey:@"weight"];
-                    [popInfo setWeight:weight];
-                    
-                    [popInfoArray addObject:popInfo];
-                }
-                
-                [resultDic setObject:popInfoArray forKey:RESULT_KEY_DATA];
+                [resultDic setObject:jsonObject forKey:RESULT_KEY_DATA];
             }
             
         }else{

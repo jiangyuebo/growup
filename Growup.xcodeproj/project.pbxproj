@@ -43,7 +43,6 @@
 		C48A899C1EAB50AB0076D741 /* InterestingSettingViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A899B1EAB50AB0076D741 /* InterestingSettingViewModel.m */; };
 		C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A899E1EAB665E0076D741 /* CZTextField.m */; };
 		C48A89A61EAF4D1F0076D741 /* CZForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89A51EAF4D1F0076D741 /* CZForgotPasswordViewController.m */; };
-		C48A89AB1EB3ABA20076D741 /* PopInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */; };
 		C48A89AE1EB3EA560076D741 /* AbilityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89AD1EB3EA550076D741 /* AbilityModel.m */; };
 		C48A89B31EB8B7E90076D741 /* FastTestViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B21EB8B7E90076D741 /* FastTestViewModel.m */; };
 		C48A89B61EB8C7790076D741 /* TestSubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C48A89B51EB8C7790076D741 /* TestSubjectModel.m */; };
@@ -51,6 +50,7 @@
 		C4A66BB51ECCB4B200CE8BCE /* CZCellDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BB41ECCB4B200CE8BCE /* CZCellDeleteButton.m */; };
 		C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */; };
 		C4A66BBA1ECD871200CE8BCE /* UploadingMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */; };
+		C4A66BBC1ECDFEDE00CE8BCE /* RecordCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A66BBB1ECDFEDE00CE8BCE /* RecordCollectionCell.xib */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
 		C4C8BB811EBCA986001D6B98 /* MainPageActionInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB801EBCA986001D6B98 /* MainPageActionInfoModel.m */; };
@@ -195,8 +195,6 @@
 		C48A899E1EAB665E0076D741 /* CZTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZTextField.m; sourceTree = "<group>"; };
 		C48A89A41EAF4D1F0076D741 /* CZForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZForgotPasswordViewController.h; sourceTree = "<group>"; };
 		C48A89A51EAF4D1F0076D741 /* CZForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZForgotPasswordViewController.m; sourceTree = "<group>"; };
-		C48A89A91EB3ABA20076D741 /* PopInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopInfoModel.h; sourceTree = "<group>"; };
-		C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopInfoModel.m; sourceTree = "<group>"; };
 		C48A89AC1EB3EA550076D741 /* AbilityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbilityModel.h; sourceTree = "<group>"; };
 		C48A89AD1EB3EA550076D741 /* AbilityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbilityModel.m; sourceTree = "<group>"; };
 		C48A89B11EB8B7E90076D741 /* FastTestViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastTestViewModel.h; sourceTree = "<group>"; };
@@ -210,6 +208,7 @@
 		C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadingMaskView.xib; sourceTree = "<group>"; };
 		C4A66BB81ECD871200CE8BCE /* UploadingMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadingMaskView.h; sourceTree = "<group>"; };
 		C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadingMaskView.m; sourceTree = "<group>"; };
+		C4A66BBB1ECDFEDE00CE8BCE /* RecordCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordCollectionCell.xib; sourceTree = "<group>"; };
 		C4C3E0AC1EAA420A00AAC109 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
@@ -579,6 +578,7 @@
 				C4D6BB921EC30A3F00063A5D /* RecordCell.xib */,
 				C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */,
 				C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */,
+				C4A66BBB1ECDFEDE00CE8BCE /* RecordCollectionCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -881,8 +881,6 @@
 				C48824C71E6C83E0005D8FED /* UserInfoModel.m */,
 				C48824C91E6C8423005D8FED /* KidInfoModel.h */,
 				C48824CA1E6C8423005D8FED /* KidInfoModel.m */,
-				C48A89A91EB3ABA20076D741 /* PopInfoModel.h */,
-				C48A89AA1EB3ABA20076D741 /* PopInfoModel.m */,
 				C48A89AC1EB3EA550076D741 /* AbilityModel.h */,
 				C48A89AD1EB3EA550076D741 /* AbilityModel.m */,
 				C4C8BB7F1EBCA986001D6B98 /* MainPageActionInfoModel.h */,
@@ -1572,6 +1570,7 @@
 				C41E7A8B1E462D570033D1AF /* Assets.xcassets in Resources */,
 				C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */,
 				C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */,
+				C4A66BBC1ECDFEDE00CE8BCE /* RecordCollectionCell.xib in Resources */,
 				C4D6BB9B1EC43CA600063A5D /* RecordHeader.xib in Resources */,
 				C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */,
 				C4D6BBFB1EC7587900063A5D /* DiscoverTableHeader.xib in Resources */,
@@ -1664,7 +1663,6 @@
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
 				C4C8BB811EBCA986001D6B98 /* MainPageActionInfoModel.m in Sources */,
 				C4D6BC2D1EC807E700063A5D /* MJRefreshAutoFooter.m in Sources */,
-				C48A89AB1EB3ABA20076D741 /* PopInfoModel.m in Sources */,
 				C4D6BC331EC807E700063A5D /* MJRefreshAutoNormalFooter.m in Sources */,
 				C48824E51E7058F8005D8FED /* DetailReportViewController.m in Sources */,
 				C43BC62A1E784F5300468837 /* GamesViewController.m in Sources */,

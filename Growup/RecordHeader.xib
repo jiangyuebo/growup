@@ -15,6 +15,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1A-Xq-lIM">
+                    <rect key="frame" x="43" y="0.0" width="1" height="91"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="2WC-Z6-zll"/>
+                    </constraints>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="dGN-Po-5px">
                     <rect key="frame" x="17" y="17" width="53" height="57"/>
                     <constraints>
@@ -34,13 +41,6 @@
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1A-Xq-lIM">
-                    <rect key="frame" x="42.5" y="74" width="1" height="17"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1" id="2WC-Z6-zll"/>
-                    </constraints>
-                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwc-DU-IQy">
                     <rect key="frame" x="17" y="27" width="53" height="47"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -55,13 +55,13 @@
                 <constraint firstItem="Bwc-DU-IQy" firstAttribute="leading" secondItem="dGN-Po-5px" secondAttribute="leading" id="90i-32-hPc"/>
                 <constraint firstItem="z1A-Xq-lIM" firstAttribute="centerX" secondItem="dGN-Po-5px" secondAttribute="centerX" id="AUw-Bv-cAf"/>
                 <constraint firstItem="dGN-Po-5px" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="17" id="BuK-VO-VIe"/>
+                <constraint firstItem="z1A-Xq-lIM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="I5m-B5-bil"/>
                 <constraint firstItem="h7l-SI-ge5" firstAttribute="leading" secondItem="dGN-Po-5px" secondAttribute="trailing" constant="9" id="L0X-qX-B19"/>
                 <constraint firstItem="dGN-Po-5px" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="17" id="Uv6-Ux-83K"/>
                 <constraint firstAttribute="bottom" secondItem="dGN-Po-5px" secondAttribute="bottom" constant="17" id="VNh-Vj-BZ6"/>
                 <constraint firstItem="Bwc-DU-IQy" firstAttribute="top" secondItem="dGN-Po-5px" secondAttribute="top" constant="10" id="XmW-f8-qgo"/>
                 <constraint firstItem="IQq-CN-6lH" firstAttribute="leading" secondItem="dGN-Po-5px" secondAttribute="trailing" constant="9" id="Z8b-oK-dn9"/>
                 <constraint firstItem="Bwc-DU-IQy" firstAttribute="bottom" secondItem="dGN-Po-5px" secondAttribute="bottom" id="aAl-hc-8S8"/>
-                <constraint firstItem="z1A-Xq-lIM" firstAttribute="top" secondItem="dGN-Po-5px" secondAttribute="bottom" id="ffO-h9-j4C"/>
                 <constraint firstAttribute="bottom" secondItem="z1A-Xq-lIM" secondAttribute="bottom" id="x4a-0M-Vnf"/>
                 <constraint firstItem="Bwc-DU-IQy" firstAttribute="trailing" secondItem="dGN-Po-5px" secondAttribute="trailing" id="x5t-FA-hne"/>
             </constraints>

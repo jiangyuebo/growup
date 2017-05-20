@@ -186,9 +186,25 @@
     
     NSDictionary *dataDic = [dayRecordArray objectAtIndex:indexPath.row];
     
+    //获取文字内容
     NSString *recordContent = [dataDic objectForKey:@"recordContent"];
-    
     tableCell.contentText.text = recordContent;
+    //获取图片内容
+    NSArray *recordDetailsArray = [dataDic objectForKey:@"recordDetails"];
+    NSMutableArray *recordPicsURLArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [recordDetailsArray count]; i++) {
+        NSDictionary *recordDetailDic = recordDetailsArray[i];
+        NSString *picURLStr = [recordDetailDic objectForKey:@"contentResourceTypeUrl"];
+        [recordPicsURLArray addObject:picURLStr];
+        
+//        NSURL *picURL = [NSURL URLWithString:picURLStr];
+//        tableCell.pic1.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picURL]];
+    }
+    
+    if ([recordPicsURLArray count] > 0) {
+        tableCell.picUrlArray  = recordPicsURLArray;
+    }
     
     return tableCell;
 }

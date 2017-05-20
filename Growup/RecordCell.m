@@ -10,11 +10,10 @@
 
 @implementation RecordCell
 
-@synthesize cellType,contentText,contentPics;
+@synthesize cellType,contentText,picUrlArray,pic1,pic2,pic3;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,5 +21,4 @@
 
     // Configure the view for the selected state
 }
-
 @end

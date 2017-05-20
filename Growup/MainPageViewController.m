@@ -16,7 +16,6 @@
 #import "UserInfoModel.h"
 #import "KidInfoModel.h"
 #import "AbilityModel.h"
-#import "PopInfoModel.h"
 #import "MainPageActionInfoModel.h"
 #import "ActionCell.h"
 #import "ActionSubject.h"
@@ -256,15 +255,27 @@ bool isBubbleShowed = false;
             NSNumber *day = [birthdayDic objectForKey:@"day"];
             int yearInt = [year intValue];
             int monthInt = [month intValue];
+            int dayInt = [day intValue];
             
             NSString *birthdayStr;
             
             if (yearInt == 0 && monthInt == 0) {
                 //出生年月都是0
                 birthdayStr = [NSString stringWithFormat:@"%@天",day];
-            }else{
+            }
+            
+            if (yearInt == 0 && monthInt != 0 && dayInt != 0) {
+                birthdayStr = [NSString stringWithFormat:@"%@月%@天",month,day];
+            }
+            
+            if (yearInt != 0 && monthInt != 0 && dayInt == 0) {
                 birthdayStr = [NSString stringWithFormat:@"%@岁%@个月",year,month];
             }
+            
+            if (yearInt != 0 && monthInt == 0 && dayInt != 0) {
+                birthdayStr = [NSString stringWithFormat:@"%@岁零%@天",year,day];
+            }
+            
             self.avatarLabel.text = birthdayStr;
             
             [self fetchDataFromServer];
@@ -539,10 +550,10 @@ bool isBubbleShowed = false;
             popIndex = 0;
         }
         
-        PopInfoModel *popInfo = [self.popArray objectAtIndex:popIndex];
-        NSString *contentInfo = [popInfo infoDescription];
+        NSDictionary *popInfo = [self.popArray objectAtIndex:popIndex];
+        NSString *contentInfo = [popInfo objectForKey:@"dynamicName"];
         if ([JerryTools stringIsNull:contentInfo]) {
-            self.bubbleLabel.text = [popInfo infoName];
+            self.bubbleLabel.text = @"爸爸妈妈每天都要开开心心的哟";
         }else{
             self.bubbleLabel.text = contentInfo;
         }

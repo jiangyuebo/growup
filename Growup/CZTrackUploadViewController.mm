@@ -127,53 +127,77 @@
     
     [self UploadclickPageView];
     
+    NSString *contentStr = self.uploadText.text;
+    if ([contentStr isEqualToString:@"参加活动的心情激动不，记录下来吧~"]) {
+        self.uploadText.text = @"";
+    }
+    
     //删除占位图片
     [self.selectedPicsArray removeLastObject];
     if ([self.selectedPicsArray count] > 0) {
+        //有选择图片
         [self showUploadingMask];
         [self uploadImage];
-    }
-
-    //检查内容是否为空
-    NSString *contentStr = self.uploadText.text;
-    if ([contentStr isEqualToString:@"参加活动的心情激动不，记录下来吧~"]) {
-        contentStr = @"";
-    }
-    
-    if ([JerryTools stringIsNull:contentStr]) {
-        //判断是否有图片
-        if (!([self.selectedPicsArray count] > 0)) {
-            //无图片无文字
+        
+    }else{
+        //无图片
+        //检查内容是否为空
+        
+        if ([JerryTools stringIsNull:contentStr]) {
             [JerryViewTools showCZToastInViewController:self andText:@"写点儿什么再提交吧？"];
             return;
+        }else{
+            [self postRecordData];
         }
-    }else{
-        NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
-        [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
-        [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
-        [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
-        [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
-        [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
-        
-        //详细，照片
-        [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
-            NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-            if (errorMessage) {
-                //error
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-                });
-            }else{
-                NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
-                if ([result isEqualToString:@"success"]) {
-                    //发送成功
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [[self navigationController] popViewControllerAnimated:YES];
-                    });
-                }
-            }
-        }];
     }
+}
+
+- (void)postRecordData{
+    NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
+    [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
+    [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
+    [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
+    [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
+    [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
+    
+    NSMutableArray *picDetailArray = [[NSMutableArray alloc] init];
+    //图片详细 RESOURCE_TYPE_KEY_PIC
+    for (int i = 0; i < [self.selectedPicUrlArray count]; i++) {
+        NSMutableDictionary *picDetailDic = [NSMutableDictionary dictionary];
+        [picDetailDic setObject:RESOURCE_TYPE_KEY_PIC forKey:@"contentResourceTypeKey"];
+        [picDetailDic setObject:self.selectedPicUrlArray[i] forKey:@"contentResourceTypeUrl"];
+        
+        [picDetailArray addObject:picDetailDic];
+    }
+    if ([picDetailArray count] > 0) {
+        [recordMessage setObject:picDetailArray forKey:@"recordDetails"];
+    }
+    
+    NSLog(@"recordMessage = %@",recordMessage);
+    
+    //详细，照片
+    [self.viewModel sendRecord:recordMessage andCallback:^(NSDictionary *resultDic) {
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }else{
+            NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+            if ([result isEqualToString:@"success"]) {
+                //发送成功
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    if (self.uploadingMaskView) {
+                        [self.uploadingMaskView removeFromSuperview];
+                    }
+                    
+                    [[self navigationController] popViewControllerAnimated:YES];
+                });
+            }
+        }
+    }];
+
 }
 
 - (void)setPageViewClickable{
@@ -253,9 +277,16 @@
             self.finishCount ++;
             self.uploadIndex ++;
             
+            COSObjectUploadTaskRsp *rsp = (COSObjectUploadTaskRsp *)resp;
+            NSString *urlString = rsp.sourceURL;
+            
+            [self.selectedPicUrlArray addObject:urlString];
+            
             if (self.finishCount == [self.selectedPicsArray count]) {
                 //全部完成
-                [self setBtnNoUploadingMode];
+//                [self setBtnNoUploadingMode];
+                [self postRecordData];
+                
             }else{
                 //还未完成，继续
                 [self uploadImage];
@@ -289,9 +320,6 @@
     //显示返回和发送按钮
     [self.navigationItem setHidesBackButton:NO];
     self.sendRecord.enabled = YES;
-    
-    [self.uploadingMaskView removeFromSuperview];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSString *)getPicUploadName:(NSString *) picPath{
