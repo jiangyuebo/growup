@@ -194,5 +194,7 @@
 
 #define SIGH @"f97cKyHy+30LTHzpsbBqzTIekg9hPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NTA0MTg2OCZyPTE2MDI5MDgzMTImZj0vMTI1MzExNjIwMS9jYnUvcmVjJmI9Y2J1"
 
+#define Height_Action_Subject_Cell 240
+#define Height_Action_exp_Cell 390
 
 #endif /* globalHeader_h */

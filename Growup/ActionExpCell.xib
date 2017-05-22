@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="431" id="kxv-61-qsK" customClass="ActionExpCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="430"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kxv-61-qsK" id="6SD-n7-nnA">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="429.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_song" translatesAutoresizingMaskIntoConstraints="NO" id="vQ2-oc-gYb">
+                        <rect key="frame" x="15" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="McJ-aE-kS5"/>
+                            <constraint firstAttribute="width" constant="40" id="pjp-7B-MIy"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日之歌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbj-CP-ThU">
+                        <rect key="frame" x="70" y="19.5" width="73.5" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvQ-5T-13X">
+                        <rect key="frame" x="0.0" y="65" width="375" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Vor-NW-MGT"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="actionSong" translatesAutoresizingMaskIntoConstraints="NO" id="GKG-OK-GJi">
+                        <rect key="frame" x="17" y="86" width="341" height="173"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="GKG-OK-GJi" secondAttribute="height" multiplier="1144:580" id="kUd-bT-tmC"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9g-m8-mve">
+                        <rect key="frame" x="157" y="142" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="dXM-UI-Ve4"/>
+                            <constraint firstAttribute="height" constant="60" id="itD-qB-bzk"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="action_play"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="听儿歌好好吃饭" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LGd-An-Qbb">
+                        <rect key="frame" x="116" y="276" width="143" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="养成独立吃饭的好习惯" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NC7-k7-ncn">
+                        <rect key="frame" x="101" y="313" width="173.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YQ3-vV-qGB">
+                        <rect key="frame" x="0.0" y="353.5" width="375" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="GFI-Hs-gUD"/>
+                            <constraint firstAttribute="height" constant="1" id="VOm-rJ-HBl"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="72f-ot-eqS">
+                        <rect key="frame" x="0.0" y="353.5" width="375" height="60"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d22-zJ-zTz" customClass="ActionCellButton">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="60"/>
+                                <state key="normal" title="完成">
+                                    <color key="titleColor" red="0.97254901959999995" green="0.3921568627" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN2-EY-947" customClass="ActionCellButton">
+                                <rect key="frame" x="125" y="0.0" width="125" height="60"/>
+                                <state key="normal" title="放弃">
+                                    <color key="titleColor" red="0.97254901959999995" green="0.3921568627" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxy-av-Lc0" customClass="ActionCellButton">
+                                <rect key="frame" x="250" y="0.0" width="125" height="60"/>
+                                <state key="normal" title="以后再说">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="JWY-9K-pbX"/>
+                        </constraints>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bmg-zD-rhT">
+                        <rect key="frame" x="0.0" y="421.5" width="375" height="8"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="0ff-88-gDd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="M9g-m8-mve" firstAttribute="centerX" secondItem="GKG-OK-GJi" secondAttribute="centerX" id="1cR-gC-l3Z"/>
+                    <constraint firstItem="72f-ot-eqS" firstAttribute="top" secondItem="YQ3-vV-qGB" secondAttribute="bottom" constant="-1" id="8BO-D3-scu"/>
+                    <constraint firstItem="NC7-k7-ncn" firstAttribute="centerX" secondItem="LGd-An-Qbb" secondAttribute="centerX" id="AEl-r1-VbD"/>
+                    <constraint firstItem="LGd-An-Qbb" firstAttribute="top" secondItem="GKG-OK-GJi" secondAttribute="bottom" constant="17" id="BeG-JE-JHI"/>
+                    <constraint firstItem="Bmg-zD-rhT" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" id="DL1-rT-y4A"/>
+                    <constraint firstItem="YQ3-vV-qGB" firstAttribute="top" secondItem="NC7-k7-ncn" secondAttribute="bottom" constant="20" id="HPE-Me-l6f"/>
+                    <constraint firstAttribute="trailing" secondItem="YQ3-vV-qGB" secondAttribute="trailing" id="I3p-Tm-0b9"/>
+                    <constraint firstItem="vQ2-oc-gYb" firstAttribute="top" secondItem="6SD-n7-nnA" secondAttribute="top" constant="10" id="LI1-jV-abn"/>
+                    <constraint firstAttribute="bottom" secondItem="Bmg-zD-rhT" secondAttribute="bottom" id="M5R-nd-dz6"/>
+                    <constraint firstItem="GKG-OK-GJi" firstAttribute="top" secondItem="UvQ-5T-13X" secondAttribute="bottom" constant="20" id="Vpu-mP-vMv"/>
+                    <constraint firstItem="YQ3-vV-qGB" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" id="WbX-i9-qXU"/>
+                    <constraint firstItem="NC7-k7-ncn" firstAttribute="top" secondItem="LGd-An-Qbb" secondAttribute="bottom" constant="13" id="b9d-Hg-JmX"/>
+                    <constraint firstItem="LGd-An-Qbb" firstAttribute="centerX" secondItem="GKG-OK-GJi" secondAttribute="centerX" id="e5p-Eg-N5Q"/>
+                    <constraint firstAttribute="trailing" secondItem="GKG-OK-GJi" secondAttribute="trailing" constant="17" id="eNZ-og-ExY"/>
+                    <constraint firstAttribute="trailing" secondItem="Bmg-zD-rhT" secondAttribute="trailing" id="esd-tw-vzg"/>
+                    <constraint firstAttribute="trailing" secondItem="UvQ-5T-13X" secondAttribute="trailing" id="fnU-VC-ULx"/>
+                    <constraint firstItem="UvQ-5T-13X" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" id="gW9-pe-Cl0"/>
+                    <constraint firstItem="GKG-OK-GJi" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" constant="17" id="gyy-su-8kW"/>
+                    <constraint firstItem="UvQ-5T-13X" firstAttribute="top" secondItem="vQ2-oc-gYb" secondAttribute="bottom" constant="15" id="kjD-Iu-2Bc"/>
+                    <constraint firstItem="M9g-m8-mve" firstAttribute="centerY" secondItem="GKG-OK-GJi" secondAttribute="centerY" id="o8z-aY-ork"/>
+                    <constraint firstItem="Kbj-CP-ThU" firstAttribute="centerY" secondItem="vQ2-oc-gYb" secondAttribute="centerY" id="pRL-DH-e3z"/>
+                    <constraint firstItem="vQ2-oc-gYb" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" constant="15" id="sGk-Tj-pZN"/>
+                    <constraint firstItem="72f-ot-eqS" firstAttribute="leading" secondItem="6SD-n7-nnA" secondAttribute="leading" id="suj-CQ-F2S"/>
+                    <constraint firstAttribute="trailing" secondItem="72f-ot-eqS" secondAttribute="trailing" id="yxI-J2-8gO"/>
+                    <constraint firstItem="Kbj-CP-ThU" firstAttribute="leading" secondItem="vQ2-oc-gYb" secondAttribute="trailing" constant="15" id="zH4-Bq-OFL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="actionButton" destination="M9g-m8-mve" id="0Z4-Tz-32p"/>
+                <outlet property="bgImageView" destination="GKG-OK-GJi" id="WRp-lh-JSz"/>
+                <outlet property="btnAbandon" destination="DN2-EY-947" id="tXz-vh-w8b"/>
+                <outlet property="btnFinish" destination="d22-zJ-zTz" id="b4c-bB-6tD"/>
+                <outlet property="btnOtherTime" destination="fxy-av-Lc0" id="6JC-ce-0X4"/>
+                <outlet property="contentLabel" destination="LGd-An-Qbb" id="Uaa-jC-Mpm"/>
+                <outlet property="iconImageView" destination="vQ2-oc-gYb" id="6Wo-2S-DER"/>
+                <outlet property="subContentLabel" destination="NC7-k7-ncn" id="tRO-MD-5BQ"/>
+                <outlet property="titleLabel" destination="Kbj-CP-ThU" id="P0T-aP-Qca"/>
+            </connections>
+            <point key="canvasLocation" x="27.5" y="225.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="actionSong" width="16" height="16"/>
+        <image name="action_play" width="16" height="16"/>
+        <image name="card_song" width="16" height="16"/>
+    </resources>
+</document>

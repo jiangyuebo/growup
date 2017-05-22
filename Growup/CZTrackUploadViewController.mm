@@ -49,9 +49,34 @@
 
 @property (strong,nonatomic) UIView *uploadingMaskView;
 
+//发布权限选择
+@property (strong, nonatomic) IBOutlet UIView *authSelectView;
+@property (strong,nonatomic) NSString *publicTypeKey;
+
 @end
 
 @implementation CZTrackUploadViewController
+
+- (IBAction)authTotalOpen:(UIButton *)sender {
+    //完全公开
+    self.authorityText.text = @"完全公开";
+    self.publicTypeKey = GROWUP_RECORD_PUBLIC_ALL;
+    self.authSelectView.hidden = YES;
+}
+
+- (IBAction)friendsOpen:(UIButton *)sender {
+    //好友公开
+    self.authorityText.text = @"好友公开";
+    self.publicTypeKey = GROWUP_RECORD_PUBLIC_FRIEND;
+    self.authSelectView.hidden = YES;
+}
+
+- (IBAction)authSelf:(UIButton *)sender {
+    //隐私
+    self.authorityText.text = @"隐私";
+    self.publicTypeKey = GROWUP_RECORD_PUBLIC_PRIVITE;
+    self.authSelectView.hidden = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +109,19 @@
                                 action:@selector(sendOrangeRecord)];
     
     self.navigationItem.rightBarButtonItem = self.sendRecord;
+    
+    //设置权限选择功能
+    self.authorityText.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authSelected)];
+    [self.authorityText addGestureRecognizer:singleTap];
+}
+
+- (void)authSelected{
+    if (self.authSelectView.hidden) {
+        self.authSelectView.hidden = NO;
+    }else{
+        self.authSelectView.hidden = YES;
+    }
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -153,11 +191,12 @@
 }
 
 - (void)postRecordData{
+    
     NSMutableDictionary *recordMessage = [NSMutableDictionary dictionary];
     [recordMessage setObject:GROWUP_RECORD_FREEDOM forKey:@"recordSourceTypeKey"];
     [recordMessage setObject:GROWUP_INITIATIVE forKey:@"recordTypeKey"];
     [recordMessage setObject:self.uploadText.text forKey:@"recordContent"];
-    [recordMessage setObject:GROWUP_RECORD_PUBLIC_ALL forKey:@"publicTypeKey"];
+    [recordMessage setObject:self.publicTypeKey forKey:@"publicTypeKey"];
     [recordMessage setObject:GROWUP_RECORD_PUBLIC_TYPE_PUBLIC forKey:@"recordPublishTypeKey"];
     
     NSMutableArray *picDetailArray = [[NSMutableArray alloc] init];
@@ -197,7 +236,6 @@
             }
         }
     }];
-
 }
 
 - (void)setPageViewClickable{
@@ -212,6 +250,8 @@
 }
 
 - (void)initData{
+    
+    self.publicTypeKey = GROWUP_RECORD_PUBLIC_ALL;
     
     self.viewModel = [[TrackUploadModel alloc] init];
 

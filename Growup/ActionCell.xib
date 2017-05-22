@@ -11,15 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="259" id="oEq-U7-r3s" customClass="ActionCell">
-            <rect key="frame" x="0.0" y="0.0" width="376" height="247"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="252" id="oEq-U7-r3s" customClass="ActionCell">
+            <rect key="frame" x="0.0" y="0.0" width="376" height="240"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oEq-U7-r3s" id="Drq-dA-MFp">
-                <rect key="frame" x="0.0" y="0.0" width="376" height="246.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="376" height="239.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nn-u4-7mv">
-                        <rect key="frame" x="0.0" y="0.0" width="376" height="247"/>
+                        <rect key="frame" x="0.0" y="0.0" width="376" height="239.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_guancha" translatesAutoresizingMaskIntoConstraints="NO" id="J7E-oT-smZ">
                                 <rect key="frame" x="15" y="10" width="40" height="40"/>
@@ -41,21 +41,21 @@
                                     <constraint firstAttribute="height" constant="1" id="sJC-vI-d9J"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="观察幼儿" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AH-5Q-0RX">
-                                <rect key="frame" x="20" y="114" width="336" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="观察幼儿" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AH-5Q-0RX">
+                                <rect key="frame" x="20" y="110.5" width="336" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OP4-Gc-RAC">
-                                <rect key="frame" x="0.0" y="175" width="376" height="1"/>
+                                <rect key="frame" x="0.0" y="167.5" width="376" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="xoQ-1F-fnl"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AGo-1l-d4w">
-                                <rect key="frame" x="0.0" y="184" width="376" height="55"/>
+                                <rect key="frame" x="0.0" y="176.5" width="376" height="55"/>
                                 <subviews>
                                     <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Co-8r-mtz" customClass="ActionCellButton">
                                         <rect key="frame" x="0.0" y="0.0" width="125.5" height="55"/>
@@ -81,7 +81,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pA-OM-ZIB">
-                                <rect key="frame" x="0.0" y="239" width="376" height="8"/>
+                                <rect key="frame" x="0.0" y="231.5" width="376" height="8"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="8" id="uaO-6t-5Zl"/>
@@ -125,7 +125,7 @@
                 <outlet property="btnCant" destination="OVq-7L-UDw" id="nkp-2J-WOl"/>
                 <outlet property="btnNotSure" destination="vSX-Pw-fnT" id="DAu-QZ-PU1"/>
             </connections>
-            <point key="canvasLocation" x="478" y="-22.5"/>
+            <point key="canvasLocation" x="478" y="-26"/>
         </tableViewCell>
     </objects>
     <resources>

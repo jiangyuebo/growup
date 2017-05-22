@@ -9,11 +9,6 @@
 #import "MainPageViewModel.h"
 #import "globalHeader.h"
 #import "BMRequestHelper.h"
-#import "AbilityModel.h"
-#import "MainPageActionInfoModel.h"
-#import "ActionSubject.h"
-#import "ActionExperience.h"
-#import "ActionTask.h"
 #import "JerryTools.h"
 #import "KidInfoModel.h"
 
@@ -70,59 +65,16 @@
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
         
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
         if (data) {
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            AbilityModel *abilityModel =  [[AbilityModel alloc] init];
-            
-            NSLog(@"jsonDic = %@",jsonDic);
-            NSString *abilityStatusTypeKey = [jsonDic objectForKey:@"abilityStatusTypeKey"];
-            [abilityModel setAbilityStatusTypeKey:abilityStatusTypeKey];
-            
-            NSNumber *indexArtScore = [jsonDic objectForKey:@"indexArtScore"];
-            [abilityModel setIndexArtScore:indexArtScore];
-            NSString *indexArtStatusTypeKey = [jsonDic objectForKey:@"indexArtStatusTypeKey"];
-            [abilityModel setIndexArtStatusTypeKey:indexArtStatusTypeKey];
-            
-            NSNumber *indexHealthScore = [jsonDic objectForKey:@"indexHealthScore"];
-            [abilityModel setIndexHealthScore:indexHealthScore];
-            NSString *indexHealthStatusTypeKey = [jsonDic objectForKey:@"indexHealthStatusTypeKey"];
-            [abilityModel setIndexHealthStatusTypeKey:indexHealthStatusTypeKey];
-            
-            NSNumber *indexLanguageScore = [jsonDic objectForKey:@"indexLanguageScore"];
-            [abilityModel setIndexLanguageScore:indexLanguageScore];
-            NSString *indexLanguageStatusTypeKey = [jsonDic objectForKey:@"indexLanguageStatusTypeKey"];
-            [abilityModel setIndexLanguageStatusTypeKey:indexLanguageStatusTypeKey];
-            
-            NSNumber *indexScienceScore = [jsonDic objectForKey:@"indexScienceScore"];
-            [abilityModel setIndexScienceScore:indexScienceScore];
-            NSString *indexScienceStatusTypeKey = [jsonDic objectForKey:@"indexScienceStatusTypeKey"];
-            [abilityModel setIndexScienceStatusTypeKey:indexScienceStatusTypeKey];
-            
-            NSNumber *indexSociologyScore = [jsonDic objectForKey:@"indexSociologyScore"];
-            [abilityModel setIndexScienceScore:indexSociologyScore];
-            NSString *indexSociologyStatusTypeKey = [jsonDic objectForKey:@"indexSociologyStatusTypeKey"];
-            [abilityModel setIndexSociologyStatusTypeKey:indexSociologyStatusTypeKey];
-            
-            BOOL isAbilityExpired = [[jsonDic objectForKey:@"isAbilityExpired"] boolValue];
-            [abilityModel setIsAbilityExpired:isAbilityExpired];
-            
-            NSNumber *userAbilityID = [jsonDic objectForKey:@"userAbilityID"];
-            [abilityModel setUserAbilityID:userAbilityID];
-            
-            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
-            [resultDic setObject:abilityModel forKey:RESULT_KEY_DATA];
-            
-            callback(resultDic);
-            
+            [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
         }else{
-            NSLog(@"返回值中 data 是空");
-            
-            NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
-            
-            callback(resultDic);
         }
+        callback(resultDic);
     }];
     
 }
@@ -146,184 +98,8 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                //解析数据
-                MainPageActionInfoModel *mainPageActionInfoModel = [[MainPageActionInfoModel alloc] init];
                 
-                //总体参数
-                NSNumber *actionFinishNumber = [jsonDic objectForKey:@"actionFinishNumber"];
-                [mainPageActionInfoModel setActionFinishNumber:actionFinishNumber];
-                
-                NSNumber *actionNumber = [jsonDic objectForKey:@"actionNumber"];
-                [mainPageActionInfoModel setActionNumber:actionNumber];
-                
-                NSDate *actionTS = [jsonDic objectForKey:@"actionTS"];
-                [mainPageActionInfoModel setActionTS:actionTS];
-                
-                NSNumber *childID = [jsonDic objectForKey:@"childID"];
-                [mainPageActionInfoModel setChildID:childID];
-                
-                BOOL isFinish = [[jsonDic objectForKey:@"isFinish"] boolValue];
-                [mainPageActionInfoModel setIsFinish:isFinish];
-                
-                NSNumber *userActionID = [jsonDic objectForKey:@"userActionID"];
-                [mainPageActionInfoModel setUserActionID:userActionID];
-                
-                //userActionSubjects
-                NSArray *userActionSubjects = [jsonDic objectForKey:@"userActionSubjects"];
-                NSMutableArray *userActionSubjectReturnArray = [[NSMutableArray alloc] init];
-                
-                
-                for (int i = 0; i < [userActionSubjects count]; i++) {
-                    ActionSubject *actionSubject = [[ActionSubject alloc] init];
-                    
-                    NSDictionary *userActionSubject = userActionSubjects[i];
-                    BOOL isAction = [[userActionSubject objectForKey:@"isAction"] boolValue];
-                    [actionSubject setIsAction:isAction];
-                    
-                    NSString *actionStatusTypeKey = [userActionSubject objectForKey:@"actionStatusTypeKey"];
-                    [actionSubject setActionStatusTypeKey:actionStatusTypeKey];
-                    
-                    NSDate *actionTS = [userActionSubject objectForKey:@"actionTS"];
-                    [actionSubject setActionTS:actionTS];
-                    
-                    NSDictionary *subject = [userActionSubject objectForKey:@"subject"];
-                    NSString *contentResourceTypeKey = [subject objectForKey:@"contentResourceTypeKey"];
-                    [actionSubject setContentResourceTypeKey:contentResourceTypeKey];
-                    
-                    NSString *contentResourceUrl = [subject objectForKey:@"contentResourceUrl"];
-                    [actionSubject setContentResourceUrl:contentResourceUrl];
-                    
-                    NSString *logoResourceTypeKey = [subject objectForKey:@"logoResourceTypeKey"];
-                    [actionSubject setLogoResourceTypeKey:logoResourceTypeKey];
-                    
-                    NSString *logoResourceUrl = [subject objectForKey:@"logoResourceUrl"];
-                    [actionSubject setLogoResourceUrl:logoResourceUrl];
-                    
-                    NSString *subjectDescription = [subject objectForKey:@"subjectDescription"];
-                    [actionSubject setSubjectDescription:subjectDescription];
-                    
-                    NSNumber *subjectID = [subject objectForKey:@"subjectID"];
-                    [actionSubject setSubjectID:subjectID];
-                    
-                    NSString *subjectName = [subject objectForKey:@"subjectName"];
-                    [actionSubject setSubjectName:subjectName];
-                    
-                    NSString *subjectNum = [subject objectForKey:@"subjectNum"];
-                    [actionSubject setSubjectNum:subjectNum];
-                    
-                    NSString *subjectOptionTypeKey = [subject objectForKey:@"subjectOptionTypeKey"];
-                    [actionSubject setSubjectOptionTypeKey:subjectOptionTypeKey];
-                    
-                    NSString *subjectTypeKey = [subject objectForKey:@"subjectTypeKey"];
-                    [actionSubject setSubjectTypeKey:subjectTypeKey];
-                    
-                    NSString *subjectUseTypeKey = [subject objectForKey:@"subjectUseTypeKey"];
-                    [actionSubject setSubjectUseTypeKey:subjectUseTypeKey];
-                    
-                    [userActionSubjectReturnArray addObject:actionSubject];
-                }
-                [mainPageActionInfoModel setUserActionSubjects:userActionSubjectReturnArray];
-                
-                //userActionExperiences
-                NSArray *userActionExperiences = [jsonDic objectForKey:@"userActionExperiences"];
-                NSMutableArray *userActionExperiencesReturnArray = [[NSMutableArray alloc] init];
-                
-                for (int i = 0; i < [userActionExperiences count]; i++) {
-                    ActionExperience *actionExperience = [[ActionExperience alloc] init];
-                    
-                    NSDictionary *userActionExperience = userActionExperiences[i];
-                    
-                    NSString *actionStatusTypeKey = [userActionExperience objectForKey:@"actionStatusTypeKey"];
-                    [actionExperience setActionStatusTypeKey:actionStatusTypeKey];
-                    
-                    NSDate *actionTS = [userActionExperience objectForKey:@"actionTS"];
-                    [actionExperience setActionTS:actionTS];
-                    
-                    BOOL isAction = [[userActionExperience objectForKey:@"isAction"] boolValue];
-                    [actionExperience setIsAction:isAction];
-                    
-                    NSDictionary *experience = [userActionExperience objectForKey:@"experience"];
-                    NSString *contentResourceUrl = [experience objectForKey:@"contentResourceUrl"];
-                    [actionExperience setContentResourceUrl:contentResourceUrl];
-                    
-                    NSNumber *experienceID = [experience objectForKey:@"experienceID"];
-                    [actionExperience setExperienceID:experienceID];
-                    
-                    NSString *experienceName = [experience objectForKey:@"experienceName"];
-                    [actionExperience setExperienceName:experienceName];
-                    
-                    NSString *experienceTypeKey = [experience objectForKey:@"experienceTypeKey"];
-                    [actionExperience setExperienceTypeKey:experienceTypeKey];
-                    
-                    NSString *logoResourceTypeKey = [experience objectForKey:@"logoResourceTypeKey"];
-                    [actionExperience setLogoResourceTypeKey:logoResourceTypeKey];
-                    
-                    NSString *logoResourceUrl = [experience objectForKey:@"logoResourceUrl"];
-                    [actionExperience setLogoResourceUrl:logoResourceUrl];
-                    
-                    [userActionExperiencesReturnArray addObject:actionExperience];
-                }
-                [mainPageActionInfoModel setUserActionExperiences:userActionExperiencesReturnArray];
-                
-                //userActionTasks
-                NSArray *userActionTasks = [jsonDic objectForKey:@"userActionTasks"];
-                NSMutableArray *userActionTasksReturnArray = [[NSMutableArray alloc] init];
-                
-                for (int i = 0; i < [userActionTasks count]; i++) {
-                    ActionTask *actionTask = [[ActionTask alloc] init];
-                    
-                    NSDictionary *userActionTask = userActionTasks[i];
-                    
-                    NSString *actionStatusTypeKey = [userActionTask objectForKey:@"actionStatusTypeKey"];
-                    [actionTask setActionStatusTypeKey:actionStatusTypeKey];
-                    
-                    NSDate *actionTS = [userActionTask objectForKey:@"actionTS"];
-                    [actionTask setActionTS:actionTS];
-                    
-                    BOOL isAction = [[userActionTask objectForKey:@"isAction"] boolValue];
-                    [actionTask setIsAction:isAction];
-                    
-                    //task
-                    NSDictionary *task = [userActionTask objectForKey:@"task"];
-                    
-                    NSString *contentResourceTypeKey = [task objectForKey:@"contentResourceTypeKey"];
-                    [actionTask setContentResourceTypeKey:contentResourceTypeKey];
-                    
-                    NSString *contentResourceUrl = [task objectForKey:@"contentResourceUrl"];
-                    [actionTask setContentResourceUrl:contentResourceUrl];
-                    
-                    NSString *logoResourceTypeKey = [task objectForKey:@"logoResourceTypeKey"];
-                    [actionTask setLogoResourceTypeKey:logoResourceTypeKey];
-                    
-                    NSString *logoResourceUrl = [task objectForKey:@"logoResourceUrl"];
-                    [actionTask setLogoResourceUrl:logoResourceUrl];
-                    
-                    NSString *taskActionDescription = [task objectForKey:@"taskActionDescription"];
-                    [actionTask setTaskActionDescription:taskActionDescription];
-                    
-                    NSString *taskActionTypeKey = [task objectForKey:@"taskActionTypeKey"];
-                    [actionTask setTaskActionTypeKey:taskActionTypeKey];
-                    
-                    NSString *taskDescription = [task objectForKey:@"taskDescription"];
-                    [actionTask setTaskDescription:taskDescription];
-                    
-                    NSNumber *taskID = [task objectForKey:@"taskID"];
-                    [actionTask setTaskID:taskID];
-                    
-                    NSString *taskName = [task objectForKey:@"taskName"];
-                    [actionTask setTaskName:taskName];
-                    
-                    NSString *taskTypeKey = [task objectForKey:@"taskTypeKey"];
-                    [actionTask setTaskTypeKey:taskTypeKey];
-                    
-                    NSString *taskUseTypeKey = [task objectForKey:@"taskUseTypeKey"];
-                    [actionTask setTaskUseTypeKey:taskUseTypeKey];
-                    
-                    [userActionTasksReturnArray addObject:actionTask];
-                }
-                [mainPageActionInfoModel setUserActionTasks:userActionTasksReturnArray];
-                
-                [resultDic setObject:mainPageActionInfoModel forKey:RESULT_KEY_DATA];
+                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];

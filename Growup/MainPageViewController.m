@@ -15,14 +15,11 @@
 #import "JerryTools.h"
 #import "UserInfoModel.h"
 #import "KidInfoModel.h"
-#import "AbilityModel.h"
-#import "MainPageActionInfoModel.h"
 #import "ActionCell.h"
-#import "ActionSubject.h"
-#import "ActionExperience.h"
-#import "ActionTask.h"
 #import "ActionCellButton.h"
+#import "ActionExpCell.h"
 #import "PersonInfoViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 //娃娃脸图片点击跳转tag
 #define face_health 10//健康
@@ -79,12 +76,16 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *actionTable;
 
-//行动项总体对象
-@property (strong,nonatomic) MainPageActionInfoModel *actionInfo;
+//行动项数据
+@property (strong,nonatomic) NSDictionary *actionInfoDic;
+
 //行动项列表数据
 @property (strong,nonatomic) NSMutableArray *actionTableItems;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *actionTableHeight;
+
+//行动卡片播放器
+@property (strong,nonatomic) AVPlayer *actionPlayer;
 
 
 @end
@@ -130,13 +131,13 @@ bool isBubbleShowed = false;
 
 #pragma mark 跳转到 测试/详细报告
 - (IBAction)testOrReportBtn:(UIButton *)sender {
-    if (self.viewModel.needTest) {
-        //开始测评
-        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
-    }else{
+//    if (self.viewModel.needTest) {
+//        //开始测评
+//        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
+//    }else{
         //查看综合报告
-        
-    }
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+//    }
 }
 
 - (void)viewDidLoad {
@@ -232,7 +233,6 @@ bool isBubbleShowed = false;
     self.actionTable.separatorStyle = NO;
     self.actionTable.scrollEnabled = NO;
     self.actionTable.allowsSelection = NO;
-
 }
 
 - (void)mainPageUpdage{
@@ -359,8 +359,9 @@ bool isBubbleShowed = false;
                     [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                 });
             }else{
-                AbilityModel *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
-                BOOL isAbilityExpired = [abilityModel isAbilityExpired];
+                NSDictionary *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
+                
+                BOOL isAbilityExpired = [abilityModel objectForKey:@"isAbilityExpired"];
                 NSString *buttonStr;
                 if (isAbilityExpired) {
                     //需要测评
@@ -391,15 +392,16 @@ bool isBubbleShowed = false;
                         [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                     });
                 }else{
-                    self.actionInfo = [resultDic objectForKey:RESULT_KEY_DATA];
+                    self.actionInfoDic = [resultDic objectForKey:RESULT_KEY_DATA];
+                    
                     //获取行动项个数及完成数
-                    NSNumber *actionFinishNumber = [self.actionInfo actionFinishNumber];
-                    NSNumber *actionNumber = [self.actionInfo actionNumber];
+                    NSNumber *actionFinishNumber = [self.actionInfoDic objectForKey:@"actionFinishNumber"];
+                    NSNumber *actionNumber = [self.actionInfoDic objectForKey:@"actionNumber"];
                     
                     //获取行动项
-                    NSArray *userActionSubjects = [self.actionInfo userActionSubjects];
-                    NSArray *userActionTasks = [self.actionInfo userActionTasks];
-                    NSArray *userActionExperiences = [self.actionInfo userActionExperiences];
+                    NSArray *userActionSubjects = [self.actionInfoDic objectForKey:@"userActionSubjects"];
+                    NSArray *userActionTasks = [self.actionInfoDic objectForKey:@"userActionTasks"];
+                    NSArray *userActionExperiences = [self.actionInfoDic objectForKey:@"userActionExperiences"];
                     
                     [self.actionTableItems addObjectsFromArray:userActionSubjects];
                     [self.actionTableItems addObjectsFromArray:userActionTasks];
@@ -432,25 +434,39 @@ bool isBubbleShowed = false;
 
 #pragma mark 重设行动项列表高度
 - (void) resetActionTableHeight{
-    self.actionTableHeight.constant = [self.actionTableItems count] * 240;
+    CGFloat height = 0;
+    for (int i = 0; i < [self.actionTableItems count]; i++) {
+        NSDictionary *infoDic = self.actionTableItems[i];
+        if ([infoDic objectForKey:@"subject"]) {
+            height += Height_Action_Subject_Cell;
+        }
+        if ([infoDic objectForKey:@"task"]) {
+            height += Height_Action_Subject_Cell;
+        }
+        if ([infoDic objectForKey:@"experience"]) {
+            height += Height_Action_exp_Cell;
+        }
+    }
+    
+    self.actionTableHeight.constant = height;
 }
 
 #pragma mark 设置
-- (void)setAbilityStatus:(AbilityModel *) abilityMode{
+- (void)setAbilityStatus:(NSDictionary *) abilityMode{
     
-    NSString *indexArtStatusTypeKey = [abilityMode indexArtStatusTypeKey];
+    NSString *indexArtStatusTypeKey = [abilityMode objectForKey:@"indexArtStatusTypeKey"];
     [self.imageFaceArt setImage:[self rankImageFromParam:indexArtStatusTypeKey]];
     
-    NSString *indexHealthStatusTypeKey = [abilityMode indexHealthStatusTypeKey];
+    NSString *indexHealthStatusTypeKey = [abilityMode objectForKey:@"indexHealthStatusTypeKey"];
     [self.imageFaceHealth setImage:[self rankImageFromParam:indexHealthStatusTypeKey]];
     
-    NSString *indexLanguageStatusTypeKey = [abilityMode indexLanguageStatusTypeKey];
+    NSString *indexLanguageStatusTypeKey = [abilityMode objectForKey:@"indexLanguageStatusTypeKey"];
     [self.imageFaceLanguage setImage:[self rankImageFromParam:indexLanguageStatusTypeKey]];
     
-    NSString *indexScienceStatusTypeKey = [abilityMode indexScienceStatusTypeKey];
+    NSString *indexScienceStatusTypeKey = [abilityMode objectForKey:@"indexScienceStatusTypeKey"];
     [self.imageFaceScience setImage:[self rankImageFromParam:indexScienceStatusTypeKey]];
     
-    NSString *indexSociologyStatusTypeKey = [abilityMode indexSociologyStatusTypeKey];
+    NSString *indexSociologyStatusTypeKey = [abilityMode objectForKey:@"indexSociologyStatusTypeKey"];
     [self.imageFaceSociety setImage:[self rankImageFromParam:indexSociologyStatusTypeKey]];
 }
 
@@ -588,17 +604,21 @@ bool isBubbleShowed = false;
     NSIndexPath *indexPath = button.indexPath;
     
     //获取行动项对象
-    id clickedItem = [self.actionTableItems objectAtIndex:row];
-    
+    NSDictionary *clickedItem = [self.actionTableItems objectAtIndex:row];
+
     NSNumber *userActionSubjectId;
     NSNumber *userActionExperienceId;
     NSNumber *userActionTaskId;
-    if ([clickedItem isKindOfClass:[ActionSubject class]]) {
-        userActionSubjectId = [clickedItem subjectID];
-    }else if ([clickedItem isKindOfClass:[ActionExperience class]]){
-        userActionExperienceId = [clickedItem experienceID];
-    }else if ([clickedItem isKindOfClass:[ActionTask class]]){
-        userActionTaskId = [clickedItem taskID];
+    
+    if ([clickedItem objectForKey:@"subject"]) {
+        NSDictionary *infoDic = [clickedItem objectForKey:@"subject"];
+        userActionSubjectId = [infoDic objectForKey:@"subjectID"];
+    }else if ([clickedItem objectForKey:@"task"]){
+        NSDictionary *infoDic = [clickedItem objectForKey:@"task"];
+        userActionTaskId = [infoDic objectForKey:@"taskID"];
+    }else if ([clickedItem objectForKey:@"experience"]){
+        NSDictionary *infoDic = [clickedItem objectForKey:@"experience"];
+        userActionExperienceId = [infoDic objectForKey:@"experienceID"];
     }
     
     NSString *optionResultType;
@@ -610,7 +630,9 @@ bool isBubbleShowed = false;
         optionResultType = OPTION_RESULT_TYPE_O;
     }
     
-    [self.viewModel submitActionByUserActionID:self.actionInfo.userActionID andOptionResultType:optionResultType andUserActionExperienceID:userActionExperienceId andUserActionTaskID:userActionTaskId andUserActionSubjectID:userActionSubjectId andCallback:^(NSDictionary *resultDic) {
+    NSNumber *userActionID = [self.actionInfoDic objectForKey:@"userActionID"];
+    
+    [self.viewModel submitActionByUserActionID:userActionID andOptionResultType:optionResultType andUserActionExperienceID:userActionExperienceId andUserActionTaskID:userActionTaskId andUserActionSubjectID:userActionSubjectId andCallback:^(NSDictionary *resultDic) {
         NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
         if (errorMessage) {
             //error
@@ -673,62 +695,121 @@ bool isBubbleShowed = false;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"cellId";
-    //定义标志，保证仅为该表格注册一次单元格视图
-    static BOOL isRegist = NO;
-    if (!isRegist) {
-        UINib *nib = [UINib nibWithNibName:@"ActionCell" bundle:nil];
-        //注册单元格
-        [self.actionTable registerNib:nib forCellReuseIdentifier:cellId];
-        isRegist = YES;
-    }
     
-    ActionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    NSDictionary *item = [self.actionTableItems objectAtIndex:indexPath.row];
     
-    id item = [self.actionTableItems objectAtIndex:indexPath.row];
-    
-    if ([item isKindOfClass:[ActionSubject class]]) {
-        ActionSubject *subject = item;
-        NSString *subjectName = [subject subjectName];
-        if ([JerryTools stringIsNull:subjectName]) {
-            subjectName = @"无数据";
+    if ([item objectForKey:@"subject"]) {
+        
+        static NSString *subjectCellId = @"subjectCellId";
+        //定义标志，保证仅为该表格注册一次单元格视图
+        static BOOL subjectCellisRegist = NO;
+        
+        if (!subjectCellisRegist) {
+            UINib *nib = [UINib nibWithNibName:@"ActionCell" bundle:nil];
+            //注册单元格
+            [self.actionTable registerNib:nib forCellReuseIdentifier:subjectCellId];
+            subjectCellisRegist = YES;
         }
+        
+        ActionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:subjectCellId];
+        
+        //subject
+        NSDictionary *infoDic = [item objectForKey:@"subject"];
+        NSString *subjectName = [infoDic objectForKey:@"subjectName"];
         tableCell.brif.text = subjectName;
         
-    }else if ([item isKindOfClass:[ActionTask class]]){
-        ActionTask *task = item;
-        NSString *taskName = [task taskName];
-        if ([JerryTools stringIsNull:taskName]) {
-            taskName = @"无数据";
-        }
-        tableCell.brif.text = taskName;
-    }else if ([item isKindOfClass:[ActionExperience class]]){
-        ActionExperience *experience = item;
-        NSString *experienceName = [experience experienceName];
-        if ([JerryTools stringIsNull:experienceName]) {
-            experienceName = @"无数据";
-        }
-        tableCell.brif.text = experienceName;
+        tableCell.btnCan.rowIndex = indexPath.row;
+        tableCell.btnCant.rowIndex = indexPath.row;
+        tableCell.btnNotSure.rowIndex = indexPath.row;
+        
+        tableCell.btnCan.indexPath = indexPath;
+        tableCell.btnCant.indexPath = indexPath;
+        tableCell.btnNotSure.indexPath = indexPath;
+        
+        [tableCell.btnCan addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnCant addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnNotSure addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        return tableCell;
+        
     }
     
-    tableCell.btnCan.rowIndex = indexPath.row;
-    tableCell.btnCant.rowIndex = indexPath.row;
-    tableCell.btnNotSure.rowIndex = indexPath.row;
+    if ([item objectForKey:@"task"]){
+        
+        static NSString *taskCellId = @"taskCellId";
+        static BOOL taskCellisRegist = NO;
+        
+        if (!taskCellisRegist) {
+            UINib *nib = [UINib nibWithNibName:@"ActionCell" bundle:nil];
+            //注册单元格
+            [self.actionTable registerNib:nib forCellReuseIdentifier:taskCellId];
+            taskCellisRegist = YES;
+        }
+        
+        ActionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:taskCellId];
+        
+        //task
+        NSDictionary *infoDic = [item objectForKey:@"task"];
+        NSString *taskName = [infoDic objectForKey:@"taskName"];
+        tableCell.brif.text = taskName;
+        
+        return tableCell;
+        
+    }
     
-    tableCell.btnCan.indexPath = indexPath;
-    tableCell.btnCant.indexPath = indexPath;
-    tableCell.btnNotSure.indexPath = indexPath;
+    if ([item objectForKey:@"experience"]){
+        static NSString *expCellId = @"expCellId";
+        //定义标志，保证仅为该表格注册一次单元格视图
+        static BOOL expCellisRegist = NO;
+        if (!expCellisRegist) {
+            UINib *nib = [UINib nibWithNibName:@"ActionExpCell" bundle:nil];
+            //注册单元格
+            [self.actionTable registerNib:nib forCellReuseIdentifier:expCellId];
+            expCellisRegist = YES;
+        }
+        
+        ActionExpCell *tableCell = [tableView dequeueReusableCellWithIdentifier:expCellId];
+        
+        //experience
+        NSDictionary *infoDic = [item objectForKey:@"experience"];
+        NSString *experienceName = [infoDic objectForKey:@"experienceName"];
+        
+        tableCell.contentLabel.text = experienceName;
+       
+        tableCell.btnFinish.rowIndex = indexPath.row;
+        tableCell.btnAbandon.rowIndex = indexPath.row;
+        tableCell.btnOtherTime.rowIndex = indexPath.row;
+
+        tableCell.btnFinish.indexPath = indexPath;
+        tableCell.btnAbandon.indexPath = indexPath;
+        tableCell.btnOtherTime.indexPath = indexPath;
+
+        [tableCell.btnFinish addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnAbandon addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnOtherTime addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        return tableCell;
+    }
     
-    [tableCell.btnCan addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [tableCell.btnCant addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [tableCell.btnNotSure addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    return tableCell;
+    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 240;
+    NSDictionary *item = [self.actionTableItems objectAtIndex:indexPath.row];
+    if ([item objectForKey:@"subject"]) {
+        return Height_Action_Subject_Cell;
+    }
+    
+    if ([item objectForKey:@"task"]){
+        return Height_Action_Subject_Cell;
+    }
+    
+    if ([item objectForKey:@"experience"]){
+        return Height_Action_exp_Cell;
+    }
+    
+    return Height_Action_Subject_Cell;
 }
 
 /*
