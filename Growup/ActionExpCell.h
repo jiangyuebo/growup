@@ -21,7 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *bgImageView;
 
 //卡片控制按钮
-@property (strong, nonatomic) IBOutlet UIButton *actionButton;
+@property (strong, nonatomic) IBOutlet ActionCellButton *actionButton;
 
 //卡片描述文字
 @property (strong, nonatomic) IBOutlet UILabel *contentLabel;

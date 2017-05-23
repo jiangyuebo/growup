@@ -34,6 +34,8 @@
 
 @property (nonatomic) BOOL isLoaded;
 
+@property (strong,nonatomic) NSMutableDictionary *picCache;
+
 @end
 
 @implementation ExperienceListViewController
@@ -48,6 +50,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //图片缓存
+    self.picCache = [NSMutableDictionary dictionary];
     
     self.experienceTableArray = [[NSMutableArray alloc] init];
     
@@ -188,10 +193,25 @@
         //默认图片
         tableCell.logoImageView.image = [UIImage imageNamed:@"game1"];
     }else{
-        NSURL *url = [NSURL URLWithString:logoResourceUrl];
-        tableCell.logoImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        //检查缓存中是否有该图片
+        NSString *urlImageKey = [logoResourceUrl lastPathComponent];
+        UIImage *urlPic = [self.picCache objectForKey:urlImageKey];
+        if (urlPic) {
+            //有
+            tableCell.logoImageView.image = urlPic;
+        }else{
+            //没有
+            //异步加载图片
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSURL *url = [NSURL URLWithString:logoResourceUrl];
+                UIImage *urlImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                tableCell.logoImageView.image = urlImage;
+                
+                //放进缓存
+                [self.picCache setObject:urlImage forKey:urlImageKey];
+            });
+        }
     }
-    
     return tableCell;
 }
 

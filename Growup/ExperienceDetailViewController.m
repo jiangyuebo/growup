@@ -28,8 +28,6 @@
     
     self.viewModel = [[ExperienceViewModel alloc] init];
     
-    
-    
     [self.viewModel getExperienceDetailByID:[dataDic objectForKey:@"experienceID"] andCallback:^(NSDictionary *resultDic) {
         NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
         if (errorMessage) {

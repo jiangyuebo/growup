@@ -86,7 +86,10 @@
 
 //行动卡片播放器
 @property (strong,nonatomic) AVPlayer *actionPlayer;
+@property (nonatomic) BOOL isPlaying;
+@property (strong,nonatomic) id timeObserve;
 
+@property (strong,nonatomic) ActionCellButton *actionCellButton;
 
 @end
 
@@ -193,6 +196,9 @@ bool isBubbleShowed = false;
     self.taskProgress.userInteractionEnabled = NO;
     
     self.btnReport.titleLabel.text = @"test";
+    
+    //初始化播放器
+    self.actionPlayer = [[AVPlayer alloc] init];
 }
 
 #pragma mark 获得加上数字的滑块图片
@@ -233,6 +239,9 @@ bool isBubbleShowed = false;
     self.actionTable.separatorStyle = NO;
     self.actionTable.scrollEnabled = NO;
     self.actionTable.allowsSelection = NO;
+    
+    //播放状态
+    self.isPlaying = NO;
 }
 
 - (void)mainPageUpdage{
@@ -589,6 +598,77 @@ bool isBubbleShowed = false;
     isBubbleShowed = false;
 }
 
+#pragma mark 行动项播放按钮
+- (void)cellActionButtonClicked:(id) sender{
+    
+    if (self.isPlaying) {
+        //正在播放，停止
+        [self.actionPlayer pause];
+        self.isPlaying = NO;
+        [self.actionCellButton setBackgroundImage:[UIImage imageNamed:@"action_play"] forState:UIControlStateNormal];
+    }else{
+        //未播放，开始播放
+        ActionCellButton *button = (ActionCellButton *)sender;
+        NSUInteger row = button.rowIndex;
+        self.actionCellButton = button;
+        self.actionCellButton.enabled = NO;
+        self.isPlaying = YES;
+        
+        self.actionCellButton = button;
+        
+        //获取待播放对象
+        NSDictionary *infoDic = [self.actionTableItems objectAtIndex:row];
+        NSDictionary *expDic = [infoDic objectForKey:@"experience"];
+        NSString *urlStr = [expDic objectForKey:@"contentResourceUrl"];
+        if (urlStr) {
+            AVAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:urlStr] options:nil];
+            AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+            
+            [self playActionResource:playerItem];
+        }
+    }
+}
+
+#pragma mark 播放
+- (void)playActionResource:(AVPlayerItem *) playerItem{
+    if (self.actionPlayer.currentItem) {
+        [self.actionPlayer replaceCurrentItemWithPlayerItem:playerItem];
+    }else{
+        self.actionPlayer = [AVPlayer playerWithPlayerItem:playerItem];
+    }
+    [self.actionPlayer play];
+    
+    __block BOOL stopShowFlag = NO;
+    __block ActionCellButton *blockActionButton = self.actionCellButton;
+    
+    //播放进度监听
+    self.timeObserve = [self.actionPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        
+        float current = CMTimeGetSeconds(time);
+//        float total = CMTimeGetSeconds(playerItem.duration);
+        
+        if (current) {
+            //开始播放
+            if (!stopShowFlag) {
+                NSLog(@"修改按钮状态");
+                
+                blockActionButton.enabled = YES;
+                [blockActionButton setBackgroundImage:[UIImage imageNamed:@"action_stop"] forState:UIControlStateNormal];
+
+                stopShowFlag = YES;
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+}
+
+#pragma mark 播放完成广播
+- (void)playbackFinished:(NSNotification *)notice {
+    NSLog(@"播放完成");
+    self.actionCellButton.enabled = YES;
+}
+
 //设置view圆角
 - (void)setViewRoundCorner:(UIView *) view{
     view.layer.cornerRadius = 8;
@@ -775,7 +855,8 @@ bool isBubbleShowed = false;
         NSString *experienceName = [infoDic objectForKey:@"experienceName"];
         
         tableCell.contentLabel.text = experienceName;
-       
+        
+        //选择按钮
         tableCell.btnFinish.rowIndex = indexPath.row;
         tableCell.btnAbandon.rowIndex = indexPath.row;
         tableCell.btnOtherTime.rowIndex = indexPath.row;
@@ -787,6 +868,11 @@ bool isBubbleShowed = false;
         [tableCell.btnFinish addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [tableCell.btnAbandon addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [tableCell.btnOtherTime addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //播放按钮
+        tableCell.actionButton.rowIndex = indexPath.row;
+        tableCell.actionButton.indexPath = indexPath;
+        [tableCell.actionButton addTarget:self action:@selector(cellActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         return tableCell;
     }

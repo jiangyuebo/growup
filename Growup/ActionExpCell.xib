@@ -45,7 +45,7 @@
                             <constraint firstAttribute="width" secondItem="GKG-OK-GJi" secondAttribute="height" multiplier="1144:580" id="kUd-bT-tmC"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9g-m8-mve">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9g-m8-mve" customClass="ActionCellButton">
                         <rect key="frame" x="157" y="142" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="dXM-UI-Ve4"/>
