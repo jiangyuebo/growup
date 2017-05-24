@@ -23,6 +23,9 @@
 #pragma mark 擦除用户登录态
 + (void) eraseUserLoginStatus;
 
+#pragma mark 获取全局图片缓存
++ (NSMutableDictionary *) getGlobalPicCache;
+
 #pragma mark 设置全局access token
 + (void) setAccessToken:(NSString *) accessToken;
 

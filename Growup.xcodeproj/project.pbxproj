@@ -52,6 +52,8 @@
 		C4A66BBC1ECDFEDE00CE8BCE /* RecordCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A66BBB1ECDFEDE00CE8BCE /* RecordCollectionCell.xib */; };
 		C4A66BC71ED1DACC00CE8BCE /* ActionExpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4A66BC61ED1DACC00CE8BCE /* ActionExpCell.xib */; };
 		C4A66BCA1ED1E81000CE8BCE /* ActionExpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BC91ED1E81000CE8BCE /* ActionExpCell.m */; };
+		C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BCE1ED4A66100CE8BCE /* CellImageView.m */; };
+		C4A66BD21ED52CA700CE8BCE /* PicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BD11ED52CA700CE8BCE /* PicDetailViewController.m */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
 		C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */; };
@@ -207,6 +209,10 @@
 		C4A66BC61ED1DACC00CE8BCE /* ActionExpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionExpCell.xib; sourceTree = "<group>"; };
 		C4A66BC81ED1E81000CE8BCE /* ActionExpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionExpCell.h; sourceTree = "<group>"; };
 		C4A66BC91ED1E81000CE8BCE /* ActionExpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionExpCell.m; sourceTree = "<group>"; };
+		C4A66BCD1ED4A66100CE8BCE /* CellImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellImageView.h; sourceTree = "<group>"; };
+		C4A66BCE1ED4A66100CE8BCE /* CellImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellImageView.m; sourceTree = "<group>"; };
+		C4A66BD01ED52CA700CE8BCE /* PicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicDetailViewController.h; sourceTree = "<group>"; };
+		C4A66BD11ED52CA700CE8BCE /* PicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicDetailViewController.m; sourceTree = "<group>"; };
 		C4C3E0AC1EAA420A00AAC109 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
@@ -565,6 +571,8 @@
 				C43364B21E82715B00606538 /* CZTrackUploadViewController.mm */,
 				C4C8BB8B1EBCE984001D6B98 /* CZGrowupRecordViewController.h */,
 				C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */,
+				C4A66BD01ED52CA700CE8BCE /* PicDetailViewController.h */,
+				C4A66BD11ED52CA700CE8BCE /* PicDetailViewController.m */,
 				C4D6BB921EC30A3F00063A5D /* RecordCell.xib */,
 				C4D6BB9A1EC43CA600063A5D /* RecordHeader.xib */,
 				C4A66BB61ECD862000CE8BCE /* UploadingMaskView.xib */,
@@ -584,6 +592,8 @@
 				C4A66BB41ECCB4B200CE8BCE /* CZCellDeleteButton.m */,
 				C4A66BB81ECD871200CE8BCE /* UploadingMaskView.h */,
 				C4A66BB91ECD871200CE8BCE /* UploadingMaskView.m */,
+				C4A66BCD1ED4A66100CE8BCE /* CellImageView.h */,
+				C4A66BCE1ED4A66100CE8BCE /* CellImageView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1656,6 +1666,7 @@
 				C4D6BC341EC807E700063A5D /* MJRefreshAutoStateFooter.m in Sources */,
 				C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */,
 				C41E7A801E462D560033D1AF /* main.m in Sources */,
+				C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
 				C4D6BC2D1EC807E700063A5D /* MJRefreshAutoFooter.m in Sources */,
 				C4D6BC331EC807E700063A5D /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -1671,6 +1682,7 @@
 				C43BC6311E78523C00468837 /* LabViewController.m in Sources */,
 				C4D6BBE81EC5F63300063A5D /* ExperienceListViewController.m in Sources */,
 				C48824FC1E75C679005D8FED /* TodayTaskViewController.m in Sources */,
+				C4A66BD21ED52CA700CE8BCE /* PicDetailViewController.m in Sources */,
 				C4A66BCA1ED1E81000CE8BCE /* ActionExpCell.m in Sources */,
 				C4C8BB901EBCE9E9001D6B98 /* GrowupRecordViewModel.m in Sources */,
 				C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */,

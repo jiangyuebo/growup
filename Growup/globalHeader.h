@@ -62,6 +62,8 @@
 #define IdentifyExperienceDetailViewController @"experiencedetailviewcontroller"
 //webview viewController
 #define IdentifyNameWebViewController @"czwebviewviewcontroller"
+//橙长记图片详细
+#define IdentifyNamePicDetailViewController @"picdetailviewcontroller"
 
 //******网络请求接口
 //根域名
@@ -193,6 +195,8 @@
 //#define SIGH @"BDiZujK4f3D3tgHhG9fFh6KofSJhPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NDgxNDg1MCZyPTUxNjg2ODQ5NSZmPS8xMjUzMTE2MjAxL2NidS90ZXN0JmI9Y2J1"
 
 #define SIGH @"f97cKyHy+30LTHzpsbBqzTIekg9hPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NTA0MTg2OCZyPTE2MDI5MDgzMTImZj0vMTI1MzExNjIwMS9jYnUvcmVjJmI9Y2J1"
+
+#define SHOTCUT_TAIL @"?imageMogr2/interlace/0|imageMogr2/gravity/center/crop/100x100|watermark/2/text/5qmZ5aiD/font/bXN5aGJk5b6u6L2v6ZuF6buRYm9sZC50dGY/fontsize/10/fill/IzAwMDAwMA/dissolve/100/gravity/southest/dx/5/dy/5"
 
 #define Height_Action_Subject_Cell 240
 #define Height_Action_exp_Cell 390

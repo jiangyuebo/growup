@@ -10,7 +10,7 @@
 
 @implementation RecordCell
 
-@synthesize cellType,contentText,picUrlArray,pic1,pic2,pic3;
+@synthesize cellType,contentText,picUrlArray,pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8,pic9;
 
 - (void)awakeFromNib {
     [super awakeFromNib];

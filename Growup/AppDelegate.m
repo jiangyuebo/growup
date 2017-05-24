@@ -14,7 +14,7 @@
 
 @implementation AppDelegate
 
-@synthesize accessExpiredIn,accessToken;
+@synthesize accessExpiredIn,accessToken,globalPicCache;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -22,6 +22,9 @@
     self.deviceID = [self getCZDeviceId];
     //初始化当前用户数据全局变量
     self.currentUserInfo = [[UserInfoModel alloc] init];
+    
+    //初始化全局图片缓存
+    globalPicCache = [NSMutableDictionary dictionary];
     
     return YES;
 }

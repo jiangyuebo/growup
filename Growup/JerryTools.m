@@ -35,6 +35,12 @@
     delegate.accessToken = @"";
 }
 
+#pragma mark 获取全局图片缓存
++ (NSMutableDictionary *) getGlobalPicCache{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return delegate.globalPicCache;
+}
+
 + (void) setAccessToken:(NSString *) accessToken{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     delegate.accessToken = accessToken;

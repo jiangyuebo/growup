@@ -17,6 +17,9 @@
 @property (strong,nonatomic) NSNumber *accessExpiredIn;
 @property (strong,nonatomic) NSString *accessToken;
 
+//全局图片缓存
+@property (strong,nonatomic) NSMutableDictionary *globalPicCache;
+
 //用户数据
 @property (strong,nonatomic) UserInfoModel *currentUserInfo;
 

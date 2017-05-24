@@ -12,6 +12,8 @@
 #import "JerryViewTools.h"
 #import "RecordCell.h"
 #import "RecordHeaderView.h"
+#import "CellImageView.h"
+#import "PicDetailViewController.h"
 
 @interface CZGrowupRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,6 +28,8 @@
 @property (strong,nonatomic) NSArray *recordKeysArray;
 
 @property (strong,nonatomic) NSMutableDictionary *recordGroupData;
+
+@property (strong,nonatomic) NSMutableDictionary *picCache;
 
 @end
 
@@ -55,6 +59,8 @@
     self.viewModel = [[GrowupRecordViewModel alloc] init];
     
     self.recordGroupData = [NSMutableDictionary dictionary];
+    
+    self.picCache = [NSMutableDictionary dictionary];
 
 }
 
@@ -146,6 +152,16 @@
     return resultDic;
 }
 
+#pragma mark 点击图片
+- (void)cellPicClicked:(UITapGestureRecognizer *) sender{
+    CellImageView *imageView = (CellImageView *)sender.view;
+    
+    //IdentifyNamePicDetailViewController
+    PicDetailViewController *picDetailViewController = [JerryViewTools getViewControllerById:IdentifyNamePicDetailViewController];
+    picDetailViewController.resourcePath = imageView.resourcePath;
+    [self.navigationController pushViewController:picDetailViewController animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -165,7 +181,32 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    
+    CGFloat contentWidth = self.recordTable.frame.size.width - (33 + 20 + 14 + 17);//得到textview宽度
+    
+    //获得文字内容
+    NSArray *dayRecordArray = [self.sortedGroupRecordDic objectForKey:[self.recordKeysArray objectAtIndex:indexPath.section]];
+    NSDictionary *dataDic = [dayRecordArray objectAtIndex:indexPath.row];
+    NSString *recordContent = [dataDic objectForKey:@"recordContent"];
+    
+    CGRect rect = [recordContent boundingRectWithSize:CGSizeMake( contentWidth,1000)  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil];//根据content的文字，系统默认字体，字体大小为16来计算得到rect
+    
+    CGFloat height = rect.size.height + 20;
+    //获取图片个数
+    NSArray *recordDetailsArray = [dataDic objectForKey:@"recordDetails"];
+    NSUInteger picCount = [recordDetailsArray count];
+    
+    CGFloat picGroupHeight = 0;
+    
+    NSUInteger row = picCount / 3;
+    if (picCount % 3 > 0) {
+        row = row + 1;
+    }
+    picGroupHeight = row * 100;
+    
+    height = height + picGroupHeight + 40;
+
+    return height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -189,6 +230,30 @@
     //获取文字内容
     NSString *recordContent = [dataDic objectForKey:@"recordContent"];
     tableCell.contentText.text = recordContent;
+    
+    //图片对应UI
+    NSMutableArray *cellImageViewArray = [[NSMutableArray alloc] init];
+    [cellImageViewArray addObject:tableCell.pic1];
+    [cellImageViewArray addObject:tableCell.pic2];
+    [cellImageViewArray addObject:tableCell.pic3];
+    [cellImageViewArray addObject:tableCell.pic4];
+    [cellImageViewArray addObject:tableCell.pic5];
+    [cellImageViewArray addObject:tableCell.pic6];
+    [cellImageViewArray addObject:tableCell.pic7];
+    [cellImageViewArray addObject:tableCell.pic8];
+    [cellImageViewArray addObject:tableCell.pic9];
+    
+    //清除CELL中缓存图片
+    for (int i = 0; i < [cellImageViewArray count]; i++) {
+        CellImageView *picView = cellImageViewArray[i];
+        picView.image = nil;
+        
+        //添加点击方法
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellPicClicked:)];
+        picView.userInteractionEnabled = YES;
+        [picView addGestureRecognizer:singleTap];
+    }
+    
     //获取图片内容
     NSArray *recordDetailsArray = [dataDic objectForKey:@"recordDetails"];
     NSMutableArray *recordPicsURLArray = [[NSMutableArray alloc] init];
@@ -197,13 +262,51 @@
         NSDictionary *recordDetailDic = recordDetailsArray[i];
         NSString *picURLStr = [recordDetailDic objectForKey:@"contentResourceTypeUrl"];
         [recordPicsURLArray addObject:picURLStr];
-        
-//        NSURL *picURL = [NSURL URLWithString:picURLStr];
-//        tableCell.pic1.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:picURL]];
     }
     
     if ([recordPicsURLArray count] > 0) {
         tableCell.picUrlArray  = recordPicsURLArray;
+        
+        //设置图片
+        for (int i = 0; i < [recordPicsURLArray count]; i++) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString *picURLStr = recordPicsURLArray[i];
+                
+                NSString *urlImageKey = [picURLStr lastPathComponent];
+                
+                //查看缓存中是否存在
+                UIImage *cachePic = [self.picCache objectForKey:urlImageKey];
+                //imageView
+                CellImageView *picView = cellImageViewArray[i];
+                picView.resourcePath = [picURLStr copy];
+                
+                if (cachePic) {
+                    //缓存中有
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        picView.image = cachePic;
+                    });
+                }else{
+                    //缓存中无
+                    picURLStr =  [picURLStr stringByReplacingOccurrencesOfString:@"cossh" withString:@"picsh"];
+                    picURLStr = [picURLStr stringByAppendingString:SHOTCUT_TAIL];
+                    //URL特殊字符转译
+                    //                picURLStr = [picURLStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"#%/<>?@\\^`{|}-"].invertedSet];
+                    
+                    picURLStr = [picURLStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    NSURL *imageURL = [NSURL URLWithString:picURLStr];
+                    UIImage *shotCutImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+                    
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        picView.image = shotCutImage;
+                    });
+
+                    //放进缓存
+                    [self.picCache setObject:shotCutImage forKey:urlImageKey];
+                }
+            });
+        }
     }
     
     return tableCell;
@@ -257,6 +360,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
     return 91;
 }
 
