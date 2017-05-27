@@ -14,15 +14,15 @@
 @implementation GrowupRecordViewModel
 
 #pragma mark 获取成长记列表
-- (void)getGrowupRecordByRecordType:(NSString *)recordType andPublicType:(NSString *) publicType andIsInfo:(BOOL) isInfo andCallback:(void (^)(NSDictionary *resultDic)) callback{
+- (void)getGrowupRecordByRecordType:(NSString *)recordType andPublicType:(NSString *) publicType andPageIndex:(NSNumber *) pageIndex andPageSize:(NSNumber *) pageSize andIsInfo:(BOOL) isInfo andCallback:(void (^)(NSDictionary *resultDic)) callback{
     //api/v1/record/getAll?recordType={recordType}&publicType={publicType}&isInfo={isInfo}
     NSString *url_request;
     
     //查询自己记录
     if ([JerryTools stringIsNull:recordType] && [JerryTools stringIsNull:publicType]) {
-        url_request = [NSString stringWithFormat:@"%@%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD];
+        url_request = [NSString stringWithFormat:@"%@%@?pageIndex=%@&pageSize=%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD,pageIndex,pageSize];
     }else{
-        url_request = [NSString stringWithFormat:@"%@%@?recordType=%@&publicType=%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD,recordType,publicType];
+        url_request = [NSString stringWithFormat:@"%@%@?recordType=%@&publicType=%@&pageIndex=%@&pageSize=%@",URL_REQUEST,URL_REQUEST_GET_GROWUP_RECORD,recordType,publicType,pageIndex,pageSize];
     }
 
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];

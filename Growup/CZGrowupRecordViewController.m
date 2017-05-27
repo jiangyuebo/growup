@@ -14,6 +14,7 @@
 #import "RecordHeaderView.h"
 #import "CellImageView.h"
 #import "PicDetailViewController.h"
+#import "MJRefresh.h"
 
 @interface CZGrowupRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -30,6 +31,10 @@
 @property (strong,nonatomic) NSMutableDictionary *recordGroupData;
 
 @property (strong,nonatomic) NSMutableDictionary *picCache;
+
+@property (strong,nonatomic) NSNumber *pageIndex;
+
+@property (nonatomic) int pageIndexInt;
 
 @end
 
@@ -56,9 +61,16 @@
     self.recordTable.delegate = self;
     self.recordTable.dataSource = self;
     
+    self.pageIndex = [NSNumber numberWithInt:1];
+    self.pageIndexInt = 1;
+    
     self.viewModel = [[GrowupRecordViewModel alloc] init];
     
+    self.recordsArray = [[NSMutableArray alloc] init];
+    
     self.recordGroupData = [NSMutableDictionary dictionary];
+    
+    self.sortedGroupRecordDic = [NSMutableDictionary dictionary];
     
     self.picCache = [NSMutableDictionary dictionary];
 
@@ -67,12 +79,20 @@
 - (void)initView{
     self.recordTable.separatorStyle = NO;
     self.recordTable.allowsSelection = NO;
+    
+    self.recordTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreRecordInfo)];
+}
+
+- (void)loadMoreRecordInfo{
+    self.pageIndexInt ++;
+    
+    [self loadSelfRecord];
 }
 
 #pragma mark 查看自己橙长记
 - (void)loadSelfRecord{
     
-    [self.viewModel getGrowupRecordByRecordType:nil andPublicType:nil andIsInfo:NO andCallback:^(NSDictionary *resultDic) {
+    [self.viewModel getGrowupRecordByRecordType:nil andPublicType:nil andPageIndex:[NSNumber numberWithInt:self.pageIndexInt] andPageSize:[NSNumber numberWithInt:5] andIsInfo:NO andCallback:^(NSDictionary *resultDic) {
         
         NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
         if (errorMessage) {
@@ -83,12 +103,20 @@
         }else{
             NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
             
-            //设置橙长记列表数组
-//            [self sortOutRecordListData:[result objectForKey:@"records"]];
-            
             NSArray *recordArray = [result objectForKey:@"records"];
-            recordArray = [[recordArray reverseObjectEnumerator] allObjects];
-            self.sortedGroupRecordDic = [self sortOutRecordToGroupData:recordArray];
+            self.pageIndex = [result objectForKey:@"pageIndex"];
+            
+//            recordArray = [[recordArray reverseObjectEnumerator] allObjects];
+            
+            for (int i = 0; i < [recordArray count]; i++) {
+                [self.recordsArray insertObject:recordArray[i] atIndex:0];
+            }
+            
+//            [self.recordsArray addObjectsFromArray:recordArray];
+            
+            NSLog(@"recordsArray count : %ld",[self.recordsArray count]);
+            
+            self.sortedGroupRecordDic = [self sortOutRecordToGroupData:self.recordsArray];
             
             self.recordKeysArray = [self.sortedGroupRecordDic allKeys];
             //排序
@@ -98,6 +126,8 @@
             }];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.recordTable.mj_footer endRefreshing];
+                
                 [self.recordTable reloadData];
             });
         }
@@ -114,7 +144,6 @@
     
     NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
     
-    
     NSString *cacheDateStr = @"";
     NSMutableArray *dateRecord;
     for (int i = 0; i < [recordArray count]; i++) {
@@ -125,8 +154,7 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd";
         NSString *dateStr = [dateFormatter stringFromDate:publishDateDate];
-        
-        
+
         if (![dateStr isEqualToString:cacheDateStr]) {
             if (dateRecord) {
                 //放入
@@ -303,7 +331,9 @@
                     });
 
                     //放进缓存
-                    [self.picCache setObject:shotCutImage forKey:urlImageKey];
+                    if (shotCutImage) {
+                        [self.picCache setObject:shotCutImage forKey:urlImageKey];
+                    }
                 }
             });
         }

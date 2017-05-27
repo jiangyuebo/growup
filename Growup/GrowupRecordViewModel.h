@@ -11,7 +11,7 @@
 @interface GrowupRecordViewModel : NSObject
 
 #pragma mark 获取成长记列表
-- (void)getGrowupRecordByRecordType:(NSString *)recordType andPublicType:(NSString *) publicType andIsInfo:(BOOL) isInfo andCallback:(void (^)(NSDictionary *resultDic)) callback;
+- (void)getGrowupRecordByRecordType:(NSString *)recordType andPublicType:(NSString *) publicType andPageIndex:(NSNumber *) pageIndex andPageSize:(NSNumber *) pageSize andIsInfo:(BOOL) isInfo andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
 #pragma mark 获取橙长记明细
 - (void)getRecordDetailByRecordID:(NSString *) recordID andCallback:(void (^)(NSDictionary *resultDic))callback;
