@@ -19,6 +19,7 @@
 #import "ActionCellButton.h"
 #import "ActionExpCell.h"
 #import "PersonInfoViewController.h"
+#import "PersonCenterViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 //娃娃脸图片点击跳转tag
@@ -107,9 +108,12 @@ bool isBubbleShowed = false;
     
     if ([currentUser userID]) {
         //有用户 IdentifyNamePersonInfoViewController
-        PersonInfoViewController *personInfoViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonInfoViewController];
+//        PersonInfoViewController *personInfoViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonInfoViewController];
         
-        [self.navigationController pushViewController:personInfoViewController animated:YES];
+        //IdentifyNamePersonCenterTableViewController
+        PersonCenterViewController *personCenterViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonCenterTableViewController];
+        
+        [self.navigationController pushViewController:personCenterViewController animated:YES];
     }else{
         //无用户
         //跳转到登录界面
@@ -255,6 +259,74 @@ bool isBubbleShowed = false;
         
         if ([childArray count] > 0) {
             
+            [self formatBirthdayLabel];
+            
+            [self fetchDataFromServer];
+        }else{
+            //有用户数据但无孩子数据，弹出添加孩子信息界面 IdentifyNameBirthdaySettingViewController
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameBirthdaySettingViewController];
+        }
+    }else{
+        //无数据，显示未登录状态UI
+        //判断是否满足免登条件
+        NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
+        if (accessToken) {
+            //有access token,发起请求
+            [self.viewModel getUserInfoByAccesstoken:accessToken andCallback:^(NSDictionary *resultDic) {
+                NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+                if (errorMessage) {
+                    //error
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                    });
+                }else{
+                    NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
+                    if ([result isEqualToString:@"success"]) {
+                        //数据加载完成
+                        //生日显示
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            [self formatBirthdayLabel];
+                        });
+                        
+                        //加载服务器数据
+                        [self fetchDataFromServer];
+                    }
+                }
+            }];
+        }else{
+            //无access token
+            NSLog(@"无数据");
+            self.avatarLabel.text = @"登录";
+            
+            //设置娃娃头为默认图片
+            UIImage *defaultImage = [UIImage imageNamed:@"face_mark"];
+            
+            [self.imageFaceHealth setImage:defaultImage];
+            [self.imageFaceSociety setImage:defaultImage];
+            [self.imageFaceLanguage setImage:defaultImage];
+            [self.imageFaceScience setImage:defaultImage];
+            [self.imageFaceArt setImage:defaultImage];
+            
+            //设置行动项列表不显示
+            self.actionTableHeight.constant = 0;
+            //设置行动完成进度条
+            [self.taskProgress setValue:0];
+        }
+    }
+
+}
+
+- (void)formatBirthdayLabel{
+    //判断当前是否有用户数据
+    UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+    
+    if ([currentUser userID]) {
+        //有数据
+        //
+        NSArray *childArray = [currentUser childArray];
+        
+        if ([childArray count] > 0) {
+            
             KidInfoModel *childModel = childArray[currentUser.currentSelectedChild];
             
             NSDictionary *birthdayDic = [childModel birthdayDic];
@@ -285,55 +357,13 @@ bool isBubbleShowed = false;
                 birthdayStr = [NSString stringWithFormat:@"%@岁零%@天",year,day];
             }
             
+            if (yearInt != 0 && monthInt != 0 && dayInt != 0) {
+                birthdayStr = [NSString stringWithFormat:@"%@岁%@月零%@天",year,month,day];
+            }
+            
             self.avatarLabel.text = birthdayStr;
-            
-            [self fetchDataFromServer];
-        }else{
-            //有用户数据但无孩子数据，弹出添加孩子信息界面 IdentifyNameBirthdaySettingViewController
-            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameBirthdaySettingViewController];
-        }
-    }else{
-        //无数据，显示未登录状态UI
-        //判断是否满足免登条件
-        NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
-        if (accessToken) {
-            //有access token,发起请求
-            [self.viewModel getUserInfoByAccesstoken:accessToken andCallback:^(NSDictionary *resultDic) {
-                NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-                if (errorMessage) {
-                    //error
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-                    });
-                }else{
-                    NSString *result = [resultDic objectForKey:RESULT_KEY_DATA];
-                    if ([result isEqualToString:@"success"]) {
-                        //数据加载完成
-                        [self fetchDataFromServer];
-                    }
-                }
-            }];
-        }else{
-            //无access token
-            NSLog(@"无数据");
-            self.avatarLabel.text = @"登录";
-            
-            //设置娃娃头为默认图片
-            UIImage *defaultImage = [UIImage imageNamed:@"face_mark"];
-            
-            [self.imageFaceHealth setImage:defaultImage];
-            [self.imageFaceSociety setImage:defaultImage];
-            [self.imageFaceLanguage setImage:defaultImage];
-            [self.imageFaceScience setImage:defaultImage];
-            [self.imageFaceArt setImage:defaultImage];
-            
-            //设置行动项列表不显示
-            self.actionTableHeight.constant = 0;
-            //设置行动完成进度条
-            [self.taskProgress setValue:0];
         }
     }
-
 }
 
 - (void)fetchDataFromServer{
@@ -415,8 +445,6 @@ bool isBubbleShowed = false;
                     [self.actionTableItems addObjectsFromArray:userActionSubjects];
                     [self.actionTableItems addObjectsFromArray:userActionTasks];
                     [self.actionTableItems addObjectsFromArray:userActionExperiences];
-                    
-                    
                     
                     dispatch_sync(dispatch_get_main_queue(), ^{
                         [self.taskProgress setMaximumValue:[actionNumber floatValue]];

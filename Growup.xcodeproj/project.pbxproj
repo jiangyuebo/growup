@@ -54,6 +54,7 @@
 		C4A66BCA1ED1E81000CE8BCE /* ActionExpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BC91ED1E81000CE8BCE /* ActionExpCell.m */; };
 		C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BCE1ED4A66100CE8BCE /* CellImageView.m */; };
 		C4A66BD21ED52CA700CE8BCE /* PicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BD11ED52CA700CE8BCE /* PicDetailViewController.m */; };
+		C4A66BD71ED9617500CE8BCE /* PersonCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A66BD61ED9617500CE8BCE /* PersonCenterViewController.m */; };
 		C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */; };
 		C4C3E0B41EAA4F7700AAC109 /* JerryTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C3E0B31EAA4F7700AAC109 /* JerryTools.m */; };
 		C4C8BB8D1EBCE984001D6B98 /* CZGrowupRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB8C1EBCE984001D6B98 /* CZGrowupRecordViewController.m */; };
@@ -213,6 +214,8 @@
 		C4A66BCE1ED4A66100CE8BCE /* CellImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellImageView.m; sourceTree = "<group>"; };
 		C4A66BD01ED52CA700CE8BCE /* PicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicDetailViewController.h; sourceTree = "<group>"; };
 		C4A66BD11ED52CA700CE8BCE /* PicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicDetailViewController.m; sourceTree = "<group>"; };
+		C4A66BD51ED9617500CE8BCE /* PersonCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCenterViewController.h; sourceTree = "<group>"; };
+		C4A66BD61ED9617500CE8BCE /* PersonCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCenterViewController.m; sourceTree = "<group>"; };
 		C4C3E0AC1EAA420A00AAC109 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		C4C3E0AD1EAA420A00AAC109 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		C4C3E0B21EAA4F7700AAC109 /* JerryTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JerryTools.h; sourceTree = "<group>"; };
@@ -1417,6 +1420,8 @@
 				C4E533901E8049E80041DDDA /* CZBabyInfoViewController.m */,
 				C4D6BBEC1EC6F72300063A5D /* PersonInfoViewController.h */,
 				C4D6BBED1EC6F72300063A5D /* PersonInfoViewController.m */,
+				C4A66BD51ED9617500CE8BCE /* PersonCenterViewController.h */,
+				C4A66BD61ED9617500CE8BCE /* PersonCenterViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1638,6 +1643,7 @@
 				C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */,
 				C4D6BC401EC807E700063A5D /* UIView+MJExtension.m in Sources */,
 				C48A89A61EAF4D1F0076D741 /* CZForgotPasswordViewController.m in Sources */,
+				C4A66BD71ED9617500CE8BCE /* PersonCenterViewController.m in Sources */,
 				C4D6BD071EC847EC00063A5D /* Auth.cpp in Sources */,
 				C48A89B31EB8B7E90076D741 /* FastTestViewModel.m in Sources */,
 				C48824C21E6870A4005D8FED /* MainPageViewModel.m in Sources */,

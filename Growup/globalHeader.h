@@ -41,6 +41,8 @@
 #define IdentifyNameBabyInfoViewController @"babyinfoviewcontroller"
 //用户信息
 #define IdentifyNamePersonInfoViewController @"personinfoviewcontroller"
+//个人中心
+#define IdentifyNamePersonCenterTableViewController @"personcentertableviewcontroller"
 //发现信息列表
 #define IdentifyNameDiscoverInfoListViewController @"czdiscoverinfolistviewcontroller"
 

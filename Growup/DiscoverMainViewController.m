@@ -218,7 +218,10 @@
                     });
                     
                     //放进缓存
-                    [self.publicRecordPicCache setObject:shotCutImage forKey:urlImageKey];
+                    if (shotCutImage) {
+                        [self.publicRecordPicCache setObject:shotCutImage forKey:urlImageKey];
+                    }
+                    
                 }
             });
         }

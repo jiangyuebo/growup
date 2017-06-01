@@ -44,9 +44,12 @@
                 [resultDic setObject:errorMsg forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
                 //无错误
-                [resultDic setObject:jsonObject forKey:RESULT_KEY_DATA];
+                if (jsonObject) {
+                    [resultDic setObject:jsonObject forKey:RESULT_KEY_DATA];
+                }else{
+                    NSLog(@"根据id获取气泡信息 服务器返回数据为空");
+                }
             }
-            
         }else{
             NSString *errorMessage = @"服务器异常,获取气泡数据失败";
             
@@ -70,7 +73,11 @@
         if (data) {
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+            if (jsonDic) {
+                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+            }else{
+                NSLog(@"获取橙娃能力动态 服务器返回数据为空");
+            }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
         }
@@ -98,8 +105,11 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                
-                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                if (jsonDic) {
+                    [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                }else{
+                    NSLog(@"获取行动列表 服务器返回数据为空");
+                }
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];

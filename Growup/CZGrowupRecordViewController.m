@@ -45,6 +45,9 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
+    self.pageIndexInt = 1;
+    [self.recordsArray removeAllObjects];
+    
     [self loadSelfRecord];
 }
 
