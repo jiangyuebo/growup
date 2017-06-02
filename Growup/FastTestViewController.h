@@ -10,4 +10,6 @@
 
 @interface FastTestViewController : UIViewController
 
+@property (strong,nonatomic) NSMutableDictionary *passDataDic;
+
 @end

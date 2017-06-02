@@ -23,6 +23,12 @@
 		C43BC6311E78523C00468837 /* LabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43BC6301E78523C00468837 /* LabViewController.m */; };
 		C43BC6381E78537100468837 /* ExperienceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43BC6371E78537100468837 /* ExperienceViewController.m */; };
 		C43BC63F1E78547B00468837 /* ThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C43BC63E1E78547B00468837 /* ThemeViewController.m */; };
+		C4671D341EE046B00003056B /* MultiSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D331EE046B00003056B /* MultiSelectView.xib */; };
+		C4671D371EE047A80003056B /* MultiSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D361EE047A80003056B /* MultiSelectView.m */; };
+		C4671D391EE16F240003056B /* MultiSelectViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D381EE16F240003056B /* MultiSelectViewCell.xib */; };
+		C4671D3D1EE1716F0003056B /* MultiSelectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D3C1EE1716F0003056B /* MultiSelectViewCell.m */; };
+		C4671D401EE1A8340003056B /* CZChangeUserNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */; };
+		C4671D471EE1B9E60003056B /* CZPersonCenterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */; };
 		C48824A01E65D55D005D8FED /* UIColor+NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = C488249F1E65D55D005D8FED /* UIColor+NSString.m */; };
 		C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A51E66CC77005D8FED /* FileCommonTool.m */; };
 		C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A91E66D5F8005D8FED /* CZLoginViewController.m */; };
@@ -155,6 +161,16 @@
 		C43BC6371E78537100468837 /* ExperienceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceViewController.m; sourceTree = "<group>"; };
 		C43BC63D1E78547B00468837 /* ThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeViewController.h; sourceTree = "<group>"; };
 		C43BC63E1E78547B00468837 /* ThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeViewController.m; sourceTree = "<group>"; };
+		C4671D331EE046B00003056B /* MultiSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiSelectView.xib; sourceTree = "<group>"; };
+		C4671D351EE047A80003056B /* MultiSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectView.h; sourceTree = "<group>"; };
+		C4671D361EE047A80003056B /* MultiSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectView.m; sourceTree = "<group>"; };
+		C4671D381EE16F240003056B /* MultiSelectViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiSelectViewCell.xib; sourceTree = "<group>"; };
+		C4671D3B1EE1716F0003056B /* MultiSelectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectViewCell.h; sourceTree = "<group>"; };
+		C4671D3C1EE1716F0003056B /* MultiSelectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectViewCell.m; sourceTree = "<group>"; };
+		C4671D3E1EE1A8340003056B /* CZChangeUserNickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZChangeUserNickNameViewController.h; sourceTree = "<group>"; };
+		C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZChangeUserNickNameViewController.m; sourceTree = "<group>"; };
+		C4671D451EE1B9E60003056B /* CZPersonCenterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZPersonCenterViewModel.h; sourceTree = "<group>"; };
+		C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZPersonCenterViewModel.m; sourceTree = "<group>"; };
 		C488249E1E65D55D005D8FED /* UIColor+NSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NSString.h"; sourceTree = "<group>"; };
 		C488249F1E65D55D005D8FED /* UIColor+NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NSString.m"; sourceTree = "<group>"; };
 		C48824A41E66CC77005D8FED /* FileCommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCommonTool.h; sourceTree = "<group>"; };
@@ -631,6 +647,8 @@
 				C4E5338D1E7FE1130041DDDA /* CZinterestingSettingViewController.m */,
 				C48A89A41EAF4D1F0076D741 /* CZForgotPasswordViewController.h */,
 				C48A89A51EAF4D1F0076D741 /* CZForgotPasswordViewController.m */,
+				C4671D331EE046B00003056B /* MultiSelectView.xib */,
+				C4671D381EE16F240003056B /* MultiSelectViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -638,6 +656,10 @@
 		C43BC6211E78386000468837 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4671D351EE047A80003056B /* MultiSelectView.h */,
+				C4671D361EE047A80003056B /* MultiSelectView.m */,
+				C4671D3B1EE1716F0003056B /* MultiSelectViewCell.h */,
+				C4671D3C1EE1716F0003056B /* MultiSelectViewCell.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1407,6 +1429,8 @@
 		C4E533411E7AF05D0041DDDA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4671D451EE1B9E60003056B /* CZPersonCenterViewModel.h */,
+				C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1422,6 +1446,8 @@
 				C4D6BBED1EC6F72300063A5D /* PersonInfoViewController.m */,
 				C4A66BD51ED9617500CE8BCE /* PersonCenterViewController.h */,
 				C4A66BD61ED9617500CE8BCE /* PersonCenterViewController.m */,
+				C4671D3E1EE1A8340003056B /* CZChangeUserNickNameViewController.h */,
+				C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1590,6 +1616,7 @@
 				C4D6BBFB1EC7587900063A5D /* DiscoverTableHeader.xib in Resources */,
 				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C4D6BC3B1EC807E700063A5D /* MJRefresh.bundle in Resources */,
+				C4671D341EE046B00003056B /* MultiSelectView.xib in Resources */,
 				C4D6BBF31EC73A5700063A5D /* DiscoverRecordCell.xib in Resources */,
 				C4A66BC71ED1DACC00CE8BCE /* ActionExpCell.xib in Resources */,
 				C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */,
@@ -1599,6 +1626,7 @@
 				C4D6BB911EC2207500063A5D /* ExperienceTableHeader.xib in Resources */,
 				C4D6BBC61EC58F0200063A5D /* InfoModelCell.xib in Resources */,
 				3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */,
+				C4671D391EE16F240003056B /* MultiSelectViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1638,6 +1666,7 @@
 				C4D6BC301EC807E700063A5D /* MJRefreshFooter.m in Sources */,
 				C4D6BC3D1EC807E700063A5D /* NSBundle+MJRefresh.m in Sources */,
 				C4D6BBC11EC5580D00063A5D /* DiscoverViewModel.m in Sources */,
+				C4671D471EE1B9E60003056B /* CZPersonCenterViewModel.m in Sources */,
 				C4E5338B1E7FDC9A0041DDDA /* CZGenderSettingViewController.m in Sources */,
 				C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */,
 				C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */,
@@ -1675,12 +1704,15 @@
 				C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
 				C4D6BC2D1EC807E700063A5D /* MJRefreshAutoFooter.m in Sources */,
+				C4671D401EE1A8340003056B /* CZChangeUserNickNameViewController.m in Sources */,
 				C4D6BC331EC807E700063A5D /* MJRefreshAutoNormalFooter.m in Sources */,
 				C48824E51E7058F8005D8FED /* DetailReportViewController.m in Sources */,
 				C43BC62A1E784F5300468837 /* GamesViewController.m in Sources */,
 				C48824B81E670CF4005D8FED /* CZRegisterViewController.m in Sources */,
+				C4671D371EE047A80003056B /* MultiSelectView.m in Sources */,
 				C48A899C1EAB50AB0076D741 /* InterestingSettingViewModel.m in Sources */,
 				C4D6BB991EC3689800063A5D /* ActionCellButton.m in Sources */,
+				C4671D3D1EE1716F0003056B /* MultiSelectViewCell.m in Sources */,
 				C48824CB1E6C8423005D8FED /* KidInfoModel.m in Sources */,
 				C43BC6381E78537100468837 /* ExperienceViewController.m in Sources */,
 				C4E533991E8108270041DDDA /* CZBabyShowViewController.m in Sources */,

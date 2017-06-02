@@ -42,5 +42,7 @@
 
 @property (strong,nonatomic) NSString *correctAnswerValue;
 
+@property (strong,nonatomic) NSString *subjectBrief;
+
 
 @end

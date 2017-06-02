@@ -15,10 +15,10 @@
 @implementation FastTestViewModel
 
 #pragma mark 获取题目
-- (void)getTestSubjectByChildId:(NSNumber *)childId andAgeType:(NSString *)ageType andEvaluationType:(NSString *)evaluationType andSex:(NSNumber *)sex andCallback:(void (^)(NSDictionary *resultDic)) callback{
+- (void)getTestSubjectByChildId:(NSNumber *)childId andAgeType:(NSString *)ageType andEvaluationType:(NSString *)evaluationType andSex:(NSNumber *)sex andAbilityId:(NSString *)abilityId andCallback:(void (^)(NSDictionary *resultDic)) callback{
     
     //https://api.growtree.cn:443/cb/api/v1/user/evaluation/get/D24B99?ageType=D07B01&sex=1
-    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@?ageType=%@&sex=%@",URL_REQUEST,URL_REQUEST_TEST_SUBJECT_LIST,evaluationType,ageType,sex];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@?ageType=%@&sex=%@&abilityID=%@",URL_REQUEST,URL_REQUEST_TEST_SUBJECT_LIST,evaluationType,ageType,sex,abilityId];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -104,6 +104,9 @@
                 
                 NSString *subjectDescription = [subject objectForKey:@"subjectDescription"];
                 [testSubject setSubjectDescription:subjectDescription];
+                
+                NSString *subjectBrief = [subject objectForKey:@"subjectBrief"];
+                [testSubject setSubjectBrief:subjectBrief];
                 
                 NSString *logoResourceUrl = [subject objectForKey:@"logoResourceUrl"];
                 [testSubject setLogoResourceUrl:logoResourceUrl];

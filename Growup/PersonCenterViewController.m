@@ -11,12 +11,29 @@
 #import "JerryViewTools.h"
 #import "CZLoginViewController.h"
 #import "globalHeader.h"
+#import "MainPageViewModel.h"
 
 @interface PersonCenterViewController ()
 
 @property (strong,nonatomic) UIBarButtonItem *btnLoginOut;
 
+@property (strong, nonatomic) IBOutlet UILabel *userNickname;
 
+@property (strong, nonatomic) IBOutlet UILabel *userGender;
+
+@property (strong, nonatomic) IBOutlet UILabel *childNickname;
+
+@property (strong, nonatomic) IBOutlet UILabel *childGender;
+
+@property (strong, nonatomic) IBOutlet UILabel *childBirthday;
+
+@property (strong, nonatomic) IBOutlet UILabel *childInteresting;
+
+@property (strong, nonatomic) IBOutlet UILabel *childHomeAddress;
+
+@property (strong, nonatomic) IBOutlet UILabel *childSchool;
+
+@property (strong, nonatomic) IBOutlet UILabel *childTarget;
 
 @end
 
@@ -26,6 +43,14 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged) name:NOTIFICATION_NAME_REFRESH_USER_INFO object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_NAME_REFRESH_USER_INFO object:nil];
 }
 
 - (void)viewDidLoad {
@@ -42,6 +67,64 @@
                        action:@selector(loginOutAction)];
     
     self.navigationItem.rightBarButtonItem = self.btnLoginOut;
+    
+    [self loadData];
+}
+
+- (void)dataChanged{
+    [self loadData];
+}
+
+- (void)loadData{
+    //读取用户资料
+    NSString *accessToken = [JerryTools readInfo:SAVE_KEY_ACCESS_TOKEN];
+    
+    MainPageViewModel *mainPageViewModel = [[MainPageViewModel alloc] init];
+    
+    [mainPageViewModel getUserInfoDicByAccesstoken:accessToken andCallback:^(NSDictionary *resultDic) {
+        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+        if (errorMessage) {
+            //error
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+            });
+        }else{
+            NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
+            
+            NSString *nickName = [result objectForKey:@"nickName"];
+            
+            //            NSString *avatarUrl = [result objectForKey:@"avatarUrl"];
+            
+            //            NSNumber *userGender = [result objectForKey:@""];
+            
+            //            NSString *childNickname = [result objectForKey:@""];
+            
+            NSNumber *childGender = [[result objectForKey:@"child"] objectForKey:@"sex"];
+            
+            NSString *childBirthday = [[result objectForKey:@"child"] objectForKey:@"birthdayTS"];
+            childBirthday = [childBirthday substringWithRange:NSMakeRange(0, 10)];
+            
+            //            NSString *childInteresting = [[resultDic objectForKey:@"child"] objectForKey:@"sex"];
+            
+            //            NSString *childHomeAddress
+            
+            //            NSString *childSchool
+            
+            //            NSString *childTarget
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                self.userNickname.text = nickName;
+                
+                if ([childGender intValue] == 1) {
+                    self.childGender.text = @"男孩";
+                }else{
+                    self.childGender.text = @"女孩";
+                }
+                
+                self.childBirthday.text = childBirthday;
+            });
+        }
+    }];
 }
 
 #pragma mark 退出登录
@@ -83,6 +166,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"didSelectRowAtIndexPath : %ld",indexPath.row);
+    
+    if (indexPath.row == 1) {
+        //修改用户昵称
+        
+        NSString *nickname = self.userNickname.text;
+        NSLog(@"发送方 nickname = %@",nickname);
+        
+        NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
+        [passDic setObject:nickname forKey:@"nickname"];
+        
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

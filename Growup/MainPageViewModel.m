@@ -283,4 +283,36 @@
     }];
 }
 
+#pragma mark 根据access-token获取用户及孩子信息DIC
+- (void)getUserInfoDicByAccesstoken:(NSString *) accesstoken andCallback:(void (^)(NSDictionary *resultDic)) callback{
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?accessToken=%@",URL_REQUEST,URL_REQUEST_GET_USER_INFO,accesstoken];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+        
+        if (data) {
+            
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+            
+            if (errorMessage) {
+                //有错误
+                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            }else{
+                //完成
+                if (jsonDic) {
+                    [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                }
+            }
+        }else{
+            [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+        }
+        
+        callback(resultDic);
+    }];
+}
+
 @end

@@ -43,6 +43,8 @@
 #define IdentifyNamePersonInfoViewController @"personinfoviewcontroller"
 //个人中心
 #define IdentifyNamePersonCenterTableViewController @"personcentertableviewcontroller"
+//修改用户昵称
+#define IdentifyNameChangeUserNickNameViewController @"czchangenicknameviewcontroller"
 //发现信息列表
 #define IdentifyNameDiscoverInfoListViewController @"czdiscoverinfolistviewcontroller"
 
@@ -66,6 +68,9 @@
 #define IdentifyNameWebViewController @"czwebviewviewcontroller"
 //橙长记图片详细
 #define IdentifyNamePicDetailViewController @"picdetailviewcontroller"
+
+//开发测试界面
+#define IdentifyNameDevelopTestViewController @"czdeveloptestviewcontroller"
 
 //******网络请求接口
 //根域名
@@ -111,6 +116,13 @@
 #define URL_RECORD_UPLOAD @"record/add"
 //获取咨询信息
 #define URL_INFO_GET @"info/getAll"
+//修改用户信息
+#define URL_USER_UPDATE @"user/update"
+
+//************ Notification Name
+#define NOTIFICATION_NAME_REFRESH_USER_INFO @"NotificationNameRefreshUserInfo"
+
+
 
 //******total key
 #define RESULT_KEY_JUMP_PATH @"jumpPath"

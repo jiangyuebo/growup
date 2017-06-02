@@ -38,6 +38,8 @@
 
 @implementation FastTestViewController
 
+@synthesize passDataDic;
+
 int currentSubjectIndex = 0;
 
 - (IBAction)optionAClicked:(UIButton *)sender {
@@ -85,10 +87,15 @@ int currentSubjectIndex = 0;
         NSString *evaluationType = @"D24B99";
         NSNumber *sex = [kidModelInfo sex];
         
-        //WILL DELETE ->  test
+        //获取能力项分类ID
+        NSString *abilityID = [passDataDic objectForKey:@"abilityID"];
+        if ([JerryTools stringIsNull:abilityID]) {
+            abilityID = @"";
+        }
+        
         sex = [NSNumber numberWithInt:1];
         
-        [self.viewModel getTestSubjectByChildId:childId andAgeType:ageTypeKey andEvaluationType:evaluationType andSex:sex andCallback:^(NSDictionary *resultDic) {
+        [self.viewModel getTestSubjectByChildId:childId andAgeType:ageTypeKey andEvaluationType:evaluationType andSex:sex andAbilityId:abilityID andCallback:^(NSDictionary *resultDic) {
             
             NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
             if (errorMessage) {
@@ -130,10 +137,10 @@ int currentSubjectIndex = 0;
     
     TestSubjectModel *testSubjectModel = [self.subjectsArray objectAtIndex:subjectIndex];
     NSString *subjectName = [testSubjectModel subjectName];
-    NSString *subjectDescription = [testSubjectModel subjectDescription];
+    NSString *subjectBrief = [testSubjectModel subjectBrief];
     
     self.subjectTile.text = subjectName;
-    self.subjectSubtitle.text = subjectDescription;
+    self.subjectSubtitle.text = subjectBrief;
 }
 
 - (void)didReceiveMemoryWarning {

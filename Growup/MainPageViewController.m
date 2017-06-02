@@ -138,13 +138,13 @@ bool isBubbleShowed = false;
 
 #pragma mark 跳转到 测试/详细报告
 - (IBAction)testOrReportBtn:(UIButton *)sender {
-//    if (self.viewModel.needTest) {
-//        //开始测评
-//        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
-//    }else{
+    if (self.viewModel.needTest) {
+        //开始测评
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
+    }else{
         //查看综合报告
         [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
-//    }
+    }
 }
 
 - (void)viewDidLoad {
@@ -182,7 +182,7 @@ bool isBubbleShowed = false;
     [self.progressView setBackgroundColor:[UIColor colorWithString:@"#6aa71b"]];
     
     //为笑脸图标添加点击事件
-//    [self setFaceInteractionEnable];
+    [self setFaceInteractionEnable];
     
     //为橙宝添加点击事件
     [self setOrangeBabyInteractionEnable];
@@ -557,27 +557,67 @@ bool isBubbleShowed = false;
 //点击娃娃脸的跳转
 - (void)faceClicked:(UITapGestureRecognizer *) recognizer{
     
+    NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
+    
     switch (recognizer.view.tag) {
         case face_health:
             NSLog(@"健康");
-            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameAbilityExplainViewController];
+            if (self.viewModel.needTest) {
+                //开始测评
+                [passDic setObject:@"D43B01" forKey:@"abilityID"];
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
+            }else{
+                //查看综合报告
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+            }
             break;
             
         case face_society:
             NSLog(@"社会");
-            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameSocietyExplainViewController];
+            if (self.viewModel.needTest) {
+                //开始测评
+                [passDic setObject:@"D43B02" forKey:@"abilityID"];
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
+            }else{
+                //查看综合报告
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+            }
             break;
             
         case face_language:
             NSLog(@"语言");
+            if (self.viewModel.needTest) {
+                //开始测评
+                [passDic setObject:@"D43B03" forKey:@"abilityID"];
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
+            }else{
+                //查看综合报告
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+            }
             break;
             
         case face_science:
             NSLog(@"科学");
+            if (self.viewModel.needTest) {
+                //开始测评
+                [passDic setObject:@"D43B04" forKey:@"abilityID"];
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
+            }else{
+                //查看综合报告
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+            }
             break;
             
         case face_art:
             NSLog(@"艺术");
+            if (self.viewModel.needTest) {
+                //开始测评
+                [passDic setObject:@"D43B05" forKey:@"abilityID"];
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
+            }else{
+                //查看综合报告
+                [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+            }
             break;
     }
 }

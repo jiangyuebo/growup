@@ -45,4 +45,7 @@
 #pragma mark 根据access-token获取用户及孩子信息
 - (void)getUserInfoByAccesstoken:(NSString *) accesstoken andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
+#pragma mark 根据access-token获取用户及孩子信息DIC
+- (void)getUserInfoDicByAccesstoken:(NSString *) accesstoken andCallback:(void (^)(NSDictionary *resultDic)) callback;
+
 @end
