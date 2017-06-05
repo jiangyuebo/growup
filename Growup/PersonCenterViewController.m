@@ -21,6 +21,8 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *userGender;
 
+@property (strong,nonatomic) NSNumber *userGenderNumber;
+
 @property (strong, nonatomic) IBOutlet UILabel *childNickname;
 
 @property (strong, nonatomic) IBOutlet UILabel *childGender;
@@ -95,8 +97,6 @@
             
             //            NSString *avatarUrl = [result objectForKey:@"avatarUrl"];
             
-            //            NSNumber *userGender = [result objectForKey:@""];
-            
             //            NSString *childNickname = [result objectForKey:@""];
             
             NSNumber *childGender = [[result objectForKey:@"child"] objectForKey:@"sex"];
@@ -113,7 +113,24 @@
             //            NSString *childTarget
             
             dispatch_sync(dispatch_get_main_queue(), ^{
+                //用户昵称
                 self.userNickname.text = nickName;
+                //用户性别
+                NSNumber *userGender = [result objectForKey:@"sex"];
+                if (!userGender) {
+                    self.userGender.text = @"先生";
+                    self.userGenderNumber = [NSNumber numberWithInt:1];
+                }else{
+                    self.userGenderNumber = userGender;
+                    int genderInt = [userGender intValue];
+                    if (genderInt == 1) {
+                        self.userGender.text = @"先生";
+                    }else if(genderInt == 2){
+                        self.userGender.text = @"女士";
+                    }else{
+                        self.userGender.text = @"通用";
+                    }
+                }
                 
                 if ([childGender intValue] == 1) {
                     self.childGender.text = @"男孩";
@@ -167,16 +184,21 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"didSelectRowAtIndexPath : %ld",indexPath.row);
     
+    NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
+    
     if (indexPath.row == 1) {
         //修改用户昵称
-        
         NSString *nickname = self.userNickname.text;
         NSLog(@"发送方 nickname = %@",nickname);
-        
-        NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
+
         [passDic setObject:nickname forKey:@"nickname"];
         
         [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+    }else if (indexPath.row == 2){
+        //修改用户性别
+        [passDic setObject:self.userGenderNumber forKey:@"sex"];
+        NSLog(@"发送方 sex = %@",self.userGenderNumber);
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserGenderViewController carryDataDic:passDic];
     }
 }
 

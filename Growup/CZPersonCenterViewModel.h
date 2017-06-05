@@ -13,4 +13,6 @@
 #pragma mark 修改用户信息
 - (void)changeUserInfo:(NSMutableDictionary *) userInfoDic andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
+
+
 @end

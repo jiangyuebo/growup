@@ -5237,7 +5237,7 @@
         <!--修改性别-->
         <scene sceneID="fFX-Go-hmH">
             <objects>
-                <viewController storyboardIdentifier="czchangegenderviewcontroller" title="修改性别" id="IdO-uk-waI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="czchangegenderviewcontroller" title="修改性别" id="IdO-uk-waI" customClass="CZChangeUserGenderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5sF-4D-3Ti"/>
                         <viewControllerLayoutGuide type="bottom" id="ZdB-PO-9UW"/>

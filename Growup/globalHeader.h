@@ -45,6 +45,8 @@
 #define IdentifyNamePersonCenterTableViewController @"personcentertableviewcontroller"
 //修改用户昵称
 #define IdentifyNameChangeUserNickNameViewController @"czchangenicknameviewcontroller"
+//修改用户性别
+#define IdentifyNameChangeUserGenderViewController @"czchangegenderviewcontroller"
 //发现信息列表
 #define IdentifyNameDiscoverInfoListViewController @"czdiscoverinfolistviewcontroller"
 

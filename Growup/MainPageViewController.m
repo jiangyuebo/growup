@@ -77,6 +77,9 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *actionTable;
 
+//为查询测评结果准备数据，userAbilityId
+@property (strong,nonatomic) NSNumber *userAbilityId;
+
 //行动项数据
 @property (strong,nonatomic) NSDictionary *actionInfoDic;
 
@@ -138,13 +141,16 @@ bool isBubbleShowed = false;
 
 #pragma mark 跳转到 测试/详细报告
 - (IBAction)testOrReportBtn:(UIButton *)sender {
-    if (self.viewModel.needTest) {
-        //开始测评
-        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
-    }else{
-        //查看综合报告
-        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
-    }
+    //test
+    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+    
+//    if (self.viewModel.needTest) {
+//        //开始测评
+//        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
+//    }else{
+//        //查看综合报告
+//        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+//    }
 }
 
 - (void)viewDidLoad {
@@ -411,6 +417,9 @@ bool isBubbleShowed = false;
                     buttonStr = @"详细报告";
                     self.viewModel.needTest = NO;
                 }
+                
+                //获取user ability id
+                self.userAbilityId = [abilityModel objectForKey:@"userAbilityID"];
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [self.btnReport setTitle:buttonStr forState:UIControlStateNormal];

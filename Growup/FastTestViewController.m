@@ -34,6 +34,8 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *count;
 
+@property (strong,nonatomic) NSString *indexType;
+
 @end
 
 @implementation FastTestViewController
@@ -92,6 +94,8 @@ int currentSubjectIndex = 0;
         if ([JerryTools stringIsNull:abilityID]) {
             abilityID = @"";
         }
+        
+        self.indexType = abilityID;
         
         sex = [NSNumber numberWithInt:1];
         
@@ -179,7 +183,7 @@ int currentSubjectIndex = 0;
         
         NSNumber *evaluationID = [self.testModel evaluationID];
         
-        [self.viewModel sendTestAnwserToServerByEvaluationID:evaluationID andAnwserArray:self.answerCollection andCallback:^(NSDictionary *resultDic) {
+        [self.viewModel sendTestAnwserToServerByEvaluationID:evaluationID andAnwserArray:self.answerCollection andIndexTpye:self.indexType andCallback:^(NSDictionary *resultDic) {
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 //返回首页

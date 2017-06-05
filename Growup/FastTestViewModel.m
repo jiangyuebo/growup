@@ -143,10 +143,12 @@
 }
 
 #pragma mark 提交答案
-- (void)sendTestAnwserToServerByEvaluationID:(NSNumber *) evaluationID andAnwserArray:(NSArray *) anwserArray andCallback:(void (^)(NSDictionary *resultDic)) callback{
+- (void)sendTestAnwserToServerByEvaluationID:(NSNumber *) evaluationID andAnwserArray:(NSArray *) anwserArray andIndexTpye:(NSString *)indexType andCallback:(void (^)(NSDictionary *resultDic)) callback{
     
     //api/v1/user/evaluation/submit/{evaluationID}
     NSString *url_request = [NSString stringWithFormat:@"%@%@/%@",URL_REQUEST,URL_REQUEST_SEND_ANWSER,evaluationID];
+    
+    
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper postRequestAsynchronousToUrl:url_request byParamsDic:anwserArray needAccessToken:YES andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {

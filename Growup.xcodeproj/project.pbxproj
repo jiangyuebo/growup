@@ -29,6 +29,8 @@
 		C4671D3D1EE1716F0003056B /* MultiSelectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D3C1EE1716F0003056B /* MultiSelectViewCell.m */; };
 		C4671D401EE1A8340003056B /* CZChangeUserNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */; };
 		C4671D471EE1B9E60003056B /* CZPersonCenterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */; };
+		C4671D4A1EE1E75F0003056B /* CZChangeUserGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */; };
+		C4671D4D1EE1E9D40003056B /* CZRadioSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */; };
 		C48824A01E65D55D005D8FED /* UIColor+NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = C488249F1E65D55D005D8FED /* UIColor+NSString.m */; };
 		C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A51E66CC77005D8FED /* FileCommonTool.m */; };
 		C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A91E66D5F8005D8FED /* CZLoginViewController.m */; };
@@ -171,6 +173,10 @@
 		C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZChangeUserNickNameViewController.m; sourceTree = "<group>"; };
 		C4671D451EE1B9E60003056B /* CZPersonCenterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZPersonCenterViewModel.h; sourceTree = "<group>"; };
 		C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZPersonCenterViewModel.m; sourceTree = "<group>"; };
+		C4671D481EE1E75F0003056B /* CZChangeUserGenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZChangeUserGenderViewController.h; sourceTree = "<group>"; };
+		C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZChangeUserGenderViewController.m; sourceTree = "<group>"; };
+		C4671D4B1EE1E9D40003056B /* CZRadioSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZRadioSelectView.h; sourceTree = "<group>"; };
+		C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZRadioSelectView.m; sourceTree = "<group>"; };
 		C488249E1E65D55D005D8FED /* UIColor+NSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NSString.h"; sourceTree = "<group>"; };
 		C488249F1E65D55D005D8FED /* UIColor+NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NSString.m"; sourceTree = "<group>"; };
 		C48824A41E66CC77005D8FED /* FileCommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCommonTool.h; sourceTree = "<group>"; };
@@ -1448,6 +1454,8 @@
 				C4A66BD61ED9617500CE8BCE /* PersonCenterViewController.m */,
 				C4671D3E1EE1A8340003056B /* CZChangeUserNickNameViewController.h */,
 				C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */,
+				C4671D481EE1E75F0003056B /* CZChangeUserGenderViewController.h */,
+				C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1455,6 +1463,8 @@
 		C4E533431E7AF0750041DDDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4671D4B1EE1E9D40003056B /* CZRadioSelectView.h */,
+				C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1668,6 +1678,7 @@
 				C4D6BBC11EC5580D00063A5D /* DiscoverViewModel.m in Sources */,
 				C4671D471EE1B9E60003056B /* CZPersonCenterViewModel.m in Sources */,
 				C4E5338B1E7FDC9A0041DDDA /* CZGenderSettingViewController.m in Sources */,
+				C4671D4A1EE1E75F0003056B /* CZChangeUserGenderViewController.m in Sources */,
 				C4E533851E7FC9EF0041DDDA /* CZChangePasswordViewController.m in Sources */,
 				C48A899F1EAB665E0076D741 /* CZTextField.m in Sources */,
 				C4D6BC401EC807E700063A5D /* UIView+MJExtension.m in Sources */,
@@ -1728,6 +1739,7 @@
 				C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */,
 				C4D6BC371EC807E700063A5D /* MJRefreshBackStateFooter.m in Sources */,
 				C4C3E0AE1EAA420B00AAC109 /* LoginViewModel.m in Sources */,
+				C4671D4D1EE1E9D40003056B /* CZRadioSelectView.m in Sources */,
 				C4D6BC3C1EC807E700063A5D /* MJRefreshConst.m in Sources */,
 				C4D6BB961EC3164B00063A5D /* RecordCell.m in Sources */,
 				C4D6BC391EC807E700063A5D /* MJRefreshNormalHeader.m in Sources */,
