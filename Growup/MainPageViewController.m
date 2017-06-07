@@ -35,6 +35,9 @@
 
 @property (strong, nonatomic) MainPageViewModel *viewModel;
 
+//首页数据集
+@property (strong,nonatomic) NSDictionary *abilityModel;
+
 //健康笑脸
 @property (strong, nonatomic) IBOutlet UIImageView *imageFaceHealth;
 
@@ -404,9 +407,9 @@ bool isBubbleShowed = false;
                     [JerryViewTools showCZToastInViewController:self andText:errorMessage];
                 });
             }else{
-                NSDictionary *abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
+                self.abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
                 
-                BOOL isAbilityExpired = [abilityModel objectForKey:@"isAbilityExpired"];
+                BOOL isAbilityExpired = [self.abilityModel objectForKey:@"isAbilityExpired"];
                 NSString *buttonStr;
                 if (isAbilityExpired) {
                     //需要测评
@@ -419,12 +422,12 @@ bool isBubbleShowed = false;
                 }
                 
                 //获取user ability id
-                self.userAbilityId = [abilityModel objectForKey:@"userAbilityID"];
+                self.userAbilityId = [self.abilityModel objectForKey:@"userAbilityID"];
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [self.btnReport setTitle:buttonStr forState:UIControlStateNormal];
                     
-                    [self setAbilityStatus:abilityModel];
+                    [self setAbilityStatus:self.abilityModel];
                 });
             }
         }];
@@ -556,22 +559,25 @@ bool isBubbleShowed = false;
     }
 }
 
-//为橙娃添加点击事件
+#pragma mark 为橙娃添加点击事件
 - (void)setOrangeBabyInteractionEnable{
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(orangeBabyClicked)];
     self.orangeBaby.userInteractionEnabled = YES;
     [self.orangeBaby addGestureRecognizer:singleTap];
 }
 
-//点击娃娃脸的跳转
+#pragma mark 点击娃娃脸的跳转
 - (void)faceClicked:(UITapGestureRecognizer *) recognizer{
     
     NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
     
     switch (recognizer.view.tag) {
-        case face_health:
+        case face_health:{
             NSLog(@"健康");
-            if (self.viewModel.needTest) {
+            NSNumber *indexHealthScore = [self.abilityModel objectForKey:@"indexHealthScore"];
+            int healthScoreInt = [indexHealthScore intValue];
+            
+            if (healthScoreInt == 0) {
                 //开始测评
                 [passDic setObject:@"D43B01" forKey:@"abilityID"];
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
@@ -579,11 +585,14 @@ bool isBubbleShowed = false;
                 //查看综合报告
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
             }
-            break;
+        }
+        break;
             
-        case face_society:
+        case face_society:{
+            NSNumber *indexSociologyScore = [self.abilityModel objectForKey:@"indexSociologyScore"];
+            int sociologySocreInt = [indexSociologyScore intValue];
             NSLog(@"社会");
-            if (self.viewModel.needTest) {
+            if (sociologySocreInt == 0) {
                 //开始测评
                 [passDic setObject:@"D43B02" forKey:@"abilityID"];
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
@@ -591,11 +600,15 @@ bool isBubbleShowed = false;
                 //查看综合报告
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
             }
-            break;
+        }
+        break;
             
-        case face_language:
+        case face_language:{
             NSLog(@"语言");
-            if (self.viewModel.needTest) {
+            NSNumber *indexLanguageScore = [self.abilityModel objectForKey:@"indexLanguageScore"];
+            int languageScore = [indexLanguageScore intValue];
+            
+            if (languageScore == 0) {
                 //开始测评
                 [passDic setObject:@"D43B03" forKey:@"abilityID"];
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
@@ -603,11 +616,14 @@ bool isBubbleShowed = false;
                 //查看综合报告
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
             }
-            break;
+        }
+        break;
             
-        case face_science:
+        case face_science:{
             NSLog(@"科学");
-            if (self.viewModel.needTest) {
+            NSNumber *indexScienceScore = [self.abilityModel objectForKey:@"indexScienceScore"];
+            int scienceScoreInt = [indexScienceScore intValue];
+            if (scienceScoreInt == 0) {
                 //开始测评
                 [passDic setObject:@"D43B04" forKey:@"abilityID"];
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
@@ -615,11 +631,14 @@ bool isBubbleShowed = false;
                 //查看综合报告
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
             }
-            break;
+        }
+        break;
             
-        case face_art:
+        case face_art:{
             NSLog(@"艺术");
-            if (self.viewModel.needTest) {
+            NSNumber *indexArtScore = [self.abilityModel objectForKey:@"indexArtScore"];
+            int artScoreInt = [indexArtScore intValue];
+            if (artScoreInt == 0) {
                 //开始测评
                 [passDic setObject:@"D43B05" forKey:@"abilityID"];
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController carryDataDic:passDic];
@@ -627,7 +646,8 @@ bool isBubbleShowed = false;
                 //查看综合报告
                 [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
             }
-            break;
+        }
+        break;
     }
 }
 

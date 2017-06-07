@@ -31,6 +31,10 @@
 		C4671D471EE1B9E60003056B /* CZPersonCenterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D461EE1B9E60003056B /* CZPersonCenterViewModel.m */; };
 		C4671D4A1EE1E75F0003056B /* CZChangeUserGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */; };
 		C4671D4D1EE1E9D40003056B /* CZRadioSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */; };
+		C4671D501EE54C980003056B /* DetailReportViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D4F1EE54C980003056B /* DetailReportViewModel.m */; };
+		C4671D521EE6B9DD0003056B /* DetailReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D511EE6B9DD0003056B /* DetailReportCell.xib */; };
+		C4671D541EE6BA530003056B /* DetailReportHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D531EE6BA530003056B /* DetailReportHeader.xib */; };
+		C4671D571EE711950003056B /* DetailReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D561EE711940003056B /* DetailReportCell.m */; };
 		C48824A01E65D55D005D8FED /* UIColor+NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = C488249F1E65D55D005D8FED /* UIColor+NSString.m */; };
 		C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A51E66CC77005D8FED /* FileCommonTool.m */; };
 		C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A91E66D5F8005D8FED /* CZLoginViewController.m */; };
@@ -177,6 +181,12 @@
 		C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZChangeUserGenderViewController.m; sourceTree = "<group>"; };
 		C4671D4B1EE1E9D40003056B /* CZRadioSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZRadioSelectView.h; sourceTree = "<group>"; };
 		C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZRadioSelectView.m; sourceTree = "<group>"; };
+		C4671D4E1EE54C980003056B /* DetailReportViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailReportViewModel.h; sourceTree = "<group>"; };
+		C4671D4F1EE54C980003056B /* DetailReportViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailReportViewModel.m; sourceTree = "<group>"; };
+		C4671D511EE6B9DD0003056B /* DetailReportCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailReportCell.xib; sourceTree = "<group>"; };
+		C4671D531EE6BA530003056B /* DetailReportHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailReportHeader.xib; sourceTree = "<group>"; };
+		C4671D551EE711940003056B /* DetailReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailReportCell.h; sourceTree = "<group>"; };
+		C4671D561EE711940003056B /* DetailReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailReportCell.m; sourceTree = "<group>"; };
 		C488249E1E65D55D005D8FED /* UIColor+NSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NSString.h"; sourceTree = "<group>"; };
 		C488249F1E65D55D005D8FED /* UIColor+NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NSString.m"; sourceTree = "<group>"; };
 		C48824A41E66CC77005D8FED /* FileCommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCommonTool.h; sourceTree = "<group>"; };
@@ -979,6 +989,8 @@
 		C48824E01E7058BE005D8FED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4671D4E1EE54C980003056B /* DetailReportViewModel.h */,
+				C4671D4F1EE54C980003056B /* DetailReportViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -988,6 +1000,8 @@
 			children = (
 				C48824E31E7058F8005D8FED /* DetailReportViewController.h */,
 				C48824E41E7058F8005D8FED /* DetailReportViewController.m */,
+				C4671D511EE6B9DD0003056B /* DetailReportCell.xib */,
+				C4671D531EE6BA530003056B /* DetailReportHeader.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -995,6 +1009,8 @@
 		C48824E21E7058CD005D8FED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C4671D551EE711940003056B /* DetailReportCell.h */,
+				C4671D561EE711940003056B /* DetailReportCell.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1632,6 +1648,8 @@
 				C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */,
 				C4D6BCFF1EC8478600063A5D /* LICENSE in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
+				C4671D521EE6B9DD0003056B /* DetailReportCell.xib in Resources */,
+				C4671D541EE6BA530003056B /* DetailReportHeader.xib in Resources */,
 				C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */,
 				C4D6BB911EC2207500063A5D /* ExperienceTableHeader.xib in Resources */,
 				C4D6BBC61EC58F0200063A5D /* InfoModelCell.xib in Resources */,
@@ -1713,6 +1731,7 @@
 				C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */,
 				C41E7A801E462D560033D1AF /* main.m in Sources */,
 				C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */,
+				C4671D571EE711950003056B /* DetailReportCell.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
 				C4D6BC2D1EC807E700063A5D /* MJRefreshAutoFooter.m in Sources */,
 				C4671D401EE1A8340003056B /* CZChangeUserNickNameViewController.m in Sources */,
@@ -1744,6 +1763,7 @@
 				C4D6BB961EC3164B00063A5D /* RecordCell.m in Sources */,
 				C4D6BC391EC807E700063A5D /* MJRefreshNormalHeader.m in Sources */,
 				C48824ED1E718D59005D8FED /* AbilityExplainViewController.m in Sources */,
+				C4671D501EE54C980003056B /* DetailReportViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

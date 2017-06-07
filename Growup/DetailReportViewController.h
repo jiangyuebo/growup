@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailReportViewController : UIViewController
+@interface DetailReportViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (strong, nonatomic) IBOutlet UITableView *detailReportTable;
 
 @end

@@ -104,6 +104,8 @@
 #define URL_REQUEST_SEND_ANWSER @"user/evaluation/submit"
 //提交行动结果
 #define URL_REQUEST_SUBMIT_ACTION @"user/action/submit"
+//获取综合评测结果
+#define URL_REQUEST_DETAIL_REPORT_DATA @"user/ability/get"
 //获取题目列表
 #define URL_REQUEST_GET_ACTION_LIST @"user/action/getAll"
 //获取体验内容列表
@@ -207,6 +209,14 @@
 #define icon_song 23//儿歌
 #define icon_story 24//故事
 #define icon_school 25//互动面试
+
+//个人中心修改操作类型
+//KEY
+#define TYPE_KEY @"type"
+//修改昵称
+#define TYPE_VALUE_NICKNAME @"nickName"
+//修改孩子昵称
+#define TYPE_VALUE_CHILD_NICKNAME @"childNickName"
 
 //#define SIGH @"BDiZujK4f3D3tgHhG9fFh6KofSJhPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NDgxNDg1MCZyPTUxNjg2ODQ5NSZmPS8xMjUzMTE2MjAxL2NidS90ZXN0JmI9Y2J1"
 

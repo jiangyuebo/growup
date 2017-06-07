@@ -10,6 +10,7 @@
 #import "CZPersonCenterViewModel.h"
 #import "JerryViewTools.h"
 #import "JerryTools.h"
+#import "globalHeader.h"
 
 @interface CZChangeUserNickNameViewController ()
 
@@ -22,32 +23,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *nickname = [passDataDic objectForKey:@"nickname"];
-    self.userNicknameText.text = nickname;
+    //判断操作类型
+    NSString *type = [passDataDic objectForKey:TYPE_KEY];
+    if ([type isEqualToString:TYPE_VALUE_NICKNAME]) {
+        self.title = @"修改昵称";
+        NSString *nickname = [passDataDic objectForKey:@"nickname"];
+        self.userNicknameText.text = nickname;
+    }
+    
+    if ([type isEqualToString:TYPE_VALUE_CHILD_NICKNAME]) {
+        self.title = @"修改孩子昵称";
+        NSString *childNickname = [passDataDic objectForKey:@"childNickName"];
+        self.userNicknameText.text = childNickname;
+    }
     
     [JerryViewTools setCZTextField:self.userNicknameText];
 }
 
 - (void)dealloc{
-    NSString *nickname;
-    //提交修改
-    if ([JerryTools stringIsNull:self.userNicknameText.text]) {
-        //昵称为空
-        nickname = @"橙子先生";
-    }else{
-        //昵称不为空
-        nickname = self.userNicknameText.text;
+    //修改昵称
+    NSString *type = [passDataDic objectForKey:TYPE_KEY];
+    if ([type isEqualToString:TYPE_VALUE_NICKNAME]) {
+        NSString *nickname;
+        //提交修改
+        if ([JerryTools stringIsNull:self.userNicknameText.text]) {
+            //昵称为空
+            nickname = @"橙子先生";
+        }else{
+            //昵称不为空
+            nickname = self.userNicknameText.text;
+        }
+        
+        CZPersonCenterViewModel *modelView = [[CZPersonCenterViewModel alloc] init];
+        
+        NSMutableDictionary *infoDic = [NSMutableDictionary dictionary];
+        [infoDic setObject:nickname forKey:@"nickName"];
+        
+        [modelView changeUserInfo:infoDic andCallback:^(NSDictionary *resultDic) {
+            
+        }];
     }
     
-    CZPersonCenterViewModel *modelView = [[CZPersonCenterViewModel alloc] init];
-    NSMutableDictionary *infoDic = [NSMutableDictionary dictionary];
-    [infoDic setObject:nickname forKey:@"nickName"];
-    
-    [modelView changeUserInfo:infoDic andCallback:^(NSDictionary *resultDic) {
+    if ([type isEqualToString:TYPE_VALUE_CHILD_NICKNAME]) {
         
-        NSLog(@"还没有被 delloc");
-        
-    }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

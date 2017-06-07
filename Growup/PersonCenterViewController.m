@@ -182,24 +182,37 @@
 #pragma mark - Table view data source
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"didSelectRowAtIndexPath : %ld",indexPath.row);
     
     NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
     
-    if (indexPath.row == 1) {
-        //修改用户昵称
-        NSString *nickname = self.userNickname.text;
-        NSLog(@"发送方 nickname = %@",nickname);
-
-        [passDic setObject:nickname forKey:@"nickname"];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            //修改用户昵称
+            NSString *nickname = self.userNickname.text;
+            NSLog(@"发送方 nickname = %@",nickname);
+            
+            [passDic setObject:nickname forKey:@"nickname"];
+            [passDic setObject:TYPE_VALUE_NICKNAME forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+        }else if (indexPath.row == 2){
+            //修改用户性别
+            [passDic setObject:self.userGenderNumber forKey:@"sex"];
+            NSLog(@"发送方 sex = %@",self.userGenderNumber);
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserGenderViewController carryDataDic:passDic];
+        }
+    }
+    
+    if (indexPath.section == 1) {
+        //修改孩子昵称
+        NSString *childNickName = self.childNickname.text;
+        [passDic setObject:childNickName forKey:@"childNickName"];
+        [passDic setObject:TYPE_VALUE_CHILD_NICKNAME forKey:TYPE_KEY];
         
         [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
-    }else if (indexPath.row == 2){
-        //修改用户性别
-        [passDic setObject:self.userGenderNumber forKey:@"sex"];
-        NSLog(@"发送方 sex = %@",self.userGenderNumber);
-        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserGenderViewController carryDataDic:passDic];
     }
+    
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="EtO-aF-gM1">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="208"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cup" translatesAutoresizingMaskIntoConstraints="NO" id="yTL-0J-rHL">
+                    <rect key="frame" x="141" y="30" width="92" height="92"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="92" id="Mf0-EQ-iHV"/>
+                        <constraint firstAttribute="height" constant="92" id="uTO-Ml-6Rl"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uc-ch-Gvf">
+                    <rect key="frame" x="177.5" y="43" width="19.5" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="宝宝相当优秀，各方面能力都很突出，尤其可以试着挖掘宝宝音乐方面的天赋" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-uX-TGX">
+                    <rect key="frame" x="8" y="130" width="359" height="70"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERs-x9-PMn">
+                    <rect key="frame" x="0.0" y="200" width="375" height="8"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="wpG-90-b2U"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9uc-ch-Gvf" firstAttribute="centerY" secondItem="yTL-0J-rHL" secondAttribute="centerY" constant="-15" id="REt-8v-AgF"/>
+                <constraint firstItem="ERs-x9-PMn" firstAttribute="top" secondItem="Itu-uX-TGX" secondAttribute="bottom" id="YlB-cR-3Ck"/>
+                <constraint firstItem="ERs-x9-PMn" firstAttribute="leading" secondItem="EtO-aF-gM1" secondAttribute="leading" id="kMw-XR-zde"/>
+                <constraint firstItem="Itu-uX-TGX" firstAttribute="leading" secondItem="EtO-aF-gM1" secondAttribute="leading" constant="8" id="lG9-14-mC6"/>
+                <constraint firstAttribute="trailing" secondItem="Itu-uX-TGX" secondAttribute="trailing" constant="8" id="n1m-fb-oZt"/>
+                <constraint firstItem="9uc-ch-Gvf" firstAttribute="centerX" secondItem="yTL-0J-rHL" secondAttribute="centerX" id="oF1-HR-AYf"/>
+                <constraint firstItem="yTL-0J-rHL" firstAttribute="centerX" secondItem="EtO-aF-gM1" secondAttribute="centerX" id="oFT-0u-3tW"/>
+                <constraint firstAttribute="trailing" secondItem="ERs-x9-PMn" secondAttribute="trailing" id="oji-t7-7ak"/>
+                <constraint firstAttribute="bottom" secondItem="ERs-x9-PMn" secondAttribute="bottom" id="pzE-qA-sb2"/>
+                <constraint firstItem="yTL-0J-rHL" firstAttribute="top" secondItem="EtO-aF-gM1" secondAttribute="top" constant="30" id="tap-QY-rWz"/>
+                <constraint firstItem="Itu-uX-TGX" firstAttribute="top" secondItem="yTL-0J-rHL" secondAttribute="bottom" constant="8" id="ucg-2j-a10"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="6.5" y="-135"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cup" width="16" height="16"/>
+    </resources>
+</document>
