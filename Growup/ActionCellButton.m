@@ -10,7 +10,7 @@
 
 @implementation ActionCellButton
 
-@synthesize rowIndex,indexPath;
+@synthesize rowIndex,indexPath,isPlaying;
 
 /*
 // Only override drawRect: if you perform custom drawing.

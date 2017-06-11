@@ -18,8 +18,10 @@
 #import "ActionCell.h"
 #import "ActionCellButton.h"
 #import "ActionExpCell.h"
+#import "ActionSciCell.h"
 #import "PersonInfoViewController.h"
 #import "PersonCenterViewController.h"
+#import "ExperienceDetailViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 //娃娃脸图片点击跳转tag
@@ -98,6 +100,11 @@
 
 @property (strong,nonatomic) ActionCellButton *actionCellButton;
 
+//所有播放按钮
+@property (strong,nonatomic) NSMutableArray *allActionButtons;
+
+@property (strong,nonatomic) NSTimer *timer;
+
 @end
 
 @implementation MainPageViewController
@@ -113,13 +120,13 @@ bool isBubbleShowed = false;
     UserInfoModel *currentUser = [JerryTools getUserInfoModel];
     
     if ([currentUser userID]) {
-        //有用户 IdentifyNamePersonInfoViewController
-//        PersonInfoViewController *personInfoViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonInfoViewController];
-        
-        //IdentifyNamePersonCenterTableViewController
+        //有用户
         PersonCenterViewController *personCenterViewController = [JerryViewTools getViewControllerById:IdentifyNamePersonCenterTableViewController];
         
         [self.navigationController pushViewController:personCenterViewController animated:YES];
+        
+        //TEST
+//        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameInterestSettingViewController carryDataDic:nil];
     }else{
         //无用户
         //跳转到登录界面
@@ -168,9 +175,21 @@ bool isBubbleShowed = false;
     [super viewWillAppear:animated];
     [self hideNavigationBar];
     
-    [self mainPageUpdage];
-    
     self.tabBarController.tabBar.hidden = NO;
+    
+    [self mainPageUpdage];
+}
+
+#pragma mark 橙子跳
+- (void)orangeJump{
+    //设置橙娃动画 orange_1
+    self.orangeBaby.image = [UIImage animatedImageNamed:@"orange_" duration:0.7];
+}
+
+#pragma mark 橙娃不跳
+- (void)orangeStop{
+    //设置橙娃动画 orange_1
+    self.orangeBaby.image = [UIImage imageNamed:@"orange_1"];
 }
 
 - (void)initView{
@@ -179,6 +198,8 @@ bool isBubbleShowed = false;
     
     //设置橙娃动画 orange_1
     self.orangeBaby.image = [UIImage animatedImageNamed:@"orange_" duration:0.7];
+    
+    [self performSelector:@selector(orangeStop) withObject:nil afterDelay:5.0f];
     
     //设置VIEW圆角
     UIView *targetView = [self.view viewWithTag:1];
@@ -245,6 +266,9 @@ bool isBubbleShowed = false;
     //创建气泡信息
     self.popArray = [[NSMutableArray alloc] init];
     
+    //所有播放按钮的
+    self.allActionButtons = [[NSMutableArray alloc] init];
+    
     self.actionTableItems = [[NSMutableArray alloc] init];
     self.actionTable.dataSource = self;
     self.actionTable.delegate = self;
@@ -255,6 +279,30 @@ bool isBubbleShowed = false;
     
     //播放状态
     self.isPlaying = NO;
+}
+
+#pragma mark 判断是否有孩子数据
+- (BOOL)hasChild{
+    UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+    if ([currentUser userID]) {
+        NSArray *childArray = [currentUser childArray];
+        if ([childArray count] > 0) {
+            
+            [self formatBirthdayLabel];
+            
+            [self fetchDataFromServer];
+            
+            return YES;
+        }else{
+            //有用户数据但无孩子数据，弹出添加孩子信息界面 IdentifyNameBirthdaySettingViewController
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameBirthdaySettingViewController];
+            
+            return NO;
+        }
+    }else{
+        return NO;
+    }
+    
 }
 
 - (void)mainPageUpdage{
@@ -295,10 +343,10 @@ bool isBubbleShowed = false;
                         //生日显示
                         dispatch_sync(dispatch_get_main_queue(), ^{
                             [self formatBirthdayLabel];
+                            
+                            //判断是否有孩子数据
+                            [self hasChild];
                         });
-                        
-                        //加载服务器数据
-                        [self fetchDataFromServer];
                     }
                 }
             }];
@@ -409,14 +457,25 @@ bool isBubbleShowed = false;
             }else{
                 self.abilityModel = [resultDic objectForKey:RESULT_KEY_DATA];
                 
-                BOOL isAbilityExpired = [self.abilityModel objectForKey:@"isAbilityExpired"];
+                //获取各能力分数
+                NSNumber *indexArtScore = [self.abilityModel objectForKey:@"indexArtScore"];
+                int artInt = [indexArtScore intValue];
+                NSNumber *indexHealthScore = [self.abilityModel objectForKey:@"indexHealthScore"];
+                int healthInt = [indexHealthScore intValue];
+                NSNumber *indexLanguageScore = [self.abilityModel objectForKey:@"indexLanguageScore"];
+                int languageInt = [indexLanguageScore intValue];
+                NSNumber *indexScienceScore = [self.abilityModel objectForKey:@"indexScienceScore"];
+                int scienceInt = [indexScienceScore intValue];
+                NSNumber *indexSociologyScore = [self.abilityModel objectForKey:@"indexSociologyScore"];
+                int sociologyInt = [indexSociologyScore intValue];
+                
                 NSString *buttonStr;
-                if (isAbilityExpired) {
-                    //需要测评
+                if (artInt == 0 && healthInt && languageInt && scienceInt && sociologyInt) {
+                    //全部分数为0，总体测试按钮为测试
                     buttonStr = @"开始测评";
                     self.viewModel.needTest = YES;
                 }else{
-                    //不需要测评
+                    //总体测试按钮为查看总体报告
                     buttonStr = @"详细报告";
                     self.viewModel.needTest = NO;
                 }
@@ -469,8 +528,13 @@ bool isBubbleShowed = false;
                         [self.actionTable reloadData];
                         
                         //设置完成度文字提示
-                        int temp = (int)([actionNumber floatValue]/[actionFinishNumber floatValue] * 100);
-                        self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：%d%%",temp];
+                        int finishint = [actionFinishNumber intValue];
+                        if (finishint == 0) {
+                            self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：0%%"];
+                        }else{
+                            int temp = (int)([actionNumber floatValue]/[actionFinishNumber floatValue] * 100);
+                            self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：%d%%",temp];
+                        }
                         
                         //重设列表高度
                         [self resetActionTableHeight];
@@ -493,7 +557,13 @@ bool isBubbleShowed = false;
             height += Height_Action_Subject_Cell;
         }
         if ([infoDic objectForKey:@"experience"]) {
-            height += Height_Action_exp_Cell;
+            //判断体验类型
+            NSString *experienceTypeKey = [[infoDic objectForKey:@"experience"] objectForKey:@"experienceTypeKey"];
+            if ([experienceTypeKey isEqualToString:EXPERIENCE_SCIENCE]) {
+                height += Height_Action_exp_sci_cell;
+            }else{
+                height += Height_Action_exp_Cell;
+            }
         }
     }
     
@@ -654,14 +724,22 @@ bool isBubbleShowed = false;
 - (void)orangeBabyClicked{
     //如果气泡无内容，则不进行动作
     if ([self.popArray count] > 0) {
-        if (!isBubbleShowed) {
+//        if (!isBubbleShowed) {
             [JerryAnimation shakeToShow:self.orangeBaby];
             //弹出一句话
             [self showBubble];
             //3秒后消失
-            [self performSelector:@selector(hideBubble) withObject:nil afterDelay:3.0];
-            
+        if (!self.timer) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hideBubble) userInfo:nil repeats:NO];
+        }else{
+            //先取消
+            [self.timer invalidate];
+            //创建
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hideBubble) userInfo:nil repeats:NO];
         }
+        
+        
+//        }
     }
 }
 
@@ -697,21 +775,38 @@ bool isBubbleShowed = false;
 
 #pragma mark 行动项播放按钮
 - (void)cellActionButtonClicked:(id) sender{
+    ActionCellButton *button = (ActionCellButton *)sender;
     
-    if (self.isPlaying) {
+    //所有按钮显示复位
+    for (int i = 0; i < [self.allActionButtons count]; i++) {
+        ActionCellButton *tempButton = self.allActionButtons[i];
+        if (!(tempButton == button)){
+            tempButton.isPlaying = NO;
+            [tempButton setBackgroundImage:[UIImage imageNamed:@"action_play"] forState:UIControlStateNormal];
+        }
+    }
+    
+    if (button.isPlaying) {
         //正在播放，停止
         [self.actionPlayer pause];
-        self.isPlaying = NO;
-        [self.actionCellButton setBackgroundImage:[UIImage imageNamed:@"action_play"] forState:UIControlStateNormal];
+        button.isPlaying = NO;
+        [button setBackgroundImage:[UIImage imageNamed:@"action_play"] forState:UIControlStateNormal];
     }else{
         //未播放，开始播放
-        ActionCellButton *button = (ActionCellButton *)sender;
         NSUInteger row = button.rowIndex;
-        self.actionCellButton = button;
-        self.actionCellButton.enabled = NO;
-        self.isPlaying = YES;
         
-        self.actionCellButton = button;
+        button.enabled = NO;
+        button.isPlaying = YES;
+        
+        //加载等待效果
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:button.bounds];
+        [indicator setUserInteractionEnabled:YES];
+        [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [indicator setColor:[UIColor orangeColor]];
+        [indicator hidesWhenStopped];
+        
+        [button addSubview:indicator];
+        [indicator startAnimating];
         
         //获取待播放对象
         NSDictionary *infoDic = [self.actionTableItems objectAtIndex:row];
@@ -721,13 +816,13 @@ bool isBubbleShowed = false;
             AVAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:urlStr] options:nil];
             AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
             
-            [self playActionResource:playerItem];
+            [self playActionResource:playerItem andButton:button andIndicator:indicator];
         }
     }
 }
 
 #pragma mark 播放
-- (void)playActionResource:(AVPlayerItem *) playerItem{
+- (void)playActionResource:(AVPlayerItem *) playerItem andButton:(UIButton *)button andIndicator:(UIActivityIndicatorView *) indicator{
     if (self.actionPlayer.currentItem) {
         [self.actionPlayer replaceCurrentItemWithPlayerItem:playerItem];
     }else{
@@ -736,7 +831,7 @@ bool isBubbleShowed = false;
     [self.actionPlayer play];
     
     __block BOOL stopShowFlag = NO;
-    __block ActionCellButton *blockActionButton = self.actionCellButton;
+    __block ActionCellButton *blockActionButton = (ActionCellButton *)button;
     
     //播放进度监听
     self.timeObserve = [self.actionPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
@@ -748,8 +843,9 @@ bool isBubbleShowed = false;
             //开始播放
             if (!stopShowFlag) {
                 NSLog(@"修改按钮状态");
-                
+                [indicator stopAnimating];
                 blockActionButton.enabled = YES;
+                blockActionButton.isPlaying = YES;
                 [blockActionButton setBackgroundImage:[UIImage imageNamed:@"action_stop"] forState:UIControlStateNormal];
 
                 stopShowFlag = YES;
@@ -864,10 +960,23 @@ bool isBubbleShowed = false;
     return UIStatusBarStyleLightContent;
 }
 
+#pragma mark 科学小实验卡片跳转到WEB页面
+- (void)jumpToDetailPage:(ActionCellButton*) button{
+    NSDictionary *infoDic = button.infoDic;
+    //IdentifyExperienceDetailViewController
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ExperienceDetailViewController *experienceDetailViewController = [storyboard instantiateViewControllerWithIdentifier:IdentifyExperienceDetailViewController];
+    experienceDetailViewController.dataDic = infoDic;
+    
+    [self.navigationController pushViewController:experienceDetailViewController animated:YES];
+}
+
 #pragma mark TableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.actionTableItems.count;
+    NSUInteger tableCount = self.actionTableItems.count;
+    NSLog(@"tableCount : %lu",(unsigned long)tableCount);
+    return tableCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -929,6 +1038,20 @@ bool isBubbleShowed = false;
         NSDictionary *infoDic = [item objectForKey:@"task"];
         NSString *taskName = [infoDic objectForKey:@"taskName"];
         tableCell.brif.text = taskName;
+        tableCell.cardTitle.text = @"今日之任务";
+        tableCell.cartTitleImage.image = [UIImage imageNamed:@"card_task"];
+        
+        tableCell.btnCan.rowIndex = indexPath.row;
+        tableCell.btnCant.rowIndex = indexPath.row;
+        tableCell.btnNotSure.rowIndex = indexPath.row;
+        
+        tableCell.btnCan.indexPath = indexPath;
+        tableCell.btnCant.indexPath = indexPath;
+        tableCell.btnNotSure.indexPath = indexPath;
+        
+        [tableCell.btnCan addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnCant addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [tableCell.btnNotSure addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         return tableCell;
         
@@ -936,42 +1059,119 @@ bool isBubbleShowed = false;
     
     if ([item objectForKey:@"experience"]){
         static NSString *expCellId = @"expCellId";
+        //体验-科学实验
+        static NSString *sciCellId = @"sciCellId";
+        
         //定义标志，保证仅为该表格注册一次单元格视图
         static BOOL expCellisRegist = NO;
         if (!expCellisRegist) {
             UINib *nib = [UINib nibWithNibName:@"ActionExpCell" bundle:nil];
             //注册单元格
             [self.actionTable registerNib:nib forCellReuseIdentifier:expCellId];
+            
+            UINib *sci_nib = [UINib nibWithNibName:@"ActionSciCell" bundle:nil];
+            [self.actionTable registerNib:sci_nib forCellReuseIdentifier:sciCellId];
+            
             expCellisRegist = YES;
         }
         
-        ActionExpCell *tableCell = [tableView dequeueReusableCellWithIdentifier:expCellId];
-        
         //experience
         NSDictionary *infoDic = [item objectForKey:@"experience"];
-        NSString *experienceName = [infoDic objectForKey:@"experienceName"];
         
-        tableCell.contentLabel.text = experienceName;
-        
-        //选择按钮
-        tableCell.btnFinish.rowIndex = indexPath.row;
-        tableCell.btnAbandon.rowIndex = indexPath.row;
-        tableCell.btnOtherTime.rowIndex = indexPath.row;
-
-        tableCell.btnFinish.indexPath = indexPath;
-        tableCell.btnAbandon.indexPath = indexPath;
-        tableCell.btnOtherTime.indexPath = indexPath;
-
-        [tableCell.btnFinish addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [tableCell.btnAbandon addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [tableCell.btnOtherTime addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        //播放按钮
-        tableCell.actionButton.rowIndex = indexPath.row;
-        tableCell.actionButton.indexPath = indexPath;
-        [tableCell.actionButton addTarget:self action:@selector(cellActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        return tableCell;
+        //判断体验类型
+        NSString *experienceTypeKey = [infoDic objectForKey:@"experienceTypeKey"];
+        if ([experienceTypeKey isEqualToString:EXPERIENCE_SCIENCE]) {
+            //科学小实验
+            ActionSciCell *tableCell = [tableView dequeueReusableCellWithIdentifier:sciCellId];
+            //标题
+            NSString *experienceName = [infoDic objectForKey:@"experienceName"];
+            tableCell.cardTitle.text = experienceName;
+            //内容
+            NSString *experienceBrief = [infoDic objectForKey:@"experienceBrief"];
+            tableCell.cardContent.text = experienceBrief;
+            //添加跳转按钮
+            [tableCell.btnDetail addTarget:self action:@selector(jumpToDetailPage:) forControlEvents:UIControlEventTouchUpInside];
+            //URL
+            tableCell.btnDetail.infoDic = infoDic;
+            //选择按钮
+            tableCell.btnCan.rowIndex = indexPath.row;
+            tableCell.btnCant.rowIndex = indexPath.row;
+            tableCell.btnNotSure.rowIndex = indexPath.row;
+            
+            tableCell.btnCan.indexPath = indexPath;
+            tableCell.btnCant.indexPath = indexPath;
+            tableCell.btnNotSure.indexPath = indexPath;
+            
+            [tableCell.btnCan addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [tableCell.btnCant addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [tableCell.btnNotSure addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return tableCell;
+        }else{
+            if ([experienceTypeKey isEqualToString:EXPERIENCE_STORY]){
+                //互动故事
+                ActionExpCell *tableCell = [tableView dequeueReusableCellWithIdentifier:expCellId];
+                NSString *experienceName = [infoDic objectForKey:@"experienceName"];
+                
+                tableCell.titleLabel.text = @"互动故事";
+                
+                tableCell.contentLabel.text = experienceName;
+                
+                //选择按钮
+                tableCell.btnFinish.rowIndex = indexPath.row;
+                tableCell.btnAbandon.rowIndex = indexPath.row;
+                tableCell.btnOtherTime.rowIndex = indexPath.row;
+                
+                tableCell.btnFinish.indexPath = indexPath;
+                tableCell.btnAbandon.indexPath = indexPath;
+                tableCell.btnOtherTime.indexPath = indexPath;
+                
+                [tableCell.btnFinish addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [tableCell.btnAbandon addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [tableCell.btnOtherTime addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                //播放按钮
+                tableCell.actionButton.isPlaying = NO;
+                tableCell.actionButton.rowIndex = indexPath.row;
+                tableCell.actionButton.indexPath = indexPath;
+                [tableCell.actionButton addTarget:self action:@selector(cellActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self.allActionButtons addObject:tableCell.actionButton];
+                
+                return tableCell;
+            }else
+            if ([experienceTypeKey isEqualToString:EXPERIENCE_SONG]) {
+                //互动儿歌
+                ActionExpCell *tableCell = [tableView dequeueReusableCellWithIdentifier:expCellId];
+                tableCell.titleLabel.text = @"互动儿歌";
+                NSString *experienceName = [infoDic objectForKey:@"experienceName"];
+                
+                tableCell.contentLabel.text = experienceName;
+                
+                //选择按钮
+                tableCell.btnFinish.rowIndex = indexPath.row;
+                tableCell.btnAbandon.rowIndex = indexPath.row;
+                tableCell.btnOtherTime.rowIndex = indexPath.row;
+                
+                tableCell.btnFinish.indexPath = indexPath;
+                tableCell.btnAbandon.indexPath = indexPath;
+                tableCell.btnOtherTime.indexPath = indexPath;
+                
+                [tableCell.btnFinish addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [tableCell.btnAbandon addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [tableCell.btnOtherTime addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                //播放按钮
+                tableCell.actionButton.isPlaying = NO;
+                tableCell.actionButton.rowIndex = indexPath.row;
+                tableCell.actionButton.indexPath = indexPath;
+                [tableCell.actionButton addTarget:self action:@selector(cellActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self.allActionButtons addObject:tableCell.actionButton];
+                
+                return tableCell;
+            }
+        }
     }
     
     return nil;
@@ -989,7 +1189,13 @@ bool isBubbleShowed = false;
     }
     
     if ([item objectForKey:@"experience"]){
-        return Height_Action_exp_Cell;
+        //判断体验类型
+        NSString *experienceTypeKey = [[item objectForKey:@"experience"] objectForKey:@"experienceTypeKey"];
+        if ([experienceTypeKey isEqualToString:EXPERIENCE_SCIENCE]) {
+            return Height_Action_exp_sci_cell;
+        }else{
+            return Height_Action_exp_Cell;
+        }
     }
     
     return Height_Action_Subject_Cell;

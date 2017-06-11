@@ -124,6 +124,8 @@
                 <outlet property="btnCan" destination="4Co-8r-mtz" id="JZl-II-rL7"/>
                 <outlet property="btnCant" destination="OVq-7L-UDw" id="nkp-2J-WOl"/>
                 <outlet property="btnNotSure" destination="vSX-Pw-fnT" id="DAu-QZ-PU1"/>
+                <outlet property="cardTitle" destination="1CQ-nE-XBO" id="Fts-4u-z2B"/>
+                <outlet property="cartTitleImage" destination="J7E-oT-smZ" id="TXL-Wn-dVd"/>
             </connections>
             <point key="canvasLocation" x="478" y="-26"/>
         </tableViewCell>

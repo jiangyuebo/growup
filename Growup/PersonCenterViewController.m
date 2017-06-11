@@ -27,9 +27,13 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *childGender;
 
+@property (strong,nonatomic) NSNumber *childGenderNumber;
+
 @property (strong, nonatomic) IBOutlet UILabel *childBirthday;
 
 @property (strong, nonatomic) IBOutlet UILabel *childInteresting;
+
+@property (strong,nonatomic) NSString *childInterestTypeString;
 
 @property (strong, nonatomic) IBOutlet UILabel *childHomeAddress;
 
@@ -95,20 +99,38 @@
             
             NSString *nickName = [result objectForKey:@"nickName"];
             
-            //            NSString *avatarUrl = [result objectForKey:@"avatarUrl"];
-            
-            //            NSString *childNickname = [result objectForKey:@""];
-            
-            NSNumber *childGender = [[result objectForKey:@"child"] objectForKey:@"sex"];
+            //孩子信息
+            NSDictionary *childinfoDic = [result objectForKey:@"child"];
+            NSString *childNickName = [childinfoDic objectForKey:@"nickName"];
+            //孩子性别
+            self.childGenderNumber = [childinfoDic objectForKey:@"sex"];
+            //NSString *avatarUrl = [result objectForKey:@"avatarUrl"];
             
             NSString *childBirthday = [[result objectForKey:@"child"] objectForKey:@"birthdayTS"];
             childBirthday = [childBirthday substringWithRange:NSMakeRange(0, 10)];
             
             //            NSString *childInteresting = [[resultDic objectForKey:@"child"] objectForKey:@"sex"];
             
-            //            NSString *childHomeAddress
+            NSString *childHomeAddress = [[result objectForKey:@"child"] objectForKey:@"familyAddress"];
+            if (!childHomeAddress) {
+                childHomeAddress = @"";
+            }
             
-            //            NSString *childSchool
+            NSString *childSchool = [[result objectForKey:@"child"] objectForKey:@"schoolAddress"];
+            if (!childSchool) {
+                childSchool = @"";
+            }
+            
+            //兴趣
+            NSString *showInterest = @"";
+            NSString *childInterestType = [[result objectForKey:@"child"] objectForKey:@"interestTypes"];
+            if ([JerryTools stringIsNull:childInterestType]) {
+                self.childInterestTypeString = @"";
+            }else{
+                self.childInterestTypeString = childInterestType;
+                
+                showInterest = [self getShowInterest:childInterestType];
+            }
             
             //            NSString *childTarget
             
@@ -132,16 +154,39 @@
                     }
                 }
                 
-                if ([childGender intValue] == 1) {
+                //孩子昵称
+                self.childNickname.text = childNickName;
+                //孩子性别
+                if ([self.childGenderNumber intValue] == 1) {
                     self.childGender.text = @"男孩";
                 }else{
                     self.childGender.text = @"女孩";
                 }
                 
                 self.childBirthday.text = childBirthday;
+                
+                //常住地
+                self.childHomeAddress.text = childHomeAddress;
+                //学校
+                self.childSchool.text = childSchool;
+                //兴趣
+                self.childInteresting.text = showInterest;
+                
             });
         }
     }];
+}
+
+- (NSString *)getShowInterest:(NSString *) typeStr{
+    
+    typeStr = [typeStr stringByReplacingOccurrencesOfString:@"D19B01" withString:@"唱歌"];
+    typeStr = [typeStr stringByReplacingOccurrencesOfString:@"D19B02" withString:@"跳舞"];
+    typeStr = [typeStr stringByReplacingOccurrencesOfString:@"D19B03" withString:@"科学"];
+    typeStr = [typeStr stringByReplacingOccurrencesOfString:@"D19B04" withString:@"运动"];
+    typeStr = [typeStr stringByReplacingOccurrencesOfString:@"D19B05" withString:@"智力"];
+    NSLog(@" after replace : %@",typeStr);
+    
+    return typeStr;
 }
 
 #pragma mark 退出登录
@@ -183,13 +228,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSMutableDictionary *passDic = [NSMutableDictionary dictionary];
     
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             //修改用户昵称
             NSString *nickname = self.userNickname.text;
-            NSLog(@"发送方 nickname = %@",nickname);
+            if (!nickname) {
+                nickname = @"";
+            }
             
             [passDic setObject:nickname forKey:@"nickname"];
             [passDic setObject:TYPE_VALUE_NICKNAME forKey:TYPE_KEY];
@@ -197,22 +246,94 @@
             [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
         }else if (indexPath.row == 2){
             //修改用户性别
-            [passDic setObject:self.userGenderNumber forKey:@"sex"];
-            NSLog(@"发送方 sex = %@",self.userGenderNumber);
+            if (self.userGenderNumber) {
+                [passDic setObject:self.userGenderNumber forKey:@"sex"];
+            }else{
+                [passDic setObject:[NSNumber numberWithInt:1] forKey:@"sex"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_GENDER forKey:TYPE_KEY];
+            
             [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserGenderViewController carryDataDic:passDic];
         }
     }
     
+    //孩子信息分组
     if (indexPath.section == 1) {
-        //修改孩子昵称
-        NSString *childNickName = self.childNickname.text;
-        [passDic setObject:childNickName forKey:@"childNickName"];
-        [passDic setObject:TYPE_VALUE_CHILD_NICKNAME forKey:TYPE_KEY];
+        if (indexPath.row == 0) {
+            //修改孩子昵称
+            NSString *childNickName = self.childNickname.text;
+            if (childNickName) {
+                [passDic setObject:childNickName forKey:@"childNickName"];
+            }else{
+                [passDic setObject:@"" forKey:@"childNickName"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_CHILD_NICKNAME forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+        }
         
-        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+        if (indexPath.row == 1) {
+            //修改孩子性别
+            if (self.childGenderNumber) {
+                [passDic setObject:self.childGenderNumber forKey:@"sex"];
+            }else{
+                [passDic setObject:[NSNumber numberWithInt:1] forKey:@"sex"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_CHILD_GENDER forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserGenderViewController carryDataDic:passDic];
+        }
+        
+        if (indexPath.row == 2) {
+            //孩子生日
+        }
+        
+        if (indexPath.row == 3) {
+            //孩子兴趣
+            NSString *temp = self.childInterestTypeString;
+            if (![JerryTools stringIsNull:temp]) {
+                [passDic setObject:self.childInterestTypeString forKey:@"interestTypes"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_CHILD_INTEREST forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameMultiSelectViewController carryDataDic:passDic];
+        }
+        
+        if (indexPath.row == 4) {
+            //常住地
+            if (self.childHomeAddress.text) {
+                [passDic setObject:self.childHomeAddress.text forKey:@"familyAddress"];
+            }else{
+                [passDic setObject:@"" forKey:@"familyAddress"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_CHILD_ADDRESS forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+        }
+        
+        if (indexPath.row == 5) {
+            //就读学校
+            if (self.childSchool.text) {
+                [passDic setObject:self.childSchool.text forKey:@"schoolAddress"];
+            }else{
+                [passDic setObject:@"" forKey:@"schoolAddress"];
+            }
+            
+            [passDic setObject:TYPE_VALUE_CHILD_SCHOOL forKey:TYPE_KEY];
+            
+            [JerryViewTools jumpFrom:self ToViewController:IdentifyNameChangeUserNickNameViewController carryDataDic:passDic];
+        }
+        
+        if (indexPath.row == 6) {
+            //爸妈期望
+            
+        }
     }
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

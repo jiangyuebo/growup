@@ -10,8 +10,12 @@
 
 @interface ActionCellButton : UIButton
 
+@property (strong,nonatomic) NSDictionary *infoDic;
+
 @property (nonatomic) NSUInteger rowIndex;
 
 @property (strong,nonatomic) NSIndexPath *indexPath;
+
+@property (nonatomic) BOOL isPlaying;
 
 @end

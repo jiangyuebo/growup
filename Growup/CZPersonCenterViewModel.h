@@ -14,6 +14,6 @@
 - (void)changeUserInfo:(NSMutableDictionary *) userInfoDic andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
 #pragma mark 修改孩子信息
-//- (void)changeChildInfoById:(NSNumber *) childId 
+- (void)changeChildInfo:(NSMutableDictionary *) userInfoDic andCallback:(void (^)(NSDictionary * resultDic)) callback;
 
 @end

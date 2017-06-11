@@ -10,23 +10,25 @@
 #import "globalHeader.h"
 #import "JerryViewTools.h"
 #import "InterestingSettingViewModel.h"
+#import "CZMultiSelectView.h"
 
 @interface CZinterestingSettingViewController ()
 
-@property (strong, nonatomic) IBOutlet UIButton *singButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *danceButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *scienceButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *sportButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *intelligenceButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *synthesizeButton;
+//@property (strong, nonatomic) IBOutlet UIButton *singButton;
+//
+//@property (strong, nonatomic) IBOutlet UIButton *danceButton;
+//
+//@property (strong, nonatomic) IBOutlet UIButton *scienceButton;
+//
+//@property (strong, nonatomic) IBOutlet UIButton *sportButton;
+//
+//@property (strong, nonatomic) IBOutlet UIButton *intelligenceButton;
+//
+//@property (strong, nonatomic) IBOutlet UIButton *synthesizeButton;
 
 @property (strong,nonatomic) NSMutableArray *selectedCodeArray;
 
+@property (strong,nonatomic) CZMultiSelectView *multiSelectView;
 
 @end
 
@@ -35,6 +37,20 @@
 @synthesize passDataDic;
 
 - (IBAction)save:(UIButton *)sender {
+    
+    NSArray *selectedInterests = self.multiSelectView.selectedItems;
+    //NSArray --> NSString
+    NSString *interestsStr = @"";
+    if (selectedInterests) {
+        if ([selectedInterests count] > 0) {
+            for (int i = 0; i < [selectedInterests count]; i++) {
+                interestsStr = [interestsStr stringByAppendingString:[NSString stringWithFormat:@"%@,",selectedInterests[i]]];
+            }
+            interestsStr = [interestsStr substringToIndex:([interestsStr length] - 1)];
+        }
+    }
+    
+    [self.passDataDic setObject:interestsStr forKey:COLUMN_INTEREST];
     
     InterestingSettingViewModel *viewModel = [[InterestingSettingViewModel alloc] init];
     [viewModel setChildSetting:self.passDataDic andJumpTo:^(NSString *address) {
@@ -58,55 +74,19 @@
 
 #pragma mark 初始化多选按钮
 - (void)initCollectionButton{
-    NSMutableArray *selectButtonArray = [[NSMutableArray alloc] init];
-
-    [selectButtonArray addObject:self.singButton];
-    [selectButtonArray addObject:self.danceButton];
-    [selectButtonArray addObject:self.scienceButton];
-    [selectButtonArray addObject:self.sportButton];
-    [selectButtonArray addObject:self.intelligenceButton];
-    [selectButtonArray addObject:self.synthesizeButton];
     
-    for (int i = 0; i < [selectButtonArray count]; i++) {
-        UIButton *selectButton = [selectButtonArray objectAtIndex:i];
-        
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonSelected:)];
-        [selectButton addGestureRecognizer:singleTap];
-    }
+    self.multiSelectView = [[CZMultiSelectView alloc] initWithFrame:CGRectMake(0,8, SCREENWIDTH,180)];
     
-}
-
-- (void)buttonSelected:(UITapGestureRecognizer *) sender{
-    UIButton *selectedButton = (UIButton *)sender.view;
+    NSMutableDictionary *selectItemsDic = [NSMutableDictionary dictionary];
+    [selectItemsDic setObject:Interest_sing forKey:@"唱歌"];
+    [selectItemsDic setObject:Interest_dance forKey:@"跳舞"];
+    [selectItemsDic setObject:Interest_sci forKey:@"科学"];
+    [selectItemsDic setObject:Interest_sport forKey:@"运动"];
+    [selectItemsDic setObject:Interest_clear forKey:@"智力"];
     
-    if (selectedButton == self.singButton) {
-        
-        long index = [self.selectedCodeArray indexOfObject:@"D19B01"];
-        if (index > -1) {
-            //有，取消选择
-            [self.selectedCodeArray removeObject:@"D19B01"];
-            [self setUnSelect:selectedButton];
-        }else{
-            //没有，选择
-            [self.selectedCodeArray addObject:@"D19B01"];
-            [self setSelected:selectedButton];
-        }
-        
-        
-    }
-}
-
-- (void)setSelected:(UIButton *) selectedButton{
-    UIImage *backgroundImage = [UIImage imageNamed:@"select_round_hover"];
-    [selectedButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    selectedButton.titleLabel.textColor = [UIColor whiteColor];
+    [self.multiSelectView setSelectItemDic:selectItemsDic];
     
-}
-
-- (void)setUnSelect:(UIButton *) unSelectButton{
-    UIImage *backgroundImage = [UIImage imageNamed:@"select_round"];
-    [unSelectButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    unSelectButton.titleLabel.textColor = [UIColor grayColor];
+    [self.view addSubview:self.multiSelectView];
 }
 
 - (void)didReceiveMemoryWarning {

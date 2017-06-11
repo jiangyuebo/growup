@@ -208,7 +208,9 @@
                 tableCell.logoImageView.image = urlImage;
                 
                 //放进缓存
-                [self.picCache setObject:urlImage forKey:urlImageKey];
+                if (urlImage) {
+                    [self.picCache setObject:urlImage forKey:urlImageKey];
+                }
             });
         }
     }

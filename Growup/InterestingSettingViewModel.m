@@ -35,10 +35,13 @@
     //性别
     NSNumber *sex = [settingDataDic objectForKey:COLUMN_SEX];
     [childDic setObject:sex forKey:@"sex"];
+    //兴趣
+    NSArray *interestsArray = [settingDataDic objectForKey:COLUMN_INTEREST];
     
     [paramsDic setObject:childDic forKey:@"child"];
     [paramsDic setObject:@"D05B01" forKey:@"educationTypeKey"];
     [paramsDic setObject:@"D06B01" forKey:@"educationRoleTypeKey"];
+    [paramsDic setObject:interestsArray forKey:@"interestTypes"];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper postRequestAsynchronousToUrl:url_request byParamsDic:paramsDic needAccessToken:YES andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {

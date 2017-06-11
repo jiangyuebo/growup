@@ -70,6 +70,8 @@
 #define IdentifyNameWebViewController @"czwebviewviewcontroller"
 //橙长记图片详细
 #define IdentifyNamePicDetailViewController @"picdetailviewcontroller"
+//多选页面
+#define IdentifyNameMultiSelectViewController @"czmultiselectviewcontroller"
 
 //开发测试界面
 #define IdentifyNameDevelopTestViewController @"czdeveloptestviewcontroller"
@@ -122,6 +124,8 @@
 #define URL_INFO_GET @"info/getAll"
 //修改用户信息
 #define URL_USER_UPDATE @"user/update"
+//修改孩子信息
+#define URL_CHILD_UPDATE @"child/update"
 
 //************ Notification Name
 #define NOTIFICATION_NAME_REFRESH_USER_INFO @"NotificationNameRefreshUserInfo"
@@ -188,6 +192,7 @@
 
 #define COLUMN_BIRTHDAY @"birthday"
 #define COLUMN_SEX @"sex"
+#define COLUMN_INTEREST @"interest"
 
 #define RESPONSE_ERROR_CODE @"errorCode"
 #define RESPONSE_ERROR_MSG @"errorMsg"
@@ -210,6 +215,14 @@
 #define icon_story 24//故事
 #define icon_school 25//互动面试
 
+//兴趣类型
+#define Interest_sing @"D19B01"
+#define Interest_dance @"D19B02"
+#define Interest_sci @"D19B03"
+#define Interest_sport @"D19B04"
+#define Interest_clear @"D19B05"
+#define Interest_all @"D19B99"
+
 //个人中心修改操作类型
 //KEY
 #define TYPE_KEY @"type"
@@ -217,6 +230,16 @@
 #define TYPE_VALUE_NICKNAME @"nickName"
 //修改孩子昵称
 #define TYPE_VALUE_CHILD_NICKNAME @"childNickName"
+//修改用户性别
+#define TYPE_VALUE_GENDER @"gender"
+//孩子性别
+#define TYPE_VALUE_CHILD_GENDER @"childGender"
+//孩子常住地
+#define TYPE_VALUE_CHILD_ADDRESS @"familyAddress"
+//就读学校
+#define TYPE_VALUE_CHILD_SCHOOL @"schoolAddress"
+//孩子兴趣
+#define TYPE_VALUE_CHILD_INTEREST @"interestTypes"
 
 //#define SIGH @"BDiZujK4f3D3tgHhG9fFh6KofSJhPTEyNTMxMTYyMDEmaz1BS0lEQU9VUUFBWmU5VmVmVTZEbXNsU3dHVFZMeVBlaUNKbzYmZT0xNTAyNTUzNTk5JnQ9MTQ5NDgxNDg1MCZyPTUxNjg2ODQ5NSZmPS8xMjUzMTE2MjAxL2NidS90ZXN0JmI9Y2J1"
 
@@ -225,6 +248,7 @@
 #define SHOTCUT_TAIL @"?imageMogr2/interlace/0|imageMogr2/gravity/center/crop/100x100|watermark/2/text/5qmZ5aiD/font/bXN5aGJk5b6u6L2v6ZuF6buRYm9sZC50dGY/fontsize/10/fill/IzAwMDAwMA/dissolve/100/gravity/southest/dx/5/dy/5"
 
 #define Height_Action_Subject_Cell 240
+#define Height_Action_exp_sci_cell 240
 #define Height_Action_exp_Cell 390
 
 #endif /* globalHeader_h */

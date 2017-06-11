@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B2589C61EBB8E3D0059A3CE /* music_template.xib */; };
-		3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B2589C81EBB8EFE0059A3CE /* picture_template.xib */; };
 		C41E7A801E462D560033D1AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E7A7F1E462D560033D1AF /* main.m */; };
 		C41E7A831E462D570033D1AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E7A821E462D570033D1AF /* AppDelegate.m */; };
 		C41E7A891E462D570033D1AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41E7A871E462D570033D1AF /* Main.storyboard */; };
@@ -35,6 +33,10 @@
 		C4671D521EE6B9DD0003056B /* DetailReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D511EE6B9DD0003056B /* DetailReportCell.xib */; };
 		C4671D541EE6BA530003056B /* DetailReportHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D531EE6BA530003056B /* DetailReportHeader.xib */; };
 		C4671D571EE711950003056B /* DetailReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D561EE711940003056B /* DetailReportCell.m */; };
+		C4671D591EE925F80003056B /* ActionSciCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4671D581EE925F80003056B /* ActionSciCell.xib */; };
+		C4671D5C1EE926480003056B /* ActionSciCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D5B1EE926480003056B /* ActionSciCell.m */; };
+		C4671D5F1EE952F00003056B /* CZMultiSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D5E1EE952F00003056B /* CZMultiSelectView.m */; };
+		C4671D621EED92B70003056B /* CZMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4671D611EED92B60003056B /* CZMultiSelectViewController.m */; };
 		C48824A01E65D55D005D8FED /* UIColor+NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = C488249F1E65D55D005D8FED /* UIColor+NSString.m */; };
 		C48824A61E66CC77005D8FED /* FileCommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A51E66CC77005D8FED /* FileCommonTool.m */; };
 		C48824AA1E66D5F8005D8FED /* CZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C48824A91E66D5F8005D8FED /* CZLoginViewController.m */; };
@@ -74,7 +76,6 @@
 		C4C8BB931EBCED4D001D6B98 /* ExperienceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB921EBCED4D001D6B98 /* ExperienceViewModel.m */; };
 		C4C8BB961EBD077C001D6B98 /* TrackUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB951EBD077C001D6B98 /* TrackUploadModel.m */; };
 		C4C8BB991EBD97B3001D6B98 /* ExperienceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */; };
-		C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BB9A1EBE11EF001D6B98 /* science_template.xib */; };
 		C4C8BB9D1EBE18ED001D6B98 /* ActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BB9C1EBE18ED001D6B98 /* ActionCell.xib */; };
 		C4C8BBA01EBE2200001D6B98 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */; };
 		C4C8BBA21EC1C164001D6B98 /* ExperienceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8BBA11EC1C164001D6B98 /* ExperienceCell.xib */; };
@@ -138,8 +139,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B2589C61EBB8E3D0059A3CE /* music_template.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = music_template.xib; sourceTree = "<group>"; };
-		3B2589C81EBB8EFE0059A3CE /* picture_template.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = picture_template.xib; sourceTree = "<group>"; };
 		C41E7A7B1E462D560033D1AF /* 橙宝.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "橙宝.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41E7A7F1E462D560033D1AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C41E7A811E462D560033D1AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -187,6 +186,13 @@
 		C4671D531EE6BA530003056B /* DetailReportHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailReportHeader.xib; sourceTree = "<group>"; };
 		C4671D551EE711940003056B /* DetailReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailReportCell.h; sourceTree = "<group>"; };
 		C4671D561EE711940003056B /* DetailReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailReportCell.m; sourceTree = "<group>"; };
+		C4671D581EE925F80003056B /* ActionSciCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSciCell.xib; sourceTree = "<group>"; };
+		C4671D5A1EE926480003056B /* ActionSciCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSciCell.h; sourceTree = "<group>"; };
+		C4671D5B1EE926480003056B /* ActionSciCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSciCell.m; sourceTree = "<group>"; };
+		C4671D5D1EE952F00003056B /* CZMultiSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZMultiSelectView.h; sourceTree = "<group>"; };
+		C4671D5E1EE952F00003056B /* CZMultiSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZMultiSelectView.m; sourceTree = "<group>"; };
+		C4671D601EED92B60003056B /* CZMultiSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZMultiSelectViewController.h; sourceTree = "<group>"; };
+		C4671D611EED92B60003056B /* CZMultiSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZMultiSelectViewController.m; sourceTree = "<group>"; };
 		C488249E1E65D55D005D8FED /* UIColor+NSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NSString.h"; sourceTree = "<group>"; };
 		C488249F1E65D55D005D8FED /* UIColor+NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NSString.m"; sourceTree = "<group>"; };
 		C48824A41E66CC77005D8FED /* FileCommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCommonTool.h; sourceTree = "<group>"; };
@@ -262,7 +268,6 @@
 		C4C8BB951EBD077C001D6B98 /* TrackUploadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackUploadModel.m; sourceTree = "<group>"; };
 		C4C8BB971EBD97B3001D6B98 /* ExperienceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceModel.h; sourceTree = "<group>"; };
 		C4C8BB981EBD97B3001D6B98 /* ExperienceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceModel.m; sourceTree = "<group>"; };
-		C4C8BB9A1EBE11EF001D6B98 /* science_template.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = science_template.xib; sourceTree = "<group>"; };
 		C4C8BB9C1EBE18ED001D6B98 /* ActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionCell.xib; sourceTree = "<group>"; };
 		C4C8BB9E1EBE2200001D6B98 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
 		C4C8BB9F1EBE2200001D6B98 /* ActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
@@ -907,11 +912,9 @@
 			children = (
 				C41E7A971E463AD50033D1AF /* MainPageViewController.h */,
 				C41E7A981E463AD50033D1AF /* MainPageViewController.m */,
-				3B2589C61EBB8E3D0059A3CE /* music_template.xib */,
-				3B2589C81EBB8EFE0059A3CE /* picture_template.xib */,
-				C4C8BB9A1EBE11EF001D6B98 /* science_template.xib */,
 				C4C8BB9C1EBE18ED001D6B98 /* ActionCell.xib */,
 				C4A66BC61ED1DACC00CE8BCE /* ActionExpCell.xib */,
+				C4671D581EE925F80003056B /* ActionSciCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1131,6 +1134,8 @@
 				C4D6BB981EC3689800063A5D /* ActionCellButton.m */,
 				C4A66BC81ED1E81000CE8BCE /* ActionExpCell.h */,
 				C4A66BC91ED1E81000CE8BCE /* ActionExpCell.m */,
+				C4671D5A1EE926480003056B /* ActionSciCell.h */,
+				C4671D5B1EE926480003056B /* ActionSciCell.m */,
 			);
 			name = CellModels;
 			sourceTree = "<group>";
@@ -1472,6 +1477,8 @@
 				C4671D3F1EE1A8340003056B /* CZChangeUserNickNameViewController.m */,
 				C4671D481EE1E75F0003056B /* CZChangeUserGenderViewController.h */,
 				C4671D491EE1E75F0003056B /* CZChangeUserGenderViewController.m */,
+				C4671D601EED92B60003056B /* CZMultiSelectViewController.h */,
+				C4671D611EED92B60003056B /* CZMultiSelectViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1481,6 +1488,8 @@
 			children = (
 				C4671D4B1EE1E9D40003056B /* CZRadioSelectView.h */,
 				C4671D4C1EE1E9D40003056B /* CZRadioSelectView.m */,
+				C4671D5D1EE952F00003056B /* CZMultiSelectView.h */,
+				C4671D5E1EE952F00003056B /* CZMultiSelectView.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1640,20 +1649,18 @@
 				C4D6BB9B1EC43CA600063A5D /* RecordHeader.xib in Resources */,
 				C4D6BB931EC30A3F00063A5D /* RecordCell.xib in Resources */,
 				C4D6BBFB1EC7587900063A5D /* DiscoverTableHeader.xib in Resources */,
-				3B2589C91EBB8EFE0059A3CE /* picture_template.xib in Resources */,
 				C4D6BC3B1EC807E700063A5D /* MJRefresh.bundle in Resources */,
 				C4671D341EE046B00003056B /* MultiSelectView.xib in Resources */,
 				C4D6BBF31EC73A5700063A5D /* DiscoverRecordCell.xib in Resources */,
 				C4A66BC71ED1DACC00CE8BCE /* ActionExpCell.xib in Resources */,
 				C4A66BB71ECD862000CE8BCE /* UploadingMaskView.xib in Resources */,
+				C4671D591EE925F80003056B /* ActionSciCell.xib in Resources */,
 				C4D6BCFF1EC8478600063A5D /* LICENSE in Resources */,
 				C41E7A891E462D570033D1AF /* Main.storyboard in Resources */,
 				C4671D521EE6B9DD0003056B /* DetailReportCell.xib in Resources */,
 				C4671D541EE6BA530003056B /* DetailReportHeader.xib in Resources */,
-				C4C8BB9B1EBE11EF001D6B98 /* science_template.xib in Resources */,
 				C4D6BB911EC2207500063A5D /* ExperienceTableHeader.xib in Resources */,
 				C4D6BBC61EC58F0200063A5D /* InfoModelCell.xib in Resources */,
-				3B2589C71EBB8E3D0059A3CE /* music_template.xib in Resources */,
 				C4671D391EE16F240003056B /* MultiSelectViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1681,6 +1688,7 @@
 				C4D6BC3E1EC807E700063A5D /* UIScrollView+MJExtension.m in Sources */,
 				C48824F51E75C4D5005D8FED /* FastTestViewController.m in Sources */,
 				C4D6BBCC1EC58FC500063A5D /* InfoModelCell.m in Sources */,
+				C4671D5F1EE952F00003056B /* CZMultiSelectView.m in Sources */,
 				C4D6BD0B1EC8A1DA00063A5D /* WebViewViewController.m in Sources */,
 				C41E7AA81E4647F80033D1AF /* JerryViewTools.m in Sources */,
 				C4D6BD081EC847EC00063A5D /* CodecUtil.cpp in Sources */,
@@ -1732,6 +1740,8 @@
 				C41E7A801E462D560033D1AF /* main.m in Sources */,
 				C4A66BCF1ED4A66100CE8BCE /* CellImageView.m in Sources */,
 				C4671D571EE711950003056B /* DetailReportCell.m in Sources */,
+				C4671D5C1EE926480003056B /* ActionSciCell.m in Sources */,
+				C4671D621EED92B70003056B /* CZMultiSelectViewController.m in Sources */,
 				C4E5338E1E7FE1130041DDDA /* CZinterestingSettingViewController.m in Sources */,
 				C4D6BC2D1EC807E700063A5D /* MJRefreshAutoFooter.m in Sources */,
 				C4671D401EE1A8340003056B /* CZChangeUserNickNameViewController.m in Sources */,

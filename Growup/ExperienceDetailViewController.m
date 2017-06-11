@@ -23,31 +23,45 @@
 
 @synthesize dataDic;
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.viewModel = [[ExperienceViewModel alloc] init];
+    NSLog(@"dataDic : %@",dataDic);
     
-    [self.viewModel getExperienceDetailByID:[dataDic objectForKey:@"experienceID"] andCallback:^(NSDictionary *resultDic) {
-        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
-        if (errorMessage) {
-            //error
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
-            });
-        }else{
-            NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
-            NSString *url = [result objectForKey:@"url"];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                self.title = [result objectForKey:@"experienceName"];
-                
-                NSURL *nsurl = [NSURL URLWithString:url];
-                NSData *urlData = [NSData dataWithContentsOfURL:nsurl];
-                [self.webView loadData:urlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nsurl];
-            });
-        }
-    }];
+//    [self.viewModel getExperienceDetailByID:[dataDic objectForKey:@"experienceID"] andCallback:^(NSDictionary *resultDic) {
+//        NSString *errorMessage = [resultDic objectForKey:RESULT_KEY_ERROR_MESSAGE];
+//        if (errorMessage) {
+//            //error
+//            dispatch_sync(dispatch_get_main_queue(), ^{
+//                [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+//            });
+//        }else{
+//            NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
+//            NSString *url = [result objectForKey:@"url"];
+//            
+//            dispatch_sync(dispatch_get_main_queue(), ^{
+//                self.title = [result objectForKey:@"experienceName"];
+//                
+//                NSURL *nsurl = [NSURL URLWithString:url];
+//                NSData *urlData = [NSData dataWithContentsOfURL:nsurl];
+//                [self.webView loadData:urlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nsurl];
+//            });
+//        }
+//    }];
+    
+    NSString *url = [dataDic objectForKey:@"url"];
+    self.title = [dataDic objectForKey:@"experienceName"];
+        
+    NSURL *nsurl = [NSURL URLWithString:url];
+    NSData *urlData = [NSData dataWithContentsOfURL:nsurl];
+    [self.webView loadData:urlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nsurl];
 }
 
 - (void)didReceiveMemoryWarning {

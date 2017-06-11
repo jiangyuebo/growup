@@ -172,6 +172,14 @@
     
     //删除占位图片
     [self.selectedPicsArray removeLastObject];
+    
+    //非空判断
+    if ([self.uploadText.text isEqualToString:@""] && ([self.selectedPicsArray count] == 0)) {
+        //无内容
+        [JerryViewTools showCZToastInViewController:self andText:@"没有什么可提交吧？"];
+        return;
+    }
+    
     if ([self.selectedPicsArray count] > 0) {
         //有选择图片
         [self showUploadingMask];
