@@ -246,6 +246,9 @@
                     NSNumber *accompanyTime = [childModeInfo objectForKey:@"accompanyTime"];
                     [kidInfoMode setAccompanyTime:accompanyTime];
                     
+                    NSString *accompanyTimeValue = [childModeInfo objectForKey:@"accompanyTimeValue"];
+                    [kidInfoMode setAccompanyTimeValue:accompanyTimeValue];
+                    
                     NSDictionary *childInfo = [childModeInfo objectForKey:@"child"];
                     
                     NSNumber *childId = [childInfo objectForKey:@"childID"];

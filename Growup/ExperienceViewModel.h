@@ -16,4 +16,7 @@
 #pragma mark 获取体验内容明细
 - (void)getExperienceDetailByID:(NSString *) experienceID andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
+#pragma mark 提交陪伴时间
+- (void)sendCompanyTime:(NSNumber *) time;
+
 @end

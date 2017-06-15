@@ -15,12 +15,15 @@
 #import "JerryTools.h"
 #import "InfoModelCell.h"
 #import "MJRefresh.h"
+#import "ExperienceDetailViewController.h"
 
 @interface CZNewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTable;
 
 @property (strong,nonatomic) NSMutableArray *newsArray;
+
+@property (strong,nonatomic) NSMutableDictionary *picCache;
 
 //翻页信息
 @property (strong,nonatomic) NSNumber *pageIndex;
@@ -167,8 +170,8 @@
     InfoModelCell *infoCell = [tableView dequeueReusableCellWithIdentifier:infoCellId];
     
     NSDictionary *infoDic = [self.newsArray objectAtIndex:indexPath.row];
-    NSString *infoDescription = [infoDic objectForKey:@"infoDescription"];
-    NSString *infoName = [infoDic objectForKey:@"infoDescription"];
+    NSString *infoDescription = [infoDic objectForKey:@"infoBrief"];
+    NSString *infoName = [infoDic objectForKey:@"infoName"];
     NSString *logoResourceUrl = [infoDic objectForKey:@"logoResourceUrl"];
     
     infoCell.title.text = infoName;
@@ -177,7 +180,29 @@
         //url为空，默认图
         infoCell.image.image = [UIImage imageNamed:@"game1"];
     }else{
-        NSLog(@"url : %@",logoResourceUrl);
+        //检查缓存中是否有该图片
+        NSString *urlImageKey = [logoResourceUrl lastPathComponent];
+        UIImage *urlPic = [self.picCache objectForKey:urlImageKey];
+        if (urlPic) {
+            //有
+            infoCell.image.image = urlPic;
+        }else{
+            //没有
+            //异步加载图片
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSURL *url = [NSURL URLWithString:logoResourceUrl];
+                UIImage *urlImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    infoCell.image.image = urlImage;
+                    
+                    //放进缓存
+                    if (urlImage) {
+                        [self.picCache setObject:urlImage forKey:urlImageKey];
+                    }
+                });
+            });
+        }
     }
     
     return infoCell;
@@ -192,7 +217,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSDictionary *dataDic = [self.newsArray objectAtIndex:indexPath.row];
+    
+    //IdentifyExperienceDetailViewController
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ExperienceDetailViewController *experienceDetailViewController = [storyboard instantiateViewControllerWithIdentifier:IdentifyExperienceDetailViewController];
+    experienceDetailViewController.dataDic = dataDic;
+    
+    [self.navigationController pushViewController:experienceDetailViewController animated:YES];
 }
 
 

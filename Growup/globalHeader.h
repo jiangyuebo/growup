@@ -126,6 +126,8 @@
 #define URL_USER_UPDATE @"user/update"
 //修改孩子信息
 #define URL_CHILD_UPDATE @"child/update"
+//陪伴时间
+#define URL_CHILD_COMPANY_TIME @"child/accompany"
 
 //************ Notification Name
 #define NOTIFICATION_NAME_REFRESH_USER_INFO @"NotificationNameRefreshUserInfo"
@@ -208,12 +210,10 @@
 #define TAG_CELL_ACTION_BUTTON_CANTSURE 52 //首页行动项卡片按钮，不确定
 
 //UI
-#define icon_game 20//互动游戏
-#define icon_science 21//科学实验
-#define icon_gameguide 22//游戏攻略
-#define icon_song 23//儿歌
-#define icon_story 24//故事
-#define icon_school 25//互动面试
+#define icon_science 20//科学实验
+#define icon_song 21//儿歌
+#define icon_story 22//故事
+#define icon_school 23//互动面试
 
 //兴趣类型
 #define Interest_sing @"D19B01"

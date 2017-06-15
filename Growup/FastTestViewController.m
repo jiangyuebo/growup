@@ -11,6 +11,7 @@
 #import "KidInfoModel.h"
 #import "UserInfoModel.h"
 #import "JerryTools.h"
+#import "JerryViewTools.h"
 #import "globalHeader.h"
 #import "TestModel.h"
 #import "TestSubjectModel.h"
@@ -36,6 +37,8 @@
 
 @property (strong,nonatomic) NSString *indexType;
 
+@property (strong,nonatomic) UIView *noDataView;
+
 @end
 
 @implementation FastTestViewController
@@ -60,18 +63,20 @@ int currentSubjectIndex = 0;
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [self initData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initView];
-    
-    [self initData];
 }
 
 - (void)initView{
-    
+    self.noDataView = [JerryViewTools getViewByXibName:@"NoDataView"];
+    self.noDataView.frame = self.view.frame;
+    [self.view addSubview:self.noDataView];
 }
 
 - (void)initData{
@@ -86,7 +91,7 @@ int currentSubjectIndex = 0;
         KidInfoModel *kidModelInfo = [childArray objectAtIndex:currentUser.currentSelectedChild];
         NSNumber *childId = [kidModelInfo childID];
         NSString *ageTypeKey = [kidModelInfo ageTypeKey];
-        NSString *evaluationType = @"D24B99";
+        NSString *evaluationType = @"D24B01";
         NSNumber *sex = [kidModelInfo sex];
         
         //获取能力项分类ID
@@ -114,8 +119,13 @@ int currentSubjectIndex = 0;
                 
                 if ([self.subjectsArray count] > 0) {
                     dispatch_sync(dispatch_get_main_queue(), ^{
+                        
+                        [self.noDataView removeFromSuperview];
+                        
                         [self startTestShow];
                     });
+                }else{
+
                 }
             }
         }];
@@ -183,13 +193,21 @@ int currentSubjectIndex = 0;
         
         NSNumber *evaluationID = [self.testModel evaluationID];
         
-        [self.viewModel sendTestAnwserToServerByEvaluationID:evaluationID andAnwserArray:self.answerCollection andIndexTpye:self.indexType andCallback:^(NSDictionary *resultDic) {
+        //ageType
+        UserInfoModel *currentUser = [JerryTools getUserInfoModel];
+        NSArray *childArray = [currentUser childArray];
+        if ([childArray count] > 0) {
+            //如果有孩子数据
+            KidInfoModel *kidModel = childArray[currentUser.currentSelectedChild];
             
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                //返回首页
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }];
+            [self.viewModel sendTestAnwserToServerByEvaluationID:evaluationID andAnwserArray:self.answerCollection andIndexTpye:self.indexType andAgeType:kidModel.ageTypeKey andCallback:^(NSDictionary *resultDic) {
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    //返回首页
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }];
+        }
     }else{
         //下一题
         [self showSubjectByIndex:currentSubjectIndex];

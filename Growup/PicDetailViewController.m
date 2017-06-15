@@ -23,7 +23,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)viewDidLoad {
@@ -51,19 +55,18 @@
             
             NSURL *picUrl = [NSURL URLWithString:resourcePath];
             NSData *imageData = [NSData dataWithContentsOfURL:picUrl];
+            //获取图片大小
+            NSUInteger length = [imageData length]/1000;
+            NSLog(@"image length : %ld",length);
             //存入缓存
             [globalCache setObject:imageData forKey:cacheKey];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 //停止并隐藏小菊花
                 [self.indicator stopAnimating];
-            });
-            
-            UIImage *detailImage = [UIImage imageWithData:imageData];
-            
-            [self setDetailImageViewByImage:detailImage];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                UIImage *detailImage = [UIImage imageWithData:imageData];
+                [self setDetailImageViewByImage:detailImage];
                 [self.imageScrollView addSubview:self.detailPicView];
             });
         });
@@ -77,7 +80,6 @@
     self.detailPicView = [[UIImageView alloc] initWithImage:image];
     self.detailPicView.userInteractionEnabled = YES;
     self.detailPicView.frame = CGRectMake(0, 20, SCREENWIDTH, newheight);
-    NSLog(@"");
     
     self.imageScrollView.contentSize = CGSizeMake(SCREENWIDTH, newheight);
 }
@@ -90,6 +92,15 @@
     self.imageScrollView.minimumZoomScale = 1.0;
     
     self.imageScrollView.delegate = self;
+    
+    //为detailPicView添加点击事件，用于返回
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImageViewToBack:)];
+    self.imageScrollView.userInteractionEnabled = YES;
+    [self.imageScrollView addGestureRecognizer:singleTap];
+}
+
+- (void)clickImageViewToBack:(id) sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

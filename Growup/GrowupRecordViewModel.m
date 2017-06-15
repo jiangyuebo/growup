@@ -61,7 +61,11 @@
 //                    NSString *recordTypeKey = [recordDic objectForKey:@"recordTypeKey"];
 //                    NSNumber *userID = [recordDic objectForKey:@"userID"];
 //                }
-                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                if (jsonDic) {
+                    [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                }else{
+                    [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+                }
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];

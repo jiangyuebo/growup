@@ -41,11 +41,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *storyTable;
 
 //分类按钮
-@property (strong, nonatomic) IBOutlet UIImageView *gameBtn;
-
 @property (strong, nonatomic) IBOutlet UIImageView *scienceBtn;
-
-@property (strong, nonatomic) IBOutlet UIImageView *gameGuide;
 
 @property (strong, nonatomic) IBOutlet UIImageView *songBtn;
 
@@ -64,15 +60,22 @@
     
     //显示陪伴时间和陪伴等级
     UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
-    KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
-    if (child) {
-        //陪伴时间
-        NSNumber *companyTime = [child accompanyTime];
-        self.companyTime.text = [NSString stringWithFormat:@"%@",companyTime];
-        
-        //陪伴等级
-        NSNumber *companyRate = [child accompanyRate];
-        self.companyRante.text = [NSString stringWithFormat:@"打败了全国%@%%的家长哦~",companyRate];
+    if (userInfoMode) {
+        NSArray *childArray = [userInfoMode childArray];
+        if (childArray) {
+            if ([childArray count] > 0) {
+                KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
+                if (child) {
+                    //陪伴时间显示
+                    NSString *companyTimeValue = [child accompanyTimeValue];
+                    self.companyTime.text = companyTimeValue;
+                    
+                    //陪伴等级
+                    NSNumber *companyRate = [child accompanyRate];
+                    self.companyRante.text = [NSString stringWithFormat:@"打败了全国%@%%的家长哦~",companyRate];
+                }
+            }
+        }
     }
 }
 
@@ -88,9 +91,7 @@
     //初始分类点击
     NSMutableArray *iconArray = [[NSMutableArray alloc] init];
     
-    [iconArray addObject:self.gameBtn];
     [iconArray addObject:self.scienceBtn];
-    [iconArray addObject:self.gameGuide];
     [iconArray addObject:self.songBtn];
     [iconArray addObject:self.storyBtn];
     [iconArray addObject:self.schoolBtn];
@@ -115,6 +116,7 @@
 - (void)iconClicked:(UITapGestureRecognizer *) recognizer{
     
     NSNumber *tagNumber = [NSNumber numberWithLong:recognizer.view.tag];
+    NSLog(@"tagNumber : %@",tagNumber);
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ExperienceListViewController *experienceListViewController = [storyboard instantiateViewControllerWithIdentifier:IdentifyExperienceListViewController];
@@ -158,7 +160,10 @@
 
 - (void)getExperienceList{
     UserInfoModel *userInfoMode = [JerryTools getUserInfoModel];
-    KidInfoModel *child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
+    KidInfoModel *child;
+    if (userInfoMode) {
+        child = [[userInfoMode childArray] objectAtIndex:userInfoMode.currentSelectedChild];
+    }
     
     if (child) {
         //获取互动游戏

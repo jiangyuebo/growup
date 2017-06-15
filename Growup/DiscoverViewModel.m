@@ -15,7 +15,7 @@
 - (void)getDiscoverInfoByAgeType:(NSString *) ageType andInfoTypeKey:(NSString *)infoTypeKey andInfoDetailTypeKey:(NSString *)infoDetailTypeKey andPageIndex:(NSNumber *) pageIndex andPageSize:(NSNumber *) pageSize andCallback:(void (^)(NSDictionary *resultDic)) callback{
     
     //api/v1/info/getAll?ageType={ageType}&infoTypeKey={infoType}&infoDetailTypeKey={infoDetailType}&pageIndex={pageIndex}&pageSize={pageSize}
-    NSString *url_request = [NSString stringWithFormat:@"%@%@?ageType=%@&infoTypeKey=%@&infoDetailTypeKey=%@&pageIndex=%@&pageSize=%@",URL_REQUEST,URL_INFO_GET,ageType,infoTypeKey,infoDetailTypeKey,pageIndex,pageSize];
+    NSString *url_request = [NSString stringWithFormat:@"%@%@?ageType=%@&infoType=%@&infoDetailType=%@&pageIndex=%@&pageSize=%@",URL_REQUEST,URL_INFO_GET,ageType,infoTypeKey,infoDetailTypeKey,pageIndex,pageSize];
     
     BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
     [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {

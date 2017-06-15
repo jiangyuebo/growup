@@ -34,7 +34,11 @@
                 //有错误
                 [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
             }else{
-                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                if (jsonDic) {
+                    [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                }else{
+                    [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
+                }
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
@@ -73,6 +77,17 @@
         }
         
         callback(resultDic);
+        
+    }];
+}
+
+#pragma mark 提交陪伴时间
+- (void)sendCompanyTime:(NSNumber *) time{
+    //GET /api/v1/child/accompany/{time}
+    NSString *url_request = [NSString stringWithFormat:@"%@%@/%@",URL_REQUEST,URL_CHILD_COMPANY_TIME,time];
+    
+    BMRequestHelper *requestHelper = [[BMRequestHelper alloc] init];
+    [requestHelper getRequestAsynchronousToUrl:url_request andCallback:^(NSData *data, NSURLResponse *response, NSError *error) {
         
     }];
 }

@@ -33,6 +33,8 @@
 
 @property (strong,nonatomic) NSNumber *accompanyTime;
 
+@property (strong,nonatomic) NSString *accompanyTimeValue;
+
 //使用者与孩子的关系
 @property (strong,nonatomic) NSString *educationRoleTypeKey;
 //教育类型

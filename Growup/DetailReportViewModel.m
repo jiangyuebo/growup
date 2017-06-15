@@ -27,17 +27,20 @@
             
             NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
-            
-            if (errorMessage) {
-                //有错误
-                [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+            if (jsonDic) {
+                NSString *errorMessage = [jsonDic objectForKey:@"errorMsg"];
+                
+                if (errorMessage) {
+                    //有错误
+                    [resultDic setObject:errorMessage forKey:RESULT_KEY_ERROR_MESSAGE];
+                }else{
+                    [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                }
             }else{
-                [resultDic setObject:jsonDic forKey:RESULT_KEY_DATA];
+                [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
             }
         }else{
             [resultDic setObject:RESPONSE_ERROR_MESSAGE_NIL forKey:RESULT_KEY_ERROR_MESSAGE];
-            
         }
         
         callback(resultDic);

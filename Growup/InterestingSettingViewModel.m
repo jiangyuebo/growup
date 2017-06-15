@@ -86,6 +86,9 @@
                 }
                 [kidInfoMode setAccompanyTime:accompanyTime];
                 
+                NSString *accompanyTimeValue = [childInfoDic objectForKey:@"accompanyTimeValue"];
+                [kidInfoMode setAccompanyTimeValue:accompanyTimeValue];
+                
                 NSNumber *childId = [childInfoDic objectForKey:@"childID"];
                 [kidInfoMode setChildID:childId];
                 

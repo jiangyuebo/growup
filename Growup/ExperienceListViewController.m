@@ -69,17 +69,9 @@
     self.viewModel = [[ExperienceViewModel alloc] init];
     
     switch ([tagNumber integerValue]) {
-        case icon_game:
-            self.experienceTypeKey = EXPERIENCE_GAME;
-            self.title = @"互动游戏";
-            break;
         case icon_science:
             self.experienceTypeKey = EXPERIENCE_SCIENCE;
             self.title = @"科学实验";
-            break;
-        case icon_gameguide:
-            self.experienceTypeKey = EXPERIENCE_GAMEGUAID;
-            self.title = @"游戏攻略";
             break;
         case icon_song:
             self.experienceTypeKey = EXPERIENCE_SONG;
@@ -205,12 +197,15 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSURL *url = [NSURL URLWithString:logoResourceUrl];
                 UIImage *urlImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-                tableCell.logoImageView.image = urlImage;
                 
-                //放进缓存
-                if (urlImage) {
-                    [self.picCache setObject:urlImage forKey:urlImageKey];
-                }
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    tableCell.logoImageView.image = urlImage;
+                    
+                    //放进缓存
+                    if (urlImage) {
+                        [self.picCache setObject:urlImage forKey:urlImageKey];
+                    }
+                });
             });
         }
     }
@@ -226,6 +221,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSDictionary *dataDic = [self.experienceTableArray objectAtIndex:indexPath.row];
     //IdentifyExperienceDetailViewController

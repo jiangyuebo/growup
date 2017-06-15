@@ -14,6 +14,6 @@
 - (void)getTestSubjectByChildId:(NSNumber *)childId andAgeType:(NSString *)ageType andEvaluationType:(NSString *)evaluationType andSex:(NSNumber *)sex andAbilityId:(NSString *)abilityId andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
 #pragma mark 提交答案
-- (void)sendTestAnwserToServerByEvaluationID:(NSNumber *) evaluationID andAnwserArray:(NSArray *) anwserArray andIndexTpye:(NSString *)indexType andCallback:(void (^)(NSDictionary *resultDic)) callback;
+- (void)sendTestAnwserToServerByEvaluationID:(NSNumber *) evaluationID andAnwserArray:(NSArray *) anwserArray andIndexTpye:(NSString *)indexType andAgeType:(NSString *)ageType andCallback:(void (^)(NSDictionary *resultDic)) callback;
 
 @end

@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "ExperienceViewModel.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic) NSTimeInterval startTime;
 
 @end
 
@@ -25,6 +28,12 @@
     
     //初始化全局图片缓存
     globalPicCache = [NSMutableDictionary dictionary];
+    
+    //陪伴时间开始
+    self.startTime = [[NSDate date] timeIntervalSince1970];
+    
+    // 启动图片延时
+    [NSThread sleepForTimeInterval:3];
     
     return YES;
 }
@@ -43,8 +52,15 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //本次陪伴时间结束
+    NSTimeInterval endTime = [[NSDate date] timeIntervalSince1970];
+    int companyTime = endTime - self.startTime;
+    NSLog(@"陪伴时间为 ： %d",companyTime);
+    
+    ExperienceViewModel *viewMode = [[ExperienceViewModel alloc] init];
+    [viewMode sendCompanyTime:[NSNumber numberWithInt:companyTime]];
+    
+    self.startTime = 0;
 }
 
 
@@ -59,7 +75,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
 
 

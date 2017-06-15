@@ -17,6 +17,8 @@
 #import "KidInfoModel.h"
 #import "QCloudUtils.h"
 #import "CZCellDeleteButton.h"
+//SHA1
+#import <CommonCrypto/CommonDigest.h>
 
 #import "Auth.h"
 
@@ -304,11 +306,15 @@
     
     NSString *picPath = self.selectedPicPathArray[index];
     NSString *picName = [self getPicUploadName:picPath];
+    //计算hash得名字
+    NSString *sha1String = [self sha1:picName];
+    
+    
     
     COSObjectPutTask *task = [[COSObjectPutTask alloc] init];
     
     task.filePath = picPath;
-    task.fileName = picName;
+    task.fileName = sha1String;
     task.bucket = @"cbu";
     task.attrs = @"customAttribute";
     task.directory = @"/rec";
@@ -340,7 +346,9 @@
                 [self uploadImage];
             }
         }else{
-            NSLog(@"上传失败");
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [JerryViewTools showCZToastInViewController:self andText:@"本次发布失败了..."];
+            });
         }
     };
     
@@ -415,7 +423,10 @@
     
     // 设置图片
     UIImage *orginalImage = info[UIImagePickerControllerOriginalImage];
-    NSData *imageData = UIImageJPEGRepresentation(orginalImage, 1.f);
+    NSData *imageData = UIImageJPEGRepresentation(orginalImage, 0.5f);
+    
+    NSUInteger length = [imageData length]/1000;
+    NSLog(@"准备上传图片 image length : %ld",length);
     
     NSURL *url  = [info objectForKey:UIImagePickerControllerReferenceURL];
     
@@ -514,6 +525,18 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.selectedPicsArray.count;
+}
+
+- (NSString *)sha1:(NSString *)inputString{
+    NSData *data = [inputString dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes,(unsigned int)data.length,digest);
+    NSMutableString *outputString = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH];
+    
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        [outputString appendFormat:@"%02x",digest[i]];
+    }
+    return [outputString lowercaseString];
 }
 
 /*

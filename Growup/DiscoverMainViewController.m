@@ -89,23 +89,26 @@
             //error
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [JerryViewTools showCZToastInViewController:self andText:errorMessage];
+                [self.publicRecordTable.mj_footer endRefreshing];
             });
         }else{
             NSDictionary *result = [resultDic objectForKey:RESULT_KEY_DATA];
-            NSDictionary *page = [result objectForKey:@"page"];
-            NSNumber *pageIndex = [page objectForKey:@"pageIndex"];
-            self.pageIndex = pageIndex;
-            NSNumber *pageSize = [page objectForKey:@"pageSize"];
-            self.pageSize = pageSize;
-            NSNumber *totalCount = [page objectForKey:@"totalCount"];
-            self.totalCount = totalCount;
-            
-            [self.recordListArray addObjectsFromArray:[result objectForKey:@"records"]];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.publicRecordTable.mj_footer endRefreshing];
-                [self.publicRecordTable reloadData];
-            });
+            if (result) {
+                NSDictionary *page = [result objectForKey:@"page"];
+                NSNumber *pageIndex = [page objectForKey:@"pageIndex"];
+                self.pageIndex = pageIndex;
+                NSNumber *pageSize = [page objectForKey:@"pageSize"];
+                self.pageSize = pageSize;
+                NSNumber *totalCount = [page objectForKey:@"totalCount"];
+                self.totalCount = totalCount;
+                
+                [self.recordListArray addObjectsFromArray:[result objectForKey:@"records"]];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self.publicRecordTable.mj_footer endRefreshing];
+                    [self.publicRecordTable reloadData];
+                });
+            }
         }
     }];
 }
@@ -228,7 +231,7 @@
     }
     
     //avatar
-    tableCell.avatar.image = [UIImage imageNamed:@"avatar_discover"];
+    tableCell.avatar.image = [UIImage imageNamed:@"avatar"];
     //publishDate
     NSNumber *publishDate = [dataDic objectForKey:@"publishDate"];
     long long publishTimestamp = [publishDate longLongValue];
@@ -249,9 +252,17 @@
     tableCell.timeLabel.text = hourStr;
     
     NSNumber *userId = [dataDic objectForKey:@"userID"];
-    //用户名
-    NSString *userName = [NSString stringWithFormat:@"用户%@",userId];
-    tableCell.userName.text = userName;
+    //用户昵称
+    NSString *nickName = [[dataDic objectForKey:@"user"] objectForKey:@"nickName"];
+    if ([JerryTools stringIsNull:nickName]) {
+        nickName = [NSString stringWithFormat:@"用户%@",userId];
+    }else{
+        if ([nickName isEqualToString:@"橙宝"]) {
+            nickName = [NSString stringWithFormat:@"橙宝%@",userId];
+        }
+    }
+    
+    tableCell.userName.text = nickName;
     
     return tableCell;
 }

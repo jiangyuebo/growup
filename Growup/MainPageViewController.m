@@ -31,7 +31,7 @@
 #define face_science 13//科学
 #define face_art 14//艺术
 
-@interface MainPageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MainPageViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *mainBackgroundView;
 
@@ -105,6 +105,12 @@
 
 @property (strong,nonatomic) NSTimer *timer;
 
+@property (strong,nonatomic) UIScrollView *scrollViewForGuidancePage;
+
+@property (strong,nonatomic) UIPageControl *pageControlForGuidancePage;
+
+@property (strong,nonatomic) UIButton *buttonForStart;
+
 @end
 
 @implementation MainPageViewController
@@ -152,19 +158,21 @@ bool isBubbleShowed = false;
 #pragma mark 跳转到 测试/详细报告
 - (IBAction)testOrReportBtn:(UIButton *)sender {
     //test
-    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+//    [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
     
-//    if (self.viewModel.needTest) {
-//        //开始测评
-//        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
-//    }else{
-//        //查看综合报告
-//        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
-//    }
+    if (self.viewModel.needTest) {
+        //开始测评
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyFastTestViewController];
+    }else{
+        //查看综合报告
+        [JerryViewTools jumpFrom:self ToViewController:IdentifyNameDetailReportViewController];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self createGuidancePage];
     
     [self initData];
     
@@ -175,7 +183,7 @@ bool isBubbleShowed = false;
     [super viewWillAppear:animated];
     [self hideNavigationBar];
     
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
     
     [self mainPageUpdage];
 }
@@ -459,18 +467,37 @@ bool isBubbleShowed = false;
                 
                 //获取各能力分数
                 NSNumber *indexArtScore = [self.abilityModel objectForKey:@"indexArtScore"];
-                int artInt = [indexArtScore intValue];
+                int artInt = 0;
+                if (indexArtScore) {
+                    artInt = [indexArtScore intValue];
+                }
+                
                 NSNumber *indexHealthScore = [self.abilityModel objectForKey:@"indexHealthScore"];
-                int healthInt = [indexHealthScore intValue];
+                int healthInt = 0;
+                if (indexHealthScore) {
+                    healthInt = [indexHealthScore intValue];
+                }
+                
                 NSNumber *indexLanguageScore = [self.abilityModel objectForKey:@"indexLanguageScore"];
-                int languageInt = [indexLanguageScore intValue];
+                int languageInt = 0;
+                if (indexLanguageScore) {
+                    languageInt = [indexLanguageScore intValue];
+                }
+                
                 NSNumber *indexScienceScore = [self.abilityModel objectForKey:@"indexScienceScore"];
-                int scienceInt = [indexScienceScore intValue];
+                int scienceInt = 0;
+                if (indexScienceScore) {
+                    scienceInt = [indexScienceScore intValue];
+                }
+                
                 NSNumber *indexSociologyScore = [self.abilityModel objectForKey:@"indexSociologyScore"];
-                int sociologyInt = [indexSociologyScore intValue];
+                int sociologyInt = 0;
+                if (indexSociologyScore) {
+                    sociologyInt = [indexSociologyScore intValue];
+                }
                 
                 NSString *buttonStr;
-                if (artInt == 0 && healthInt && languageInt && scienceInt && sociologyInt) {
+                if (artInt == 0 && healthInt == 0 && languageInt == 0 && scienceInt == 0 && sociologyInt == 0) {
                     //全部分数为0，总体测试按钮为测试
                     buttonStr = @"开始测评";
                     self.viewModel.needTest = YES;
@@ -532,7 +559,7 @@ bool isBubbleShowed = false;
                         if (finishint == 0) {
                             self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：0%%"];
                         }else{
-                            int temp = (int)([actionNumber floatValue]/[actionFinishNumber floatValue] * 100);
+                            int temp = (int)([actionFinishNumber floatValue]/[actionNumber floatValue] * 100);
                             self.finishPercentLabel.text = [NSString stringWithFormat:@"今日行动完成度：%d%%",temp];
                         }
                         
@@ -771,6 +798,79 @@ bool isBubbleShowed = false;
     self.bubbleBackground.hidden = YES;
     self.bubbleLabel.hidden = YES;
     isBubbleShowed = false;
+}
+
+#pragma mark 引导页
+- (void)createGuidancePage{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"引导页"]) {
+    
+        [[NSUserDefaults standardUserDefaults] setBool:1 forKey:@"引导页"];
+        
+        self.tabBarController.tabBar.hidden = YES;
+        
+        NSArray *arrayOfImageView = [NSArray array];
+        //引导页图片
+        arrayOfImageView = @[@"guide1", @"guide2", @"guide3",@"guide4"];
+        
+        self.scrollViewForGuidancePage = [[UIScrollView alloc] init];
+        
+        //添加到window上
+        [self.view addSubview:self.scrollViewForGuidancePage];
+        
+        self.scrollViewForGuidancePage.bounces = NO;
+        self.scrollViewForGuidancePage.pagingEnabled = YES;
+        self.scrollViewForGuidancePage.showsHorizontalScrollIndicator = NO;
+        self.scrollViewForGuidancePage.userInteractionEnabled = YES;
+        self.scrollViewForGuidancePage.frame = self.view.frame;
+        self.scrollViewForGuidancePage.contentSize = CGSizeMake(self.view.frame.size.width * arrayOfImageView.count, 0);
+        self.scrollViewForGuidancePage.delegate = self;
+        
+        self.pageControlForGuidancePage = [[UIPageControl alloc] init];
+        [self.view addSubview:self.pageControlForGuidancePage];
+        self.pageControlForGuidancePage.frame = CGRectMake(0, 0, self.view.frame.size.width / 2, 40);
+        self.pageControlForGuidancePage.center = CGPointMake(self.scrollViewForGuidancePage.frame.size.width / 2, self.scrollViewForGuidancePage.frame.size.height - 40);
+        self.pageControlForGuidancePage.numberOfPages = arrayOfImageView.count;
+        
+        //for循环, 在scrollView上添加照片
+        for (int i = 0; i < arrayOfImageView.count; i++) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:arrayOfImageView[i]]];
+            imageView.frame = CGRectMake(self.scrollViewForGuidancePage.frame.size.width * i, 0, self.scrollViewForGuidancePage.frame.size.width, self.scrollViewForGuidancePage.frame.size.height);
+            [self.scrollViewForGuidancePage addSubview:imageView];
+            imageView.userInteractionEnabled = YES;
+            
+            if (i == arrayOfImageView.count - 1) {
+                //引导页最后一页"开始体验"按钮, 进入APP
+                self.buttonForStart = [UIButton buttonWithType:UIButtonTypeCustom];
+                [imageView addSubview:self.buttonForStart];
+                [self.buttonForStart setTitle:@"开始体验" forState:UIControlStateNormal];
+                [self.buttonForStart setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+                self.buttonForStart.layer.borderWidth = 1;
+                self.buttonForStart.layer.borderColor = [[UIColor orangeColor] CGColor];
+                self.buttonForStart.layer.cornerRadius = 7;
+                self.buttonForStart.layer.masksToBounds = YES;
+                self.buttonForStart.frame = CGRectMake(0, 0, self.view.frame.size.width / 2, 40);
+                self.buttonForStart.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 100);
+                [self.buttonForStart addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    self.pageControlForGuidancePage.currentPage = self.scrollViewForGuidancePage.contentOffset.x / self.view.frame.size.width;
+    
+}
+
+- (void)start {
+    
+    //从父视图上移除
+    [self.pageControlForGuidancePage removeFromSuperview];
+    
+    [self.scrollViewForGuidancePage removeFromSuperview];
+    
+    self.tabBarController.tabBar.hidden = NO;
+    
 }
 
 #pragma mark 行动项播放按钮
